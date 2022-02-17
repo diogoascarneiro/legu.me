@@ -1,5 +1,5 @@
 {
-  "name": "irontumblir",
+  "name": "Legu.me",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -23,16 +23,16 @@
   "devDependencies": {
     "nodemon": "^2.0.7"
   },
-  "description": "![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)",
+  "description": "Legu.me - Vegetarian Recipe Site made with @AnaModesto21 at Github",
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnaModesto21/lab-file-upload.git"
+    "url": "git+https://github.com/diogoascarneiro/legu.me"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AnaModesto21/lab-file-upload/issues"
+    "url": "https://github.com/diogoascarneiro/legu.meissues"
   },
-  "homepage": "https://github.com/AnaModesto21/lab-file-upload#readme"
+  "homepage": "https://github.com/diogoascarneiro/legu.me#readme"
 }
