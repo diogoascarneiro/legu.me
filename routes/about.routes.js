@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 
 router.get("/about", (req, res, next) => {
-  res.render("/about");
+  res.render("./about");
 });
 
   
