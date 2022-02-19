@@ -1,17 +1,29 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
 const Recipe = require("../models/Recipe.model");
-const axios = require('axios');
 
+const ApiHandler = require('../utils/api-handler');
+const recipeAPI = new ApiHandler(process.env.EDAMAM_APP_ID, process.env.EDAMAM_APP_KEY);
+
+/* saving the code to warm up it and eat it later. Mmmm, leftovers
+ 
+ recipeAPI.importRecipes("seitan", ["vegetarian", "vegan"], "asian")
+  .then(recipes => console.log(recipes))
+  .catch(err => console.log(err));
+
+*/
 
 /* GET home page */
+
+
 router.get("/", (req, res, next) => {
-   axios.get("https://api.edamam.com/api/recipes/v2/96ae20daad99c35d721f1eb96ecdf9ba?type=public&app_id=5bf94e03&app_key=6505fc7507ee610a167d9c57a10c5cae")
-  .then(response => Recipe.create(response.data))
-  .catch(err => console.log(err));
- 
-  res.render("index"); 
-});
+ Recipe.find()
+   .limit(5)
+   .then(foundRecipes => {
+      res.render("index", {foundRecipes})
+   })
+ .catch(err => next(err));
+ });
 
 
 module.exports = router;

@@ -1,3 +1,67 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-<p>{{response}}</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-3">
+      <h3>Filters</h3>
+      <div class="diet-restrictions">
+    <h4 id="teste">Restrictions</h4>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dietary-restrictions-select">
+        <option selected>None</option>
+        <option value="vegan">Vegan</option>
+        <option value="alcohol-free">Alcohol-free</option>
+        <option value="celery-free">Celery-free</option>
+        <option value="dairy-free">Dairy-free</option>
+        <option value="egg-free">Egg-free</option>
+        <option value="gluten-free">Gluten-free</option>
+        <option value="low-potassium">Low-potassium</option>
+        <option value="low-sugar">Low-sugar</option>
+        <option value="lupine-free">Lupine-free</option>
+        <option value="mustard-free">Mustard-free</option>
+        <option value="no-oil-added">No oil added</option>
+        <option value="paleo">Paleo</option>
+        <option value="peanut-free">Peanut-free</option>
+        <option value="sesame-free">Sesame-free</option>
+        <option value="soy-free">Soy-free</option>
+        <option value="tree-nut-free">Tree nut-free</option>
+        <option value="wheat-free">Wheat-free</option>
+      </select>
+      <div id="dietary-restrictions-filter-list"></div>
+      </div>
+      <div class="cuisine-filter">
+      <h4>By Cuisine</h4>
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="cuisine-select">
+        <option selected>All</option>
+        <option value="american">American</option>
+        <option value="asian">Asian</option>
+        <option value="british">British</option>
+        <option value="caribbean">Caribbean</option>
+        <option value="centralEurope">Central European</option>
+        <option value="easternEurope">Eastern European</option>
+        <option value="french">French</option>
+        <option value="indian">Indian</option>
+        <option value="kosher">Kosher</option>
+        <option value="mediterranean">Mediterranean</option>
+        <option value="mexican">Mexican</option>
+        <option value="middleEastern">Middle Eastern</option>
+        <option value="nordic">Nordic</option>
+        <option value="southAmerican">South American</option>
+        <option value="southEastAsian">South East Asian</option>
+      </select>
+      </div>
+      
+    </div>
+    <div class="col-xs-12 col-lg-9">
+      {{#each foundRecipes}}
+        <div class="recipe-card">
+          <a href="#recipe-single">
+            <img src="{{recipe.images.THUMBNAIL.url}}" />
+            <h1>{{recipe.label}}</h1>
+          </a>
+          <p class="card-calories">Calories: {{recipe.calories}}</p>
+          <a href="{{recipe.url}}">{{recipe.source}}</a>
+          <a href="#makefavourite">♡</a>
+        </div>
+      {{/each}}
+
+    </div>
+  </div>
+</div>
