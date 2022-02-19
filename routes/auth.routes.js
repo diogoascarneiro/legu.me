@@ -127,7 +127,7 @@ router.post('/signup', isLoggedOut, (req, res, next) => {
     })
     .then(userFromDB => {
       req.session.user = userFromDB;
-      res.redirect('/user-profile/:username');
+      res.redirect(`/${username}`);
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -153,16 +153,6 @@ router.get("/login", isLoggedOut, (req, res, next) => {
   res.render("auth/login");
 });
 
-
-// router.post('/movies/create', fileUploader.single('movie-cover-image'), (req, res) => {
-//   const { title, description } = req.body;
- 
-//   Movie.create({ title, description, imageUrl: req.file.path })
-//     .then(newlyCreatedMovieFromDB => {
-//       console.log(newlyCreatedMovieFromDB);
-//     })
-//     .catch(error => console.log(`Error while creating a new movie: ${error}`));
-// });
 
 
 router.post("/login", isLoggedOut, (req, res, next) => {
@@ -202,7 +192,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         }
         req.session.user = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/user-profile");
+        return res.redirect(`/${username}`);
       });
     })
 
@@ -214,8 +204,8 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
-router.post("/:username", fileUploader.single('profile-cover-image'), (req, res) => {
-  const { username } = req.params;
+router.post("/create", fileUploader.single('profile-cover-image'), (req, res) => {
+  const username = req.session.user.username;
   console.log('username :>> ', username);
   const { existingImage } = req.body;
  
@@ -225,18 +215,22 @@ router.post("/:username", fileUploader.single('profile-cover-image'), (req, res)
   } else {
     imageUrl = existingImage;
   }
- 
-  User.findOneAndUpdate({username:username}, { imageUrl }, { new: true })
-    .then(() => res.redirect(`/:username`))
+ console.log('imageUrl :>> ', imageUrl);
+  User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
+    .then((updatedUser) => {
+      console.log('updated user :>> ', updatedUser)
+      res.redirect(`/${username}`);
+    })
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
 
-router.get("/:username", (req, res) => {
+
+router.get("/${username}", (req, res) => {
 
     const { username } = req.params;
-   console.log('username :>> ', username);
-    User.findOne({username:username})
-      .then(pictureToEdit => res.render('users/user-profile', { userInSession: req.session.user, picture: pictureToEdit} ))
+
+    User.findOne({username})
+      .then(() => res.render('users/user-profile', { userInSession: req.session.user} ))
       .catch(error => console.log(`Error while editing: ${error}`));
 });
 

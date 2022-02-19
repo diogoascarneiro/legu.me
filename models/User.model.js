@@ -21,7 +21,10 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Password is required']
     },
-    profilePicture: String,
+    profilePicture: {
+      type: String,
+      default: "/public/images/profic.png"
+    },
     favouriteRecipes:{type: Schema.Types.ObjectId, ref: "Recipe"}
   },
   {

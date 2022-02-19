@@ -10,11 +10,7 @@
 
 <form action="/create" method="post" enctype="multipart/form-data"> 
 <input type="file" name="profile-cover-image" />
+<img src={{userInSession.profilePicture}} name="existingImage" class="card-img-top">
+
+<button type="submit" class="btn btn-primary">Upload</button>
 </form>
-<button type="submit" class="btn btn-primary">Create</button>
-
-<br>
-<br>
-<img src="/images/profic.png" name="existingImage" class="card-img-top" alt="{{title}}">
-
-existingImage
