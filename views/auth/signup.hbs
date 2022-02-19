@@ -15,9 +15,10 @@
     </label>
 
     <button type="submit">Create account</button>
-   <img src="{{imageUrl}}" name="existingImage" class="card-img-top" alt="{{title}}">
 
-
+   <form action="/create" method="post" enctype="multipart/form-data"> 
+         <input type="file" name="profile-cover-image" />   </form>
+   <button type="submit" class="btn btn-primary">Upload your personal image</button>
    
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
