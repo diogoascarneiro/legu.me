@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-lg-3">
       <h3>Filters</h3>
       <div class="diet-restrictions">
-    <h4 id="teste">Restrictions</h4>
+    <h4>Restrictions</h4>
     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dietary-restrictions-select">
         <option selected>None</option>
         <option value="vegan">Vegan</option>
@@ -26,8 +26,8 @@
       </select>
       <div id="dietary-restrictions-filter-list"></div>
       </div>
-      <div class="cuisine-filter">
-      <h4>By Cuisine</h4>
+      <div class="cuisine">
+      <h4>Cuisine</h4>
       <select class="form-select form-select-sm" aria-label=".form-select-sm" id="cuisine-select">
         <option selected>All</option>
         <option value="american">American</option>
@@ -46,8 +46,60 @@
         <option value="southAmerican">South American</option>
         <option value="southEastAsian">South East Asian</option>
       </select>
+      <div id="cuisine-filter-list"></div>
       </div>
-      
+      <div class="meal-type">
+      <h4>Type of meal</h4>
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dish-type-select">
+        <option selected>All</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="snack">Snack</option>
+        <option value="teatime">Teatime</option>
+        <option value="dinner">Dinner</option>
+      </select>
+      <div id="meal-type-filter-list"></div>
+      </div>
+      <div class="dish-type">
+      <h4>Type of dish</h4>
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dish-type-select">
+        <option selected>All</option>
+        <option value="biscuits and cookies">Biscuits and cookies</option>
+        <option value="bread">Bread</option>
+        <option value="cereals">Cereals</option>
+        <option value="Condiments and sauces">Condiments and sauces</option>
+        <option value="desserts">Desserts</option>
+        <option value="main course">Main courses</option>
+        <option value="pancake">Pancakes</option>
+        <option value="preps">Preps</option>
+        <option value="preserve">Preserves</option>
+        <option value="salad">Salads</option>
+        <option value="sandwiches">Sandwiches</option>
+        <option value="side dish">Side dishes</option>
+        <option value="starter">Starters</option>
+        <option value="sweets">Sweets</option>
+      </select>
+      <div class="dish-type-filter-list"></div>
+      </div>
+      <div class="numberOfIngredients">
+        <h4>Number of Ingredients</h4>
+        <input class="form-control form-control-sm" type="number" placeholder="Number of ingredients (minimum)" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm" type="number" placeholder="Number of ingredients (maximum)" aria-label=".form-control-sm">
+      </div>
+      <div class="calories">
+        <h4>Calories</h4>
+        <input class="form-control form-control-sm" type="number" placeholder="Calories (minimum)" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm" type="number" placeholder="Calories (maximum)" aria-label=".form-control-sm">
+      </div>
+      <div id="time-needed">
+        <h4>Time needed</h4>
+        <input class="form-control form-control-sm" type="number" placeholder="Time in minutes (minimum)" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm" type="number" placeholder="Time in minutes (maximum)" aria-label=".form-control-sm">
+      </div>
+      <div class="excluded-ingredients">
+     <label for="ingredientsToExclude" class="form-label">Ingredients to exclude</label>
+  <textarea class="form-control" id="ingredientsToExclude" rows="3"></textarea>
+</div>
     </div>
     <div class="col-xs-12 col-lg-9">
       {{#each foundRecipes}}
