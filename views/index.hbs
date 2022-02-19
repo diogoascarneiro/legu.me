@@ -1,3 +1,14 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-<p>{{response}}</p>
+
+{{#each foundRecipes}}
+<div class="recipe-card">
+<a href="#recipe-single">
+    <img src="{{recipe.images.THUMBNAIL.url}}">
+    <h1>{{recipe.label}}</h1>
+</a>
+<p class="card-calories">Calories: {{recipe.calories}}</p>
+<a href="{{recipe.url}}">{{recipe.source}}</a>
+<a href="#makefavourite">♡</a>
+</div>
+
+
+{{/each}} 
