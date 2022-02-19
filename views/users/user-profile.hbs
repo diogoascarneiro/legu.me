@@ -1,6 +1,20 @@
-{{#if user}}
-    <h2>Welcome, {{ user.username }}!</h2>
-    <p>This is your profile page my friend! And your email is: {{ user.email }}</p>
+{{#if userInSession}}
+
+  <h2>Welcome, {{ userInSession.username }}!</h2>
+  <p>This is your profile page my friend! And your email is: {{ userInSession.email }}</p>
 {{else}}
-    <p>Still no logged in user, sorry!</p>
+  <p>Still no logged in user, sorry!</p>
 {{/if}}
+
+
+
+<form action="/create" method="post" enctype="multipart/form-data"> 
+<input type="file" name="profile-cover-image" />
+</form>
+<button type="submit" class="btn btn-primary">Create</button>
+
+<br>
+<br>
+<img src="/images/profic.png" name="existingImage" class="card-img-top" alt="{{title}}">
+
+existingImage

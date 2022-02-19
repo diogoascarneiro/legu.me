@@ -1,8 +1,8 @@
 const router = require("express").Router();
 
 
-// router.get("/recipe-single", (req, res, next) => {
-//   res.render("/recipe");
-// });
+router.get("/single-recipe", (req, res, next) => {
+  res.render("users/recipe-single");
+});
 
 module.exports = router;
