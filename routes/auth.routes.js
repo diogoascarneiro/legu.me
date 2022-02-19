@@ -12,12 +12,17 @@ const bcryptjs = require('bcryptjs');
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
+// Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
 const {isLoggedIn, isLoggedOut} = require("../middleware/auth.middleware");
+const { collection } = require("../models/User.model");
 
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
+
+//Cloudinary route
+const fileUploader = require('../config/cloudinary.config');
+
 
 // router.post("/signup", isLoggedOut, (req, res) => {
 
@@ -122,7 +127,7 @@ router.post('/signup', isLoggedOut, (req, res, next) => {
     })
     .then(userFromDB => {
       req.session.user = userFromDB;
-      res.redirect('/user-profile');
+      res.redirect('/user-profile/:username');
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -148,6 +153,18 @@ router.get("/login", isLoggedOut, (req, res, next) => {
   res.render("auth/login");
 });
 
+
+// router.post('/movies/create', fileUploader.single('movie-cover-image'), (req, res) => {
+//   const { title, description } = req.body;
+ 
+//   Movie.create({ title, description, imageUrl: req.file.path })
+//     .then(newlyCreatedMovieFromDB => {
+//       console.log(newlyCreatedMovieFromDB);
+//     })
+//     .catch(error => console.log(`Error while creating a new movie: ${error}`));
+// });
+
+
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
@@ -169,6 +186,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   User.findOne({ username })
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
+ 
       if (!user) {
         return res
           .status(400)
@@ -176,7 +194,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcrypt.compare(password, user.password).then((isSamePassword) => {
+      bcryptjs.compare(password, user.passwordHash).then((isSamePassword) => {
         if (!isSamePassword) {
           return res
             .status(400)
@@ -184,7 +202,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         }
         req.session.user = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/");
+        return res.redirect("/user-profile");
       });
     })
 
@@ -194,6 +212,32 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       next(err);
       // return res.status(500).render("login", { errorMessage: err.message });
     });
+});
+
+router.post("/:username", fileUploader.single('profile-cover-image'), (req, res) => {
+  const { username } = req.params;
+  console.log('username :>> ', username);
+  const { existingImage } = req.body;
+ 
+  let imageUrl;
+  if (req.file) {
+    imageUrl = req.file.path;
+  } else {
+    imageUrl = existingImage;
+  }
+ 
+  User.findOneAndUpdate({username:username}, { imageUrl }, { new: true })
+    .then(() => res.redirect(`/:username`))
+    .catch(error => console.log(`Error while updating pic: ${error}`));
+});
+
+router.get("/:username", (req, res) => {
+
+    const { username } = req.params;
+   console.log('username :>> ', username);
+    User.findOne({username:username})
+      .then(pictureToEdit => res.render('users/user-profile', { userInSession: req.session.user, picture: pictureToEdit} ))
+      .catch(error => console.log(`Error while editing: ${error}`));
 });
 
 router.get("/logout", isLoggedIn, (req, res) => {
