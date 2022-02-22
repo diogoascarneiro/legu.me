@@ -1,21 +1,22 @@
 $(document).ready(function(){
-    const dietRestSelect = $("#dietary-restrictions-select");
-    const dietRestFilterListElem = $("#dietary-restrictions-filter-list");
-    let dietRestListArr = [];
+    const dietRestrictionsSelect = $("#dietary-restrictions-select");
+    const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
+    let dietRestrictionsListArr = [];
     
 
-    dietRestSelect.change(() => {
-        if (dietRestListArr.indexOf(dietRestSelect.val()) === -1) {
-            dietRestListArr.push(dietRestSelect.val());
-            dietRestFilterListElem.append(`<div class="${dietRestSelect.val()}"><span class="remove-diet-restriction">X</span> <span class="remove-diet-restriction-value">${dietRestSelect.children("option:selected").text()}</p></div>`);
+    dietRestrictionsSelect.change(() => {
+        if (dietRestrictionsListArr.indexOf(dietRestrictionsSelect.val()) === -1) {
+            dietRestrictionsListArr.push(dietRestrictionsSelect.val());
+            dietRestrictionsFilterListElem.append(`<div class="${dietRestrictionsSelect.val()}"><span class="remove-diet-restriction">X</span> <span class="remove-diet-restriction-value">${dietRestrictionsSelect.children("option:selected").text()}</p></div>`);
+            console.log(dietRestrictionsListArr);
         }        
     });
 
-    dietRestFilterListElem.on("click", "span.remove-diet-restriction", ()=> {
-        let selectedOption = $("span.remove-diet-restriction").parent().attr("class");
-        $("span.remove-diet-restriction").parent().remove();
-        console.log('selectedOption :>> ', selectedOption);
-        console.log('dietRestListArr.indexOf(selectedOption) :>> ', dietRestListArr.indexOf(selectedOption));
-    });
+    dietRestrictionsFilterListElem.on("click", "span.remove-diet-restriction", (e)=> {
+        let selectedOption = $(e.target).parent().attr("class");
+        $(e.target).parent().remove();
+        dietRestrictionsListArr.splice(dietRestrictionsListArr.indexOf(selectedOption), 1);
+        console.log(dietRestrictionsListArr);
+        });
 
   });
