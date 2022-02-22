@@ -2,15 +2,19 @@
 
   <h2>Welcome, {{ userInSession.username }}!</h2>
   <p>This is your profile page my friend! And your email is: {{ userInSession.email }}</p>
+
+<form action="/create" method="post" enctype="multipart/form-data"> 
+
+<img src={{userInSession.profilePicture}} name="existingImage" class="img-thumbnail rounded">
+<input type="file" name="profile-cover-image" />
+<button type="submit" class="btn btn-primary text-left">Edit profile pic</button>
+<p>Name:</p> 
+</form>
+
+
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}
 
 
 
-<form action="/create" method="post" enctype="multipart/form-data"> 
-<input type="file" name="profile-cover-image" />
-<img src={{userInSession.profilePicture}} name="existingImage" class="card-img-top">
-
-<button type="submit" class="btn btn-primary">Upload</button>
-</form>

@@ -206,7 +206,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
 router.post("/create", fileUploader.single('profile-cover-image'), (req, res) => {
   const username = req.session.user.username;
-  console.log('username :>> ', username);
   const { existingImage } = req.body;
  
   let imageUrl;
@@ -215,8 +214,8 @@ router.post("/create", fileUploader.single('profile-cover-image'), (req, res) =>
   } else {
     imageUrl = existingImage;
   }
- console.log('imageUrl :>> ', imageUrl);
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
+  console.log('updated user :>> ', profilePicture)
     .then((updatedUser) => {
       console.log('updated user :>> ', updatedUser)
       res.redirect(`/${username}`);
@@ -225,8 +224,8 @@ router.post("/create", fileUploader.single('profile-cover-image'), (req, res) =>
 });
 
 
-router.get("/${username}", (req, res) => {
-
+// router.get("/${username}", (req, res) => {
+  router.get("/user-profile", (req, res) => {
     const { username } = req.params;
 
     User.findOne({username})
@@ -244,5 +243,11 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+
+router.get("/forgot-password", isLoggedOut, (req, res) => {
+  res.render("auth/forgot-password");
+});
+
+
 
 module.exports = router;
