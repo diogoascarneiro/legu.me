@@ -24,13 +24,16 @@ const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowe
 
 app.locals.title = `${capitalized(projectName)}`;
 
+// bodyParser support
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
 // 👇 Start handling routes here
 const index = require("./routes/index");
 app.use("/", index);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
-
 
 const RecipeSingleRoutes = require("./routes/recipeSingle.routes");
 app.use("/", RecipeSingleRoutes);

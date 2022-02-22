@@ -1,8 +1,10 @@
 $(document).ready(function(){
+    const filterForm = ${"#recipe-filter"};
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
     let dietRestrictionsListArr = [];
     
+// See if the specific item is already in the array - if not, push it there, then add a new div with the name of the item and option to remove it
 
     dietRestrictionsSelect.change(() => {
         if (dietRestrictionsListArr.indexOf(dietRestrictionsSelect.val()) === -1) {
@@ -12,6 +14,7 @@ $(document).ready(function(){
         }        
     });
 
+// find the tag of the item to remove and then remove it from the array. NOTE: need to try to find another way to add this info to the element besides a class
     dietRestrictionsFilterListElem.on("click", "span.remove-diet-restriction", (e)=> {
         let selectedOption = $(e.target).parent().attr("class");
         $(e.target).parent().remove();
@@ -19,4 +22,29 @@ $(document).ready(function(){
         console.log(dietRestrictionsListArr);
         });
 
+    // WIP - read https://www.freecodecamp.org/news/jquery-ajax-post-method/ and watch https://www.youtube.com/watch?v=Z-PmnpCTZ64
+    //Turn the 'apply filter' button into an ajax post request
+    filterForm.on("submit", (e) => {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/',
+            type: 'POST',
+            contentType: 'application/json',
+            data: {dietRestrictions: dietRestrictionsListArr},
+            success: (response) => {console.log( response );}
+        } );
+    });
+
+    
   });
+
+  /* WIP - read https://www.freecodecamp.org/news/jquery-ajax-post-method/ and watch https://www.youtube.com/watch?v=Z-PmnpCTZ64
+  $.ajax({
+    url: '/',
+    type: 'POST',
+    contentType: 'application/json',
+    data: {dietRestrictions: dietRestrictionsListArr}),
+    success: (response) => {console.log( response );}
+} );
+        */
