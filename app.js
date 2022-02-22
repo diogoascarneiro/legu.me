@@ -14,7 +14,7 @@ const express = require("express");
 const hbs = require("hbs");
 
 const app = express();
-
+hbs.registerPartials(__dirname + "/views/partials");
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
@@ -25,6 +25,7 @@ const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowe
 app.locals.title = `${capitalized(projectName)}`;
 
 // bodyParser support
+const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 

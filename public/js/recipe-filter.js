@@ -1,5 +1,10 @@
+// Summon the APIHandler
+// const ApiHandler = require('./../../utils/api-handler');
+// const recipeAPI = new ApiHandler(process.env.EDAMAM_APP_ID, process.env.EDAMAM_APP_KEY);
+// const Recipe = require("./../../models/Recipe.model");
+
 $(document).ready(function(){
-    const filterForm = ${"#recipe-filter"};
+    const filterForm = $("#recipe-filter");
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
     let dietRestrictionsListArr = [];
@@ -29,22 +34,15 @@ $(document).ready(function(){
 
         $.ajax({
             url: '/',
-            type: 'POST',
+            method: 'POST',
             contentType: 'application/json',
-            data: {dietRestrictions: dietRestrictionsListArr},
-            success: (response) => {console.log( response );}
+            data: JSON.stringify({dietRestrictions: dietRestrictionsListArr}),
+            success: (response) => { 
+                $(".card").remove();
+                 $(".col-xs-12.col-lg-9").append(`<p>${response[1]}</p>`);
+             }
         } );
     });
 
     
   });
-
-  /* WIP - read https://www.freecodecamp.org/news/jquery-ajax-post-method/ and watch https://www.youtube.com/watch?v=Z-PmnpCTZ64
-  $.ajax({
-    url: '/',
-    type: 'POST',
-    contentType: 'application/json',
-    data: {dietRestrictions: dietRestrictionsListArr}),
-    success: (response) => {console.log( response );}
-} );
-        */
