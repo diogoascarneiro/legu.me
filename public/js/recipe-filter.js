@@ -1,10 +1,8 @@
-// Summon the APIHandler
-// const ApiHandler = require('./../../utils/api-handler');
-// const recipeAPI = new ApiHandler(process.env.EDAMAM_APP_ID, process.env.EDAMAM_APP_KEY);
-// const Recipe = require("./../../models/Recipe.model");
-
 $(document).ready(function(){
     const filterForm = $("#recipe-filter");
+    const recipeListContainer = $(".recipe-list-container");
+    
+
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
     let dietRestrictionsListArr = [];
@@ -31,7 +29,7 @@ $(document).ready(function(){
     //Turn the 'apply filter' button into an ajax post request
     filterForm.on("submit", (e) => {
         e.preventDefault();
-
+        
         $.ajax({
             url: '/',
             method: 'POST',
@@ -39,8 +37,21 @@ $(document).ready(function(){
             data: JSON.stringify({dietRestrictions: dietRestrictionsListArr}),
             success: (response) => { 
                 $(".card").remove();
-                 $(".col-xs-12.col-lg-9").append(`<p>${response[1]}</p>`);
-             }
+                response.forEach((recipes) => {
+                    recipeListContainer.append(`
+                    <div class="card" style="width:25%">
+                    <img class="card-img-top" src="${recipes.recipe.images.THUMBNAIL.url}" alt="${recipes.recipe.label}">
+                    <div class="card-body">
+                      <h5 class="card-title">${recipes.recipe.label}</h5>
+                      <p class="card-text">Calories: ${recipes.recipe.calories}</p>
+                      <p>Source:</p>
+                      <a href="${recipes.recipe.url}" class="btn btn-primary">${recipes.recipe.source}</a>
+                      <a href="#makefavourite">♡</a>
+                    </div>
+                  </div>
+                    `)
+                })
+                 }
         } );
     });
 
