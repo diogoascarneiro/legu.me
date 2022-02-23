@@ -104,9 +104,12 @@ router.post("/", (req, res, next) => {
   const dietRestrictions = req.body.healthLabels.$all;
   const { healthLabels } = req.body;
   console.log("dietRestrictions on the post route index.js:>> ", dietRestrictions);
-  console.log(req.body.healthLabels);
+
+  let theQuery = {
+    healthLabels: {$all: dietRestrictions}
+  };
   if (dietRestrictions.length != 0) {
-    Recipe.find({ healthLabels: {$all: dietRestrictions}})
+    Recipe.find(theQuery)
       .limit(5)
       .then((queryResults) => {
         // console.log("the query results ", queryResults);
