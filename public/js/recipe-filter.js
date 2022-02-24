@@ -1,6 +1,6 @@
 $(document).ready(function(){
     const filterForm = $("#recipe-filter");
-    const recipeListContainer = $(".recipe-list-container");
+    const recipeCardsContainer = $(".recipe-cards-container");
     
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
@@ -42,17 +42,17 @@ $(document).ready(function(){
             success: (response) => { 
                 $(".card").remove();
                 response.forEach((recipes) => {
-                    recipeListContainer.append(`
-                    <div class="card" style="width:25%">
-                    <img class="card-img-top" src="${recipes.images.THUMBNAIL.url}" alt="${recipes.label}">
-                    <div class="card-body">
-                      <h5 class="card-title">${recipes.label}</h5>
-                      <p class="card-text">Calories: ${recipes.calories}</p>
-                      <p>Source:</p>
-                      <a href="${recipes.url}" class="btn btn-primary">${recipes.source}</a>
-                      <a href="#makefavourite">♡</a>
-                    </div>
-                  </div>
+                    recipeCardsContainer.append(`
+                <div class="card m-1" style="width:24%">
+                  <a href="#"><img class="card-img-top" src="${recipes.images.THUMBNAIL.url}" alt="${recipes.label}"></a> 
+                   <div class="card-body p-3">
+                     <a class="card-title" href="#"><h6>${recipes.label}</h6></a> 
+                     <p class="card-text">Calories: ${recipes.calories}</p>
+                     <p>Source:</p>
+                     <a href="${recipes.url}" class="btn btn-primary">${recipes.source}</a>
+                     <a href="#makefavourite">♡</a>
+                   </div>
+                 </div>
                     `)
                 })
                  }

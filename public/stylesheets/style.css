@@ -1,17 +1,74 @@
+/* Base styles */
+
+/*
+font-family: 'Quicksand', sans-serif;
+Colours:
+Khaki: #95915B
+Green: #7C955B
+Brown: #95745B
+
+Cursive font option (italic): font-family: 'EB Garamond', serif;
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+*/
+
+
 body {
   font-family: 'Quicksand', sans-serif;
   font-weight:300;
-  /* background-color:#95915B */
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight:500;
-  color: #95745B
+  color: #95745B;
+  
  }
 
+ a {
+  color: #95745B
+}
+
+/* Button styles */
+
+.btn {
+  background-color: #95915B;
+  border-color: #95915B;
+  color:white
+}
+ /* Navbar styles */
+ .navbar {
+  background-color: #7C955B;
+}
+
+.navbar-brand img{
+  width: 125px;
+}
+
+/* Recipe List and Recipe Card Styles */
  .recipe-list-container {
   background-color:#7C955B;
 }
+
+a.card-title {
+  text-decoration:none;
+}
+
+.card {
+  animation-duration:1.5s;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0%;
+    width:0%
+  }
+
+  to {
+    opacity:100%;
+    width:24%
+  }
+}
+/* Filter Styles */
 
 .filter-container {
   background-color:#7C955B;
@@ -36,25 +93,16 @@ h1, h2, h3, h4, h5, h6 {
   background-color:transparent;
   box-shadow:none;
 }
-a {
-  color: #95745B
+
+.form-control.minmax {
+  margin-right:2%
 }
 
-.navbar {
-  background-color: #7C955B;
-}
-
-a.card-title {
-  text-decoration:none;
-}
+.form-control:focus, .form-select:focus {
+  border-color:#95915B;
+  box-shadow: 0 0 0 0.1rem #95915B;
+  }
 
 
-/*
-font-family: 'Quicksand', sans-serif;
-cores:
 
-khaki: #95915B
-verde: #7C955B
-castanho: #95745B
-*/
 

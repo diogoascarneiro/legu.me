@@ -94,22 +94,22 @@
       </div>
       <h6 class="mt-1">Number of Ingredients</h6>
       <div class="numberOfIngredients d-flex">
-        <input class="form-control form-control-sm" type="number" placeholder="Min" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm minmax" type="number" placeholder="Min" aria-label=".form-control-sm">
         <input class="form-control form-control-sm" type="number" placeholder="Max" aria-label=".form-control-sm">
       </div>
       <h6 class="mt-1">Calories</h6>
       <div class="calories d-flex">
-        <input class="form-control form-control-sm" type="number" placeholder="Min" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm minmax" type="number" placeholder="Min" aria-label=".form-control-sm">
         <input class="form-control form-control-sm" type="number" placeholder="Max" aria-label=".form-control-sm">
       </div>
-      <div id="time-needed">
-        <h6 class="mt-1">Time needed</h6>
-        <input class="form-control form-control-sm" type="number" placeholder="Time in minutes (minimum)" aria-label=".form-control-sm">
-        <input class="form-control form-control-sm" type="number" placeholder="Time in minutes (maximum)" aria-label=".form-control-sm">
+      <h6 class="mt-1">Time needed (minutes)</h6>
+      <div class="time-needed d-flex">
+        <input class="form-control form-control-sm minmax" type="number" placeholder="Min" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm" type="number" placeholder="Max" aria-label=".form-control-sm">
       </div>
       <h6 class="mt-1">Ingredients to exclude</h6>
      <textarea class="form-control" id="ingredientsToExclude" rows="3"></textarea>
-  <input type="submit" value="Apply filters">
+  <input type="submit" value="Apply filters" class="btn mt-3" style="width:100%">
     
   </div>
   
