@@ -119,12 +119,19 @@
   </form>
 </div>
     </div>
-    <div class="col-xs-12 col-lg-9 recipe-list-container"> 
-      <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-start mb-3">   
-      {{#each foundRecipes}}
-      {{> recipeCard this}} 
-   {{/each}} 
-   </div>  
+    <div class="col-xs-12 col-lg-9">
+   {{#each foundRecipes}}
+      <div class="card" style="width:25%">
+  <a href="/recipes/{{recipe.label}}"> <img class="card-img-top" src="{{recipe.images.THUMBNAIL.url}}" alt="{{recipe.label}}"></a>
+  <div class="card-body">
+    <a href="/recipe-single"> <h5 class="card-title">{{recipe.label}}</h5></a>
+    <p class="card-text">Calories: {{recipe.calories}}</p>
+    <p>Source:</p>
+    <a href="{{recipe.url}}" class="btn btn-primary">{{recipe.source}}</a>
+    <a href="#makefavourite">♡</a>
+  </div>
+</div>
+   {{/each}}
          </div>
   </div>
 </div>

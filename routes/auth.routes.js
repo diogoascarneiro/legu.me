@@ -20,8 +20,14 @@ router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
+
+router.get("/about", (req, res) => {
+  res.render("./about");
+});
+
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
+const Recipe = require("../models/Recipe.model");
 
 
 // router.post("/signup", isLoggedOut, (req, res) => {
@@ -217,21 +223,34 @@ router.post("/create", fileUploader.single('profile-cover-image'), (req, res) =>
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
   console.log('updated user :>> ', profilePicture)
     .then((updatedUser) => {
-      console.log('updated user :>> ', updatedUser)
+
       res.redirect(`/${username}`);
     })
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
 
 
-// router.get("/${username}", (req, res) => {
-  router.get("/user-profile", (req, res) => {
-    const { username } = req.params;
 
+router.get("/:username", (req, res) => {
+
+    const { username } = req.params;
+    
     User.findOne({username})
       .then(() => res.render('users/user-profile', { userInSession: req.session.user} ))
       .catch(error => console.log(`Error while editing: ${error}`));
 });
+
+
+
+router.get("/recipes/:label", (req, res) => {
+  const { label } = req.params;
+
+  Recipe.findOne({label})  
+    
+      .then((theRecipe) => res.render( "users/recipe-single", {recipeToSee: theRecipe}))
+      .catch(error => console.log(`Error while editing: ${error}`));
+});
+
 
 router.get("/logout", isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
@@ -243,11 +262,6 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
-
-router.get("/forgot-password", isLoggedOut, (req, res) => {
-  res.render("auth/forgot-password");
-});
-
 
 
 module.exports = router;
