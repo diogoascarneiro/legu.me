@@ -212,7 +212,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
 router.post("/create", fileUploader.single('profile-cover-image'), (req, res) => {
   const username = req.session.user.username;
-
   const { existingImage } = req.body;
  
   let imageUrl;
@@ -221,8 +220,8 @@ router.post("/create", fileUploader.single('profile-cover-image'), (req, res) =>
   } else {
     imageUrl = existingImage;
   }
- console.log('imageUrl :>> ', imageUrl);
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
+  console.log('updated user :>> ', profilePicture)
     .then((updatedUser) => {
 
       res.redirect(`/${username}`);

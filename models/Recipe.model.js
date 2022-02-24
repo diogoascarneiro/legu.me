@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const recipeSchema = new Schema (
     {
-        recipe: {
+       
           uri: String,
           label: String,
           image: String,
@@ -83,18 +83,8 @@ const recipeSchema = new Schema (
               sub: {}
             }
           ]
-        },
-        _links: {
-          self: {
-            href: String,
-            title: String
-          },
-          next: {
-            href: String,
-            title: String
-          }
         }
-      }
+      
 
 )
 

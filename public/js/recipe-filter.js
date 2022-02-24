@@ -1,7 +1,10 @@
 $(document).ready(function(){
-    const filterForm = ${"#recipe-filter"};
+    const filterForm = $("#recipe-filter");
+    const recipeCardsContainer = $(".recipe-cards-container");
+    
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
+    
     let dietRestrictionsListArr = [];
     
 // See if the specific item is already in the array - if not, push it there, then add a new div with the name of the item and option to remove it
@@ -22,29 +25,39 @@ $(document).ready(function(){
         console.log(dietRestrictionsListArr);
         });
 
-    // WIP - read https://www.freecodecamp.org/news/jquery-ajax-post-method/ and watch https://www.youtube.com/watch?v=Z-PmnpCTZ64
+    
     //Turn the 'apply filter' button into an ajax post request
     filterForm.on("submit", (e) => {
         e.preventDefault();
-
+        
         $.ajax({
             url: '/',
-            type: 'POST',
+            method: 'POST',
             contentType: 'application/json',
-            data: {dietRestrictions: dietRestrictionsListArr},
-            success: (response) => {console.log( response );}
+            data: JSON.stringify({
+                 healthLabels: {
+                    $all: dietRestrictionsListArr
+                }
+            }),
+            success: (response) => { 
+                $(".card").remove();
+                response.forEach((recipes) => {
+                    recipeCardsContainer.append(`
+                <div class="card m-1" style="width:24%">
+                  <a href="#"><img class="card-img-top" src="${recipes.images.THUMBNAIL.url}" alt="${recipes.label}"></a> 
+                   <div class="card-body p-3">
+                     <a class="card-title" href="#"><h6>${recipes.label}</h6></a> 
+                     <p class="card-text">Calories: ${recipes.calories}</p>
+                     <p>Source:</p>
+                     <a href="${recipes.url}" class="btn btn-primary">${recipes.source}</a>
+                     <a href="#makefavourite">♡</a>
+                   </div>
+                 </div>
+                    `)
+                })
+                 }
         } );
     });
 
     
   });
-
-  /* WIP - read https://www.freecodecamp.org/news/jquery-ajax-post-method/ and watch https://www.youtube.com/watch?v=Z-PmnpCTZ64
-  $.ajax({
-    url: '/',
-    type: 'POST',
-    contentType: 'application/json',
-    data: {dietRestrictions: dietRestrictionsListArr}),
-    success: (response) => {console.log( response );}
-} );
-        */

@@ -1,17 +1,46 @@
+/* Base styles */
+
+/*
+font-family: 'Quicksand', sans-serif;
+Colours:
+Khaki: #95915B
+Green: #7C955B
+Brown: #95745B
+
+Cursive font option (italic): font-family: 'EB Garamond', serif;
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+*/
+
+
 body {
   font-family: 'Quicksand', sans-serif;
   font-weight:300;
-  /* background-color:#95915B */
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight:500;
-  color: #7C955B
+  color: #95745B;
   
+ }
+
+ a {
+  color: #95745B
 }
 
-a {
-  color: #7C955B
+/* Button styles */
+
+.btn {
+  background-color: #95915B;
+  border-color: #95915B;
+  color:white
+}
+ /* Navbar styles */
+ .navbar {
+  background-color: #7C955B;
+}
+
+.navbar-brand img{
+  width: 125px;
 }
 
 .accordion-button:not(.collapsed){
@@ -37,12 +66,5 @@ ul {
 }
 
 
-/*
-font-family: 'Quicksand', sans-serif;
-cores:
 
-khaki: #95915B
-verde: #7C955B
-castanho: #95745B
-*/
 
