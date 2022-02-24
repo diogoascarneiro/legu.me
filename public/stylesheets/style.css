@@ -14,6 +14,13 @@ a {
   color: #7C955B
 }
 
+.navbar {
+  background-color: #7C955B;
+}
+
+a.card-title {
+  text-decoration:none;
+}
 
 
 /*

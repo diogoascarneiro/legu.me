@@ -2,9 +2,9 @@ $(document).ready(function(){
     const filterForm = $("#recipe-filter");
     const recipeListContainer = $(".recipe-list-container");
     
-
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
+    
     let dietRestrictionsListArr = [];
     
 // See if the specific item is already in the array - if not, push it there, then add a new div with the name of the item and option to remove it
@@ -25,7 +25,7 @@ $(document).ready(function(){
         console.log(dietRestrictionsListArr);
         });
 
-    // WIP - read https://www.freecodecamp.org/news/jquery-ajax-post-method/ and watch https://www.youtube.com/watch?v=Z-PmnpCTZ64
+    
     //Turn the 'apply filter' button into an ajax post request
     filterForm.on("submit", (e) => {
         e.preventDefault();
@@ -34,18 +34,22 @@ $(document).ready(function(){
             url: '/',
             method: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({dietRestrictions: dietRestrictionsListArr}),
+            data: JSON.stringify({
+                 healthLabels: {
+                    $all: dietRestrictionsListArr
+                }
+            }),
             success: (response) => { 
                 $(".card").remove();
                 response.forEach((recipes) => {
                     recipeListContainer.append(`
                     <div class="card" style="width:25%">
-                    <img class="card-img-top" src="${recipes.recipe.images.THUMBNAIL.url}" alt="${recipes.recipe.label}">
+                    <img class="card-img-top" src="${recipes.images.THUMBNAIL.url}" alt="${recipes.label}">
                     <div class="card-body">
-                      <h5 class="card-title">${recipes.recipe.label}</h5>
-                      <p class="card-text">Calories: ${recipes.recipe.calories}</p>
+                      <h5 class="card-title">${recipes.label}</h5>
+                      <p class="card-text">Calories: ${recipes.calories}</p>
                       <p>Source:</p>
-                      <a href="${recipes.recipe.url}" class="btn btn-primary">${recipes.recipe.source}</a>
+                      <a href="${recipes.url}" class="btn btn-primary">${recipes.source}</a>
                       <a href="#makefavourite">♡</a>
                     </div>
                   </div>

@@ -1,10 +1,10 @@
-      <div class="card" style="width:25%">
-  <img class="card-img-top" src="{{this.recipe.images.THUMBNAIL.url}}" alt="{{this.recipe.label}}">
-  <div class="card-body">
-    <h5 class="card-title">{{this.recipe.label}}</h5>
-    <p class="card-text">Calories: {{this.recipe.calories}}</p>
+      <div class="card m-1" style="width:24%">
+ <a href="#"><img class="card-img-top" src="{{this.images.REGULAR.url}}" alt="{{this.label}}"></a> 
+  <div class="card-body p-3">
+    <a class="card-title" href="#"><h5>{{this.label}}</h5></a> 
+    <p class="card-text">Calories: {{this.calories}}</p>
     <p>Source:</p>
-    <a href="{{this.recipe.url}}" class="btn btn-primary">{{this.recipe.source}}</a>
+    <a href="{{this.url}}" class="btn btn-primary">{{this.source}}</a>
     <a href="#makefavourite">♡</a>
   </div>
 </div>
