@@ -14,6 +14,27 @@ a {
   color: #7C955B
 }
 
+.accordion-button:not(.collapsed){
+  background-color: white;
+  color: black;
+}
+.accordion-button{
+  background-color: white;
+  color: black;
+}
+
+#laaa{
+  align-items:right;
+}
+
+ul {
+  -moz-column-count: 2;
+  -moz-column-gap: 20px;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 20px;
+  column-count: 2;
+  column-gap: 20px;
+}
 
 
 /*

@@ -1,1 +1,95 @@
-<p>lalalalalal</p>
+  <div class="container py-4">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      </a>
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <div class="card">
+  <div class="card-body">
+  <div class="d-flex">       
+      <div class="card-img-overlay">
+            <h5 class="card-title display-4 fw-normal text-center">Recipe Title</h5>
+            <span id="laaa">Mark as favourite<a href="#makefavourite" class="btn btn-lg text-right">♡</a></span>
+        </div>
+  </div> 
+  </div>
+      </div>
+    </div>
+     <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-black bg-white border rounded-3">
+          <div class="accordion" id="list">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ingredients" aria-expanded="true" aria-controls="ingredients">Ingredients</button>
+                </h2>
+                <div id="ingredients" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#list">
+                    <div class="accordion-body">
+                        <ul>
+                          {{#each theRecipe}}
+                            <li>{{ingredientLines}}</li>
+                          {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-white border rounded-3">
+          <h5>Preparation</h5>
+            <button type="button" class="btn btn-light" a href="#">Instructions</button> <span>Originally posted on <a href="#">Link</span>
+        </div>
+      </div>
+      <br>
+      <div class="row align-items-md-stretch">
+      <div class="col-md-12">
+        <div class="h-100 p-5 text-black bg-white border rounded-3">
+          <div class="accordion" id="nutrition-list">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#nutrients" aria-expanded="false" aria-controls="nutrients">Nutrition</button>
+                </h2>
+                <div id="nutrients" class="accordion-collapse" aria-labelledby="heading" data-bs-parent="#nutrition-list">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>kjdd</li>
+                            <li>kjdd</li>
+                            <li>kjdd</li>
+                            <li>kjdd</li>
+                            <li>kjdd</li>
+                            <li>kjdd</li>
+                            <li>kjdd</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+    <div class="card-group">
+  <div class="card ">
+    <img class="card-img-top" src="/images/profic.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title text-center">Card title</h5>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="/images/profic.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title text-center">Card title</h5>
+      </div>
+  </div>
+</div>
+    </div>
+    
+    </div>
+
+
+
+  
+    
