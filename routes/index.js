@@ -91,8 +91,8 @@ function queryCreator(query) {
 
 router.get("/", (req, res, next) => {
  
-  Recipe.find()
-    .limit(10)
+    Recipe.find()
+    .limit(12)
     .then((foundRecipes) => {
       
       res.render("index", { foundRecipes });
@@ -110,7 +110,7 @@ router.post("/", (req, res, next) => {
   };
   if (dietRestrictions.length != 0) {
     Recipe.find(theQuery)
-      .limit(10)
+      .limit(12)
       .then((queryResults) => {
         // console.log("the query results ", queryResults);
         res.send(queryResults);
@@ -118,7 +118,7 @@ router.post("/", (req, res, next) => {
       .catch((err) => next(err));
   } else {
     Recipe.find()
-      .limit(10)
+      .limit(12)
       .then((queryResults) => {
         res.send(queryResults);
       })

@@ -1,22 +1,20 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-12 col-lg-3 filter-container">
+    <div class="col-xs-12 col-lg-3 pe-0 filter-container">
       
-<div class="accordion accordion-flush" id="filter-accordion">
+<div class="accordion accordion-flush p-2 border border-2 rounded" id="filter-accordion">
   <div class="accordion-item">
-    <h2 class="accordion-header" id="filter-accordion-header">
+    <h3 class="accordion-header" id="filter-accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-accordion-collapse" aria-expanded="true" aria-controls="filter-accordion-collapse">
         Filters
       </button>
-    </h2>
+    </h3>
     <div id="filter-accordion-collapse" class="accordion-collapse collapse show" aria-labelledby="filter-accordion-header" data-bs-parent="#filter-accordion">
       <form action="/" method="POST" id="recipe-filter">
-       <h4>Search terms</h4>
-       <form class="d-flex" id="filter-search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
-      <div class="diet-restrictions">
-    <h4>Restrictions</h4>
+       <h6 class="mt-1">Search terms</h6>
+       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+       <div class="diet-restrictions">
+    <h6 class="mt-1">Restrictions</h6>
     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dietary-restrictions-select">
         <option selected>None</option>
         <option value="Vegan">Vegan</option>
@@ -40,7 +38,7 @@
       <div id="dietary-restrictions-filter-list"></div>
       </div>
       <div class="cuisine">
-      <h4>Cuisine</h4>
+      <h6 class="mt-1">Cuisine</h6>
       <select class="form-select form-select-sm" aria-label=".form-select-sm" id="cuisine-select">
         <option selected>All</option>
         <option value="american">American</option>
@@ -62,7 +60,7 @@
       <div id="cuisine-filter-list"></div>
       </div>
       <div class="meal-type">
-      <h4>Type of meal</h4>
+      <h6 class="mt-1">Type of meal</h6>
       <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dish-type-select">
         <option selected>All</option>
         <option value="breakfast">Breakfast</option>
@@ -74,7 +72,7 @@
       <div id="meal-type-filter-list"></div>
       </div>
       <div class="dish-type">
-      <h4>Type of dish</h4>
+      <h6 class="mt-1">Type of dish</h6>
       <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dish-type-select">
         <option selected>All</option>
         <option value="biscuits and cookies">Biscuits and cookies</option>
@@ -94,26 +92,25 @@
       </select>
       <div class="dish-type-filter-list"></div>
       </div>
-      <div class="numberOfIngredients">
-        <h4>Number of Ingredients</h4>
-        <input class="form-control form-control-sm" type="number" placeholder="Number of ingredients (minimum)" aria-label=".form-control-sm">
-        <input class="form-control form-control-sm" type="number" placeholder="Number of ingredients (maximum)" aria-label=".form-control-sm">
+      <h6 class="mt-1">Number of Ingredients</h6>
+      <div class="numberOfIngredients d-flex">
+        <input class="form-control form-control-sm" type="number" placeholder="Min" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm" type="number" placeholder="Max" aria-label=".form-control-sm">
       </div>
-      <div class="calories">
-        <h4>Calories</h4>
-        <input class="form-control form-control-sm" type="number" placeholder="Calories (minimum)" aria-label=".form-control-sm">
-        <input class="form-control form-control-sm" type="number" placeholder="Calories (maximum)" aria-label=".form-control-sm">
+      <h6 class="mt-1">Calories</h6>
+      <div class="calories d-flex">
+        <input class="form-control form-control-sm" type="number" placeholder="Min" aria-label=".form-control-sm">
+        <input class="form-control form-control-sm" type="number" placeholder="Max" aria-label=".form-control-sm">
       </div>
       <div id="time-needed">
-        <h4>Time needed</h4>
+        <h6 class="mt-1">Time needed</h6>
         <input class="form-control form-control-sm" type="number" placeholder="Time in minutes (minimum)" aria-label=".form-control-sm">
         <input class="form-control form-control-sm" type="number" placeholder="Time in minutes (maximum)" aria-label=".form-control-sm">
       </div>
-      <div class="excluded-ingredients">
-     <label for="ingredientsToExclude" class="form-label">Ingredients to exclude</label>
-  <textarea class="form-control" id="ingredientsToExclude" rows="3"></textarea>
+      <h6 class="mt-1">Ingredients to exclude</h6>
+     <textarea class="form-control" id="ingredientsToExclude" rows="3"></textarea>
   <input type="submit" value="Apply filters">
-    </div>
+    
   </div>
   
 </div>
@@ -122,10 +119,12 @@
   </form>
 </div>
     </div>
-    <div class="col-xs-12 col-lg-9 recipe-list-container d-flex flex-wrap p-3 justify-content-start">      
+    <div class="col-xs-12 col-lg-9 recipe-list-container"> 
+      <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-start mb-3">   
       {{#each foundRecipes}}
       {{> recipeCard this}} 
    {{/each}} 
+   </div>  
          </div>
   </div>
 </div>

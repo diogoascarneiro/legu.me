@@ -6,12 +6,38 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight:500;
-  color: #7C955B
-  
+  color: #95745B
+ }
+
+ .recipe-list-container {
+  background-color:#7C955B;
 }
 
+.filter-container {
+  background-color:#7C955B;
+}
+
+#filter-accordion, .recipe-cards-container {
+  background-color:white
+}
+#filter-accordion-header button {
+  font-size: 1.5rem;
+  font-weight:500;
+  color: #95745B;
+  padding:0 0 2% 0;
+}
+
+#filter-accordion-header .accordion-button:focus {
+  border-color: transparent;
+  box-shadow:none;
+}
+
+#filter-accordion-header .accordion-button:not(.collapsed) {
+  background-color:transparent;
+  box-shadow:none;
+}
 a {
-  color: #7C955B
+  color: #95745B
 }
 
 .navbar {
