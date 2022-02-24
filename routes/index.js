@@ -9,7 +9,81 @@ const recipeAPI = new ApiHandler(
   process.env.EDAMAM_APP_KEY
 );
 
-/* saving the code to warm up it and eat it later. Mmmm, leftovers
+/* This builds a MongoDB query from the filter values sent by recipe-filter.js
+query format example: { healthLabels: {$all: dietRestrictions}}*/
+
+function queryCreator(filterData) {
+  let theQuery = {};  
+  if (filterData.healthLabels) {
+    theQuery.healthLabels = {
+     $all: filterData.healthLabels.$all
+    }
+  }
+  if (filterData.dietLabels) {
+    theQuery.dietLabels = {
+      $all: filterData.dietLabels.$all
+     }
+  }
+  if (filterData.cuisineType) {
+    theQuery.cuisineType = {
+      $all: filterData.cuisineType.$all
+     }
+  }
+  if (filterData.mealType) {
+    theQuery.mealType = {
+      $all: filterData.mealType.$all
+     }
+  }
+  if (filterData.dishType) {
+    theQuery.dishType = {
+      $all: filterData.dishType.$all
+     }
+  }
+  // Also need to do nº Ingredients + calories + time needed + ingredients to exclude
+  return theQuery
+}
+
+
+/* GET home page */
+
+router.get("/", (req, res, next) => {
+ 
+    Recipe.find()
+    .limit(12)
+    .then((foundRecipes) => {
+      
+      res.render("index", { foundRecipes });
+    })
+    .catch((err) => next(err));
+});
+
+router.post("/", (req, res, next) => {
+  const dietRestrictions = req.body.healthLabels.$all;
+  const { healthLabels } = req.body;
+  console.log("dietRestrictions on the post route index.js:>> ", dietRestrictions);
+
+  if (dietRestrictions.length != 0) {
+    Recipe.find(queryCreator(req.body))
+      .limit(12)
+      .then((queryResults) => {
+        // console.log("the query results ", queryResults);
+        res.send(queryResults);
+      })
+      .catch((err) => next(err));
+  } else {
+    Recipe.find()
+      .limit(12)
+      .then((queryResults) => {
+        res.send(queryResults);
+      })
+      .catch((err) => next(err));
+  }
+});
+
+module.exports = router;
+
+
+/* saving the recipe import code to warm up it and eat it later. Mmmm, leftovers
  
  recipeAPI
     .importRecipes("seitan", ["vegetarian", "vegan"], "asian")
@@ -70,60 +144,3 @@ const recipeAPI = new ApiHandler(
     .catch((err) => console.log(err));
 
 */
-
-/* This will build a MongoDB query from the filter values sent by recipe-filter.js
-function queryCreator(query) {
-    let queryString = "{";
-    if (query.healthLabels) {
-      queryString += '"recipe.healthLabels": {$all: ['
-      query.healthLabels.forEach(val => {
-        queryString += `${val},` 
-      }); 
-      queryString +=']}'
-    }
-    queryString += "}"
-    return queryString
-}
-*/
-
-// query format example: { healthLabels: {$all: dietRestrictions}}
-/* GET home page */
-
-router.get("/", (req, res, next) => {
- 
-    Recipe.find()
-    .limit(12)
-    .then((foundRecipes) => {
-      
-      res.render("index", { foundRecipes });
-    })
-    .catch((err) => next(err));
-});
-
-router.post("/", (req, res, next) => {
-  const dietRestrictions = req.body.healthLabels.$all;
-  const { healthLabels } = req.body;
-  console.log("dietRestrictions on the post route index.js:>> ", dietRestrictions);
-
-  let theQuery = {
-    healthLabels: {$all: dietRestrictions}
-  };
-  if (dietRestrictions.length != 0) {
-    Recipe.find(theQuery)
-      .limit(12)
-      .then((queryResults) => {
-        // console.log("the query results ", queryResults);
-        res.send(queryResults);
-      })
-      .catch((err) => next(err));
-  } else {
-    Recipe.find()
-      .limit(12)
-      .then((queryResults) => {
-        res.send(queryResults);
-      })
-      .catch((err) => next(err));
-  }
-});
-
-module.exports = router;

@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #7C955B;
 }
 
-.navbar-brand img{
+.navbar-brand img {
   width: 125px;
 }
 
@@ -53,7 +53,7 @@ a.card-title {
 }
 
 .card {
-  animation-duration:1.5s;
+  animation-duration:0.5s;
   animation-name: fadeIn;
 }
 
