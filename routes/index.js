@@ -10,7 +10,7 @@ const recipeAPI = new ApiHandler(
 );
 
 /* This builds a MongoDB query from the filter values sent by recipe-filter.js
-query format example: { healthLabels: {$all: dietRestrictions}}*/
+query format example: { healthLabels: {$all: dietRestrictions}} - It's going to be longer soon!*/
 
 function queryCreator(filterData) {
   let theQuery = {};  
