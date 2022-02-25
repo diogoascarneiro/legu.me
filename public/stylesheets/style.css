@@ -103,6 +103,22 @@ a.card-title {
   box-shadow: 0 0 0 0.1rem #95915B;
   }
 
+.bg-image{
+  height: 500px; 
+  width: 600px; 
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+}
 
+.card{
+  width:600px;
+  display: block;
+  margin: 0 auto;
+}
 
-
+.h-100{
+  display:block;
+  margin:0 auto;
+}
