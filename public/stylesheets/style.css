@@ -142,3 +142,8 @@ a.card-title {
   font-size: 14px
 }
 
+.error {
+  text-align:center; 
+  font-weight:500
+}
+
