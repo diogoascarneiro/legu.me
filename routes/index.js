@@ -51,18 +51,13 @@ router.get("/", (req, res, next) => {
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
-      
       res.render("index", { foundRecipes });
     })
     .catch((err) => next(err));
 });
 
 router.post("/", (req, res, next) => {
-  const dietRestrictions = req.body.healthLabels.$all;
-  const { healthLabels } = req.body;
-  console.log("dietRestrictions on the post route index.js:>> ", dietRestrictions);
-
-  if (dietRestrictions.length != 0) {
+  if (req.body.isFiltering) {
     Recipe.find(queryCreator(req.body))
       .limit(12)
       .then((queryResults) => {

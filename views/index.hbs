@@ -110,18 +110,14 @@
       <h6 class="mt-1">Ingredients to exclude</h6>
      <textarea class="form-control" id="ingredientsToExclude" rows="3"></textarea>
   <input type="submit" value="Apply filters" class="btn mt-3" style="width:100%">
-    
   </div>
-  
 </div>
-
-      
   </form>
 </div>
     </div>
     <div class="col-xs-12 col-lg-9 recipe-list-container"> 
       <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-start mb-3">   
-      {{#each foundRecipes}}
+   {{#each foundRecipes}}
       {{> recipeCard this}} 
    {{/each}} 
    </div>  

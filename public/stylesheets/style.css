@@ -98,11 +98,17 @@ a.card-title {
   margin-right:2%
 }
 
-.form-control:focus, .form-select:focus {
+.btn:focus, .form-control:focus, .form-select:focus {
   border-color:#95915B;
   box-shadow: 0 0 0 0.1rem #95915B;
   }
 
+.btn.remove-diet-restriction {
+  height:30px;
+  font-size:10px;
+  margin-top: 10px;
+  margin-right:10px
+}
 
 
 

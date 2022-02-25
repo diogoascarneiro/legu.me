@@ -1,4 +1,5 @@
 const axios = require('axios');
+const Recipe = require('../models/Recipe.model');
 
 /* 
 Recipe data types:
@@ -33,6 +34,7 @@ class ApiHandler {
 
     /* Methods go here */
 
+    // NOTE: ADD GETTING ONLY RECIPES WITH LARGE IMAGES AS DEFAULT
     importRecipes(query, health=["vegetarian", "vegan"], cuisineType, mealType, dishType, calories, diet, ingr, time, excluded, random) {
        let apiQuery =`/v2?type=public&app_id=${this.appID}&app_key=${this.appKey}&q=${query}`;
        const paramsObj = { health, cuisineType, mealType, dishType, calories, diet, ingr, time, excluded, random };
@@ -52,6 +54,17 @@ class ApiHandler {
         }
        return this.api.get(apiQuery);
     }
+
+    // below is WIP. The goal is to import recipes en masse,
+    // check them against the ones on the database and add them if they're not there already
+   /* crawl(query) {
+        this.importRecipes(query)
+        .then(results => {
+            if (!Recipe.find(results.label)) {
+                Recipe.create(results)
+            }
+        })
+    }*/
 }
 
 module.exports = ApiHandler;
