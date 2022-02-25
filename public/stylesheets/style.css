@@ -128,6 +128,11 @@ a.card-title {
   margin-right:10px
 }
 
+/* Recipe card styles */
+
+.source-btn {
+  width:100%
+}
 /* Login page styles*/
 
 .fullheight {
