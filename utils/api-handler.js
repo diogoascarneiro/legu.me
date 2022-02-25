@@ -24,47 +24,136 @@ Refer to https://developer.edamam.com/edamam-docs-recipe-api for params
 */
 
 class ApiHandler {
-    constructor(appID, appKey) {
-        this.api = axios.create({
-            baseURL: `https://api.edamam.com/api/recipes`,
-            });
-        this.appID = appID;
-        this.appKey = appKey;
-    }
+  constructor(appID, appKey) {
+    this.api = axios.create({
+      baseURL: `https://api.edamam.com/api/recipes`,
+    });
+    this.appID = appID;
+    this.appKey = appKey;
+  }
 
-    /* Methods go here */
+  /* Methods go here */
 
-    // NOTE: ADD GETTING ONLY RECIPES WITH LARGE IMAGES AS DEFAULT
-    importRecipes(query, health=["vegetarian", "vegan"], cuisineType, mealType, dishType, calories, diet, ingr, time, excluded, random) {
-       let apiQuery =`/v2?type=public&app_id=${this.appID}&app_key=${this.appKey}&q=${query}`;
-       const paramsObj = { health, cuisineType, mealType, dishType, calories, diet, ingr, time, excluded, random };
-      
-        for (const property in paramsObj) {
-            //Check if not empty
-            if (paramsObj[property]) {
-               // Check for arrays and add all of their values
-                if (typeof paramsObj[property] === "object") {
-                    paramsObj[property].forEach((theValue)=>{
-                        apiQuery+= `&${property}=${theValue}`;
-                    })     
-                } 
-                else {apiQuery+= `&${property}=${paramsObj[property]}`;} 
-            
-            }
+  importRecipes(
+    query,
+    health = "vegetarian",
+    cuisineType,
+    mealType,
+    dishType,
+    calories,
+    diet,
+    ingr,
+    time,
+    excluded,
+    random,
+    imageSize = "LARGE"
+  ) {
+    let apiQuery = `/v2?type=public&app_id=${this.appID}&app_key=${this.appKey}&q=${query}`;
+    const paramsObj = {
+      health,
+      cuisineType,
+      mealType,
+      dishType,
+      calories,
+      diet,
+      ingr,
+      time,
+      excluded,
+      random,
+      imageSize,
+    };
+
+    for (const property in paramsObj) {
+      //Check if not empty
+      if (paramsObj[property]) {
+        // Check for arrays and add all of their values
+        if (typeof paramsObj[property] === "object") {
+          paramsObj[property].forEach((theValue) => {
+            apiQuery += `&${property}=${theValue}`;
+          });
+        } else {
+          apiQuery += `&${property}=${paramsObj[property]}`;
         }
-       return this.api.get(apiQuery);
+      }
     }
+    console.log(apiQuery);
+    return this.api.get(apiQuery);
+  }
 
-    // below is WIP. The goal is to import recipes en masse,
-    // check them against the ones on the database and add them if they're not there already
-   /* crawl(query) {
-        this.importRecipes(query)
-        .then(results => {
-            if (!Recipe.find(results.label)) {
-                Recipe.create(results)
-            }
-        })
-    }*/
+  // below is WIP. The goal is to import recipes en masse,
+  // check them against the ones on the database and add them if they're not there already
+  // parseAndCreate accepts the .data.hits array from a call to the api (in the crawl function below it comes as recipes.data.hits)
+
+  parseAndCreate(data) {
+    data.forEach((element) => {
+        let {
+            uri,
+            label,
+            image,
+            images,
+            source,
+            url,
+            shareAs,
+            dietLabels,
+            healthLabels,
+            cautions,
+            ingredientLines,
+            ingredients,
+            calories,
+            glycemicIndex,
+            totalC02Emissions,
+            totalWeight,
+            cuisineType,
+            mealType,
+            dishType,
+            totalNutrients,
+            totalDaily,
+            digest,
+          } = element.recipe;
+          //yield is a reserved keyword apparently, so we have to do this separately.
+          let theYield = element.recipe.yield;
+          Recipe.create({
+          uri,
+          label,
+          image,
+          images,
+          source,
+          url,
+          shareAs,
+          yield: theYield,
+          dietLabels,
+          healthLabels,
+          cautions,
+          ingredientLines,
+          ingredients,
+          calories,
+          glycemicIndex,
+          totalC02Emissions,
+          totalWeight,
+          cuisineType,
+          mealType,
+          dishType,
+          totalNutrients,
+          totalDaily,
+          digest,
+        });
+  })
 }
+ 
+crawl() {
+    let nextBatch;
+    this.importRecipes("a")
+    .then((recipes) => {
+          this.parseAndCreate(recipes.data.hits);
+          nextBatch = recipes.data._links.next.href;
+    })
+    .catch((err) => next(err));
+    
+    
+  }
+
+  
+}
+
 
 module.exports = ApiHandler;
