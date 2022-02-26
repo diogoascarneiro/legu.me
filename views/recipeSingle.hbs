@@ -1,17 +1,12 @@
-<div class="container py-4">
-      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-      </a>
-    <div class="p-5 mb-4 h-500 w-200 bg-white rounded-3">
-        <div class="container-fluid py-5">
-            <div class="card w-600">
-                <div class="card-body">
-                    <div class="d-flex ">       
-                        <div class="bg-image d-flex justify-content-center align-items-center" style="background:url({{findOne.images.LARGE.url}});" > 
+
+        <div class="container-fluid p-0">
+                               <div class="bg-image d-flex flex-column justify-content-center align-items-center" style="background: url({{recipe.images.LARGE.url}}) center; background-repeat:no-repeat; background-size: cover; height:80vh;" > 
+
                             <h5 class="mb-3 h2 text-white">{{recipe.label}}</h5>
                             <p class="align-text-bottom text-white">Mark as favourite<a href="#makefavourite" class="btn btn-lg">♡</a></p>                        </div>
                     </div> 
-                </div>
-             </div>
+                
+             
         </div>
     </div>
      <div class="row align-items-md-stretch">
@@ -91,5 +86,3 @@
     <div class="card-body">
       <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
     </div>
-  </div>
-</div>
