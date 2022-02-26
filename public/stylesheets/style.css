@@ -130,8 +130,10 @@ a.card-title {
 /* Recipe card styles */
 
 .source-btn {
-  width:100%
+  width:100%;
+  font-size:0.6rem;
 }
+
 /* Login page styles*/
 
 .fullheight {
@@ -161,12 +163,6 @@ a.card-title {
   display: block;
   margin: 0 auto;
   background-repeat: no-repeat;
-}
-
-.card{
-  width:600px;
-  display: block;
-  margin: 0 auto;
 }
 
 .h-100{
