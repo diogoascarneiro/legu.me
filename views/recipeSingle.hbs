@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <div class="d-flex ">       
                         <div class="bg-image d-flex justify-content-center align-items-center" style="background:url({{findOne.images.LARGE.url}});" > 
-                            <h5 class="mb-3 h2 text-white">{{findOne.label}}</h5>
+                            <h5 class="mb-3 h2 text-white">{{recipe.label}}</h5>
                             <p class="align-text-bottom text-white">Mark as favourite<a href="#makefavourite" class="btn btn-lg">♡</a></p>                        </div>
                     </div> 
                 </div>
@@ -24,11 +24,11 @@
                 </h2>
                 <div id="ingredients" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#list">
                     <div class="accordion-body">
-                        
-                          {{#each findOne}}
-                            {{ingredientLines}}
+                        <ul>
+                          {{#each recipe.ingredientLines}}
+                            <li>{{this}} </li>
                           {{/each}}
-                        
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 </h2>
                 <div id="nutrients" class="accordion-collapse" aria-labelledby="nutri" data-bs-parent="#nutrition-list">
                     <div class="accordion-body">
-                        {{#each findOne}}
+                        {{#each recipe}}
                             {{totalNutrients}}
                           {{/each}}
                     </div>
@@ -75,21 +75,21 @@
 <h3 class="text-center"> Other recipes you may also like: </h3>
       <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-center mb-3";>   
   <div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="{{findOne.images.LARGE.url}}"  alt="Card image cap"> 
+    <img class="card-img-top" src="{{recipe.images.LARGE.url}}"  alt="Card image cap"> 
     <div class="card-body">
-      <h5 class="card-title justify-content-center">{{findOne.label}}</h5>
+      <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
     </div>
   </div>
 <div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="{{findOne.images.LARGE.url}}"  alt="Card image cap">
+    <img class="card-img-top" src="{{recipe.images.LARGE.url}}"  alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title justify-content-center">{{findOne.label}}</h5>
+      <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
     </div>
   </div>
 <div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="{{findOne.images.LARGE.url}}"  alt="Card image cap">
+    <img class="card-img-top" src="{{recipe.images.LARGE.url}}"  alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title justify-content-center">{{findOne.label}}</h5>
+      <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
     </div>
   </div>
 </div>
