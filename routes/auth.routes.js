@@ -225,7 +225,7 @@ router.post("/create", fileUploader.single('profile-cover-image'), (req, res) =>
 
 
 // router.get("/${username}", (req, res) => {
-  router.get("/user-profile", (req, res) => {
+  router.get("/:username", (req, res) => {
     const { username } = req.params;
 
     User.findOne({username})
