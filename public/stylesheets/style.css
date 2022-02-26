@@ -58,9 +58,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 125px;
 }
 
-.accordion-button:not(.collapsed){
-  background-color: white;
-  color: black;
+/* Recipe List and Recipe Card Styles */
+ .recipe-list-container {
+  background-color:#7C955B;
 }
 
 a.card-title {
@@ -96,17 +96,28 @@ a.card-title {
   background-color:#7C955B;
 }
 
-#laaa{
-  align-items:right;
+#filter-accordion, .recipe-cards-container {
+  background-color:white
+}
+#filter-accordion-header button {
+  font-size: 1.5rem;
+  font-weight:500;
+  color: #95745B;
+  padding:0 0 2% 0;
 }
 
-ul {
-  -moz-column-count: 2;
-  -moz-column-gap: 20px;
-  -webkit-column-count: 2;
-  -webkit-column-gap: 20px;
-  column-count: 2;
-  column-gap: 20px;
+#filter-accordion-header .accordion-button:focus {
+  border-color: transparent;
+  box-shadow:none;
+}
+
+#filter-accordion-header .accordion-button:not(.collapsed) {
+  background-color:transparent;
+  box-shadow:none;
+}
+
+.form-control.minmax {
+  margin-right:2%
 }
 
 .btn.remove-diet-restriction {
