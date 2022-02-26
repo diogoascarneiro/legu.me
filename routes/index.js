@@ -47,7 +47,7 @@ function queryCreator(filterData) {
 /* GET home page */
 
 router.get("/", (req, res, next) => {
-  recipeAPI.crawl();
+ // recipeAPI.crawl("seitan");
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
@@ -84,64 +84,3 @@ router.post("/", (req, res, next) => {
 module.exports = router;
 
 
-/* saving the recipe import code to warm up it and eat it later. Mmmm, leftovers
- 
- recipeAPI
-    .importRecipes("seitan", ["vegetarian", "vegan"], "asian")
-    .then((recipes) => {
-       recipes.data.hits.forEach((element) => {
-        let {
-          uri,
-          label,
-          image,
-          images,
-          source,
-          url,
-          shareAs,
-          yield,
-          dietLabels,
-          healthLabels,
-          cautions,
-          ingredientLines,
-          ingredients,
-          calories,
-          glycemicIndex,
-          totalC02Emissions,
-          totalWeight,
-          cuisineType,
-          mealType,
-          dishType,
-          totalNutrients,
-          totalDaily,
-          digest,
-        } = element.recipe;
-        Recipe.create({
-          uri,
-          label,
-          image,
-          images,
-          source,
-          url,
-          shareAs,
-          yield,
-          dietLabels,
-          healthLabels,
-          cautions,
-          ingredientLines,
-          ingredients,
-          calories,
-          glycemicIndex,
-          totalC02Emissions,
-          totalWeight,
-          cuisineType,
-          mealType,
-          dishType,
-          totalNutrients,
-          totalDaily,
-          digest,
-        });
-      });
-    })
-    .catch((err) => console.log(err));
-
-*/
