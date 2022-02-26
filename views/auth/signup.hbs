@@ -3,7 +3,7 @@
     <div class="col d-flex justify-content-center align-items-center fullheight">
 <div id="form" class="p-5 border border-2 rounded auth-form">
   <h2 class="mb-4">Sign up</h2>
-  <form action="/signup" method="POST" class="d-flex flex-column">
+  <form action="/signup" method="POST" class="d-flex flex-column" enctype="multipart/form-data">
 
   <div class="form-floating mb-3">
   <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Your username">
@@ -17,12 +17,9 @@
   <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
   <label for="floatingPassword">Password</label>
 </div>
-<form action="/create" method="POST" enctype="multipart/form-data"> 
- <label for="userImageUpload" class="form-label">Add a user image (optional)</label>
+
  <input class="form-control" type="file" name="profile-cover-image" id="userImageUpload">
- </form>
-         {{!-- <p>Nota: isto podia fazer-se tudo só com o create account, não?</p>
-   <button type="submit" class="btn btn-secondary">Upload a user image</button> --}}
+
 <hr class="my-3">
     <button type="submit" class="btn my-2" style="width:100%">Create account</button>
    {{#if errorMessage}}

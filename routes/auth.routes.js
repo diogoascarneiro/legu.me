@@ -100,9 +100,13 @@ const fileUploader = require('../config/cloudinary.config');
 //   });
 // });
 
-router.post('/signup', isLoggedOut, (req, res, next) => {
+router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
   const { username, email, password } = req.body;
  
+  let profilePicture;
+  if (req.file) {
+    profilePicture = req.file.path;
+  }
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
     res
@@ -122,7 +126,8 @@ router.post('/signup', isLoggedOut, (req, res, next) => {
       return User.create({
         username,
         email,
-        passwordHash: hashedPassword
+        passwordHash: hashedPassword,
+        profilePicture
       });
     })
     .then(userFromDB => {
@@ -141,12 +146,25 @@ router.post('/signup', isLoggedOut, (req, res, next) => {
       }
     });
 
-bcryptjs
-    .genSalt(saltRounds)
-    .then(/* ... */)
-    .then(/* ... */)
-    .catch(/* ... */);
-  // ...
+});
+
+router.post("/create", fileUploader.single('profile-cover-image'), (req, res) => {
+  const username = req.session.user.username;
+  const { existingImage } = req.body;
+ 
+  let imageUrl;
+  if (req.file) {
+    imageUrl = req.file.path;
+  } else {
+    imageUrl = existingImage;
+  }
+  User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
+  console.log('updated user :>> ', profilePicture)
+    .then((updatedUser) => {
+      console.log('updated user :>> ', updatedUser)
+      res.redirect(`/${username}`);
+    })
+    .catch(error => console.log(`Error while updating pic: ${error}`));
 });
 
 router.get("/login", isLoggedOut, (req, res, next) => {
@@ -204,24 +222,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
-router.post("/create", fileUploader.single('profile-cover-image'), (req, res) => {
-  const username = req.session.user.username;
-  const { existingImage } = req.body;
- 
-  let imageUrl;
-  if (req.file) {
-    imageUrl = req.file.path;
-  } else {
-    imageUrl = existingImage;
-  }
-  User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
-  console.log('updated user :>> ', profilePicture)
-    .then((updatedUser) => {
-      console.log('updated user :>> ', updatedUser)
-      res.redirect(`/${username}`);
-    })
-    .catch(error => console.log(`Error while updating pic: ${error}`));
-});
+
 
 
 // router.get("/${username}", (req, res) => {
