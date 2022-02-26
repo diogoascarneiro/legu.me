@@ -42,7 +42,8 @@ function queryCreator(filterData) {
 /* GET home page */
 
 router.get("/", (req, res, next) => {
-  // recipeAPI.crawl();
+ // recipeAPI.crawl("seitan");
+
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
@@ -77,3 +78,4 @@ router.post("/", (req, res, next) => { console.log(queryCreator(req.body));
 });
 
 module.exports = router;
+
