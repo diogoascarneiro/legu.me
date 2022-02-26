@@ -14,29 +14,24 @@ query format example: { healthLabels: {$all: dietRestrictions}} - It's going to 
 
 function queryCreator(filterData) {
   let theQuery = {};  
-  if (filterData.healthLabels) {
+  if (filterData.healthLabels.$all.length != 0) {
     theQuery.healthLabels = {
      $all: filterData.healthLabels.$all
     }
   }
-  if (filterData.dietLabels) {
-    theQuery.dietLabels = {
-      $all: filterData.dietLabels.$all
-     }
-  }
-  if (filterData.cuisineType) {
+  if (filterData.cuisineType.$in.length != 0) {
     theQuery.cuisineType = {
-      $all: filterData.cuisineType.$all
+      $in: filterData.cuisineType.$in
      }
   }
-  if (filterData.mealType) {
+  if (filterData.mealType.$in.length != 0) {
     theQuery.mealType = {
-      $all: filterData.mealType.$all
+      $in: filterData.mealType.$in
      }
   }
-  if (filterData.dishType) {
+  if (filterData.dishType.$in.length != 0) {
     theQuery.dishType = {
-      $all: filterData.dishType.$all
+      $in: filterData.dishType.$in
      }
   }
   // Also need to do nº Ingredients + calories + time needed + ingredients to exclude
@@ -48,6 +43,7 @@ function queryCreator(filterData) {
 
 router.get("/", (req, res, next) => {
  // recipeAPI.crawl("seitan");
+
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
@@ -62,7 +58,7 @@ router.get("/", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", (req, res, next) => { console.log(queryCreator(req.body));
   if (req.body.isFiltering) {
     Recipe.find(queryCreator(req.body))
       .limit(12)
@@ -82,5 +78,4 @@ router.post("/", (req, res, next) => {
 });
 
 module.exports = router;
-
 

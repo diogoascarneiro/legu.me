@@ -4,9 +4,23 @@ $(document).ready(function(){
     
     const dietRestrictionsSelect = $("#dietary-restrictions-select");
     const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
+
+    const cuisineTypeSelect = $("#cuisine-select");
+    const cuisineTypeSelectFilterListElem = $("#cuisine-filter-list");
+
+    const mealTypeSelect = $("#meal-type-select");
+    const mealTypeSelectFilterListElem = $("#meal-type-filter-list");
+
+    const dishTypeSelect = $("#dish-type-select");
+    const dishTypeSelectFilterListElem = $("#dish-type-filter-list");
+
     let isFiltering = false;
     let dietRestrictionsListArr = [];
-    
+    let cuisineTypeArr = [];
+    let dishTypeArr = [];
+    let mealTypeArr = [];
+   
+
 // See if the specific item is already in the array - if not, push it there, then add a new div with the name of the item and option to remove it
 
     dietRestrictionsSelect.change(() => {
@@ -26,7 +40,61 @@ $(document).ready(function(){
         if (dietRestrictionsListArr === 0) {isFiltering = false}
         });
 
+    dishTypeSelect.change(() => {
+         if (dishTypeArr.indexOf(dishTypeSelect.val()) === -1) {
+            dishTypeArr.push(dishTypeSelect.val());
+            console.log('dishTypeArray :>> ', dishTypeArr);
+            dishTypeSelectFilterListElem.append(`<div class="${dishTypeSelect.val()} btn remove-dishType-restriction"> X | ${dishTypeSelect.children("option:selected").text()}</div>`);
+            isFiltering = true;
+         }        
+        });
+        
+    dishTypeSelectFilterListElem.on("click", ".remove-dishType-restriction", (e)=> {
+        let selectedOption = $(e.target).parent().attr("class");
+        $(e.target).remove();
+        dishTypeArr.splice(dishTypeArr.indexOf(selectedOption), 1);
+        // This will break when we add more filters, just fyi
+        if (dishTypeArr === 0) {isFiltering = false}
+        });
     
+
+
+    cuisineTypeSelect.change(() => {
+        if (cuisineTypeArr.indexOf(cuisineTypeSelect.val()) === -1) {
+            cuisineTypeArr.push(cuisineTypeSelect.val());
+        console.log('dishTypeArray :>> ', cuisineTypeArr);
+        cuisineTypeSelectFilterListElem.append(`<div class="${cuisineTypeSelect.val()} btn remove-cuisineType-restriction"> X | ${cuisineTypeSelect.children("option:selected").text()}</div>`);
+        isFiltering = true;
+        }        
+        });
+           
+    cuisineTypeSelectFilterListElem.on("click", ".remove-cuisineType-restriction", (e)=> {
+        let selectedOption = $(e.target).parent().attr("class");
+        $(e.target).remove();
+        cuisineTypeArr.splice(cuisineTypeArr.indexOf(selectedOption), 1);
+        // This will break when we add more filters, just fyi
+        if (cuisineTypeArr === 0) {isFiltering = false}
+        });
+
+        
+        mealTypeSelect.change(() => {
+            if (mealTypeArr.indexOf(mealTypeSelect.val()) === -1) {
+                mealTypeArr.push(mealTypeSelect.val());
+            console.log('dishTypeArray :>> ', mealTypeArr);
+            mealTypeSelectFilterListElem.append(`<div class="${mealTypeSelect.val()} btn remove-cuisineType-restriction"> X | ${mealTypeSelect.children("option:selected").text()}</div>`);
+            isFiltering = true;
+            }        
+            });
+               
+            mealTypeSelectFilterListElem.on("click", ".remove-cuisineType-restriction", (e)=> {
+            let selectedOption = $(e.target).parent().attr("class");
+            $(e.target).remove();
+            mealTypeArr.splice(mealTypeArr.indexOf(selectedOption), 1);
+            // This will break when we add more filters, just fyi
+            if (mealTypeArr === 0) {isFiltering = false}
+            });
+
+
     //Turn the 'apply filter' button into an ajax post request
     filterForm.on("submit", (e) => {
         e.preventDefault();
@@ -39,6 +107,16 @@ $(document).ready(function(){
                  isFiltering,
                  healthLabels: {
                     $all: dietRestrictionsListArr
+                },
+                dishType: {
+                $in: dishTypeArr
+                },
+            
+                cuisineType: {
+                    $in: cuisineTypeArr
+                },
+                mealType: {
+                    $in: mealTypeArr
                 }
             }),
             success: (response) => { 
@@ -58,8 +136,9 @@ $(document).ready(function(){
                     `)
                 })
                  }
+                 
         } );
-    });
 
+    });
     
   });
