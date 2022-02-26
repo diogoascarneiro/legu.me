@@ -6,7 +6,6 @@ Colours:
 Khaki: #95915B
 Green: #7C955B
 Brown: #95745B
-
 Cursive font option (italic): font-family: 'EB Garamond', serif;
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 */
@@ -34,6 +33,22 @@ h1, h2, h3, h4, h5, h6 {
   border-color: #95915B;
   color:white
 }
+
+.btn:hover, .btn.btn-secondary:hover {
+  color:white;
+  background-color: #7C955B
+}
+
+.btn.btn-secondary {
+  border-color: #95745B;
+  background-color:#95745B
+}
+
+.btn:focus, .form-control:focus, .form-select:focus {
+  border-color:#95915B;
+  box-shadow: 0 0 0 0.1rem #95915B;
+  }
+
  /* Navbar styles */
  .navbar {
   background-color: #7C955B;
@@ -68,6 +83,13 @@ a.card-title {
     width:24%
   }
 }
+
+.card:hover {
+  transform: translate3D(0,-1px,0) scale(1.03); /* move up slightly and zoom in */
+  box-shadow: 8px 28px 50px rgba(39,44,49,.07), 1px 6px 12px rgba(39,44,49,.04);
+  transition: all .4s ease;
+}
+
 /* Filter Styles */
 
 .filter-container {
@@ -98,24 +120,49 @@ a.card-title {
   margin-right:2%
 }
 
-.form-control:focus, .form-select:focus {
-  border-color:#95915B;
-  box-shadow: 0 0 0 0.1rem #95915B;
-  }
+.btn.remove-diet-restriction {
+  height:30px;
+  font-size:10px;
+  margin-top: 10px;
+  margin-right:10px
+}
 
-.bg-image{
+/* Recipe card styles */
+
+.source-btn {
+  width:100%;
+  font-size:0.6rem;
+}
+
+/* Login page styles*/
+
+.fullheight {
+  height:90vh
+}
+
+.auth-form {
+  width: 400px
+}
+.recover-pass-text {
+  text-align:center;
+  font-size: 14px
+}
+
+.error {
+  text-align:center; 
+  font-weight:500
+}
+
+
+
+/* organize these styles */
+.bg-image {
   height: 500px; 
   width: 600px; 
   object-fit: cover;
   display: block;
   margin: 0 auto;
   background-repeat: no-repeat;
-}
-
-.card{
-  width:600px;
-  display: block;
-  margin: 0 auto;
 }
 
 .h-100{

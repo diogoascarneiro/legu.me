@@ -47,10 +47,15 @@ function queryCreator(filterData) {
 /* GET home page */
 
 router.get("/", (req, res, next) => {
- 
+  recipeAPI.crawl();
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
+      // Need to format some fields to present on the front-end, namely rounding calories and capitalizing some strings
+      foundRecipes.forEach((item) => {item.calories = Math.round(item.calories)});
+      // foundRecipes.forEach((item) => {
+      //   item.cuisineType.forEach((cuisine) => {cuisine = cuisine[0].toUppercase() + cuisine.substring(1); console.log(cuisine)})
+      //   });
       
       res.render("index", { foundRecipes });
     })
@@ -58,11 +63,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  const dietRestrictions = req.body.healthLabels.$all;
-  const { healthLabels } = req.body;
-  console.log("dietRestrictions on the post route index.js:>> ", dietRestrictions);
-
-  if (dietRestrictions.length != 0) {
+  if (req.body.isFiltering) {
     Recipe.find(queryCreator(req.body))
       .limit(12)
       .then((queryResults) => {
