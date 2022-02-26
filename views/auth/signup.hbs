@@ -1,27 +1,35 @@
-<div id="form">
-  <h2>Signup</h2>
-  <form action="/signup" method="POST">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col d-flex justify-content-center align-items-center fullheight">
+<div id="form" class="p-5 border border-2 rounded auth-form">
+  <h2 class="mb-4">Sign up</h2>
+  <form action="/signup" method="POST" class="d-flex flex-column">
 
-    <label> Username
-      <input type="text" name="username" placeholder="username" />
-    </label>
-
-    <label> Email
-      <input type="email" name="email" placeholder="youremail@email.com" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="********" />
-    </label>
-
-    <button type="submit">Create account</button>
-
-   <form action="/create" method="post" enctype="multipart/form-data"> 
-         <input type="file" name="profile-cover-image" />   </form>
-   <button type="submit" class="btn btn-primary">Upload your personal image</button>
-   
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
+  <div class="form-floating mb-3">
+  <input type="text" class="form-control" id="floatingUsername" placeholder="Your username">
+  <label for="floatingUsername">Username</label>
 </div>
+<div class="form-floating mb-3">
+  <input type="email" class="form-control" id="floatingEmail" placeholder="hungry4@legu.me">
+  <label for="floatingEmail">e-mail</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+  <label for="floatingPassword">Password</label>
+</div>
+<form action="/create" method="post" enctype="multipart/form-data"> 
+ <label for="userImageUpload" class="form-label">Add a user image (optional)</label>
+ <input class="form-control" type="file" name="profile-cover-image" id="userImageUpload">
+ </form>
+         {{!-- <p>Nota: isto podia fazer-se tudo só com o create account, não?</p>
+   <button type="submit" class="btn btn-secondary">Upload a user image</button> --}}
+<hr class="my-3">
+    <button type="submit" class="btn my-2" style="width:100%">Create account</button>
+   {{#if errorMessage}}
+    <p class="error my-2">{{errorMessage}}</p>
+  {{/if}}
+  </div>
+</div>
+</div>
+</div>
+

@@ -25,7 +25,7 @@ require("./config")(app);
 const projectName = "legu.me";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
-app.locals.title = `${capitalized(projectName)}`;
+//app.locals.title = `${capitalized(projectName)}`;
 
 // bodyParser support
 const bodyParser = require("body-parser");
