@@ -51,6 +51,12 @@ router.get("/", (req, res, next) => {
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
+      // Need to format some fields to present on the front-end, namely rounding calories and capitalizing some strings
+      foundRecipes.forEach((item) => {item.calories = Math.round(item.calories)});
+      // foundRecipes.forEach((item) => {
+      //   item.cuisineType.forEach((cuisine) => {cuisine = cuisine[0].toUppercase() + cuisine.substring(1); console.log(cuisine)})
+      //   });
+      
       res.render("index", { foundRecipes });
     })
     .catch((err) => next(err));
