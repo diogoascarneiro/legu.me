@@ -101,13 +101,13 @@ a.card-title {
   transition: all .4s ease;
 }
 
-/* Filter Styles */
+/* Filter & sorting styles */
 
 .filter-container {
   background-color:#7C955B;
 }
 
-#filter-accordion, .recipe-cards-container {
+#filter-accordion, .recipe-cards-container, .sort-results-container {
   background-color:white
 }
 #filter-accordion-header button {
@@ -138,6 +138,9 @@ a.card-title {
   margin-right:10px
 }
 
+#load-next-results {
+  width:100%
+}
 /* Recipe card styles */
 
 .source-btn {
