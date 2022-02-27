@@ -51,7 +51,7 @@ function cleanRecipeInfo(dbQueryResponse) {
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
- //recipeAPI.crawl("cocktail");
+ //recipeAPI.crawl("ice cream");
 
     Recipe.find()
     .limit(12)

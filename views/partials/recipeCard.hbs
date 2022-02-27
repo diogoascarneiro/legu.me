@@ -2,9 +2,9 @@
  <a href="/recipes/{{this.label}}"><img class="card-img-top" src="{{this.images.LARGE.url}}" alt="{{this.label}}"></a> 
   <div class="card-body p-3 d-flex flex-column justify-content-around">
     <a class="card-title" href="/recipes/{{this.label}}"><h6>{{this.label}}</h6></a> 
-    <p class="card-text">Type of dish: <span style="text-transform:capitalize">{{this.dishTypeString}}</span></p>
-    <p class="card-text">Cuisine: <span style="text-transform:capitalize">{{this.cuisineTypeString}}</span></p>
-    <p class="card-text">Calories: {{this.calories}}</p>
+    <p class="card-text"><b>Type of dish:</b> <span style="text-transform:capitalize">{{this.dishTypeString}}</span></p>
+    <p class="card-text"><b>Cuisine:</b> <span style="text-transform:capitalize">{{this.cuisineTypeString}}</span></p>
+    <p class="card-text"><b>Calories:</b> {{this.calories}}</p>
      <a href="{{this.url}}" class="btn source-btn">Source: {{this.source}}</a>
     </div>
 </div>
