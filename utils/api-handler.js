@@ -167,7 +167,7 @@ crawl(initialQuery = "seitan", nextBatch) {
           }
           this.crawl(false, nextBatch)
         })
-         this.iteration++; }, 5000);
+         this.iteration++; }, 10000);
           
     }
 

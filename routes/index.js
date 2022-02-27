@@ -42,7 +42,7 @@ function queryCreator(filterData) {
 /* GET home page */
 
 router.get("/", (req, res, next) => {
- // recipeAPI.crawl("seitan");
+ //recipeAPI.crawl("cocktail");
 
     Recipe.find()
     .limit(12)
