@@ -61,6 +61,10 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0 0.1rem #95915B;
   }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
  /* Navbar styles */
  .navbar {
   background-color: #7C955B;

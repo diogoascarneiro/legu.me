@@ -2,29 +2,47 @@
 
   <div class="row">
     <div
-      class="bg-image d-flex flex-column justify-content-center align-items-center"
-      style="background: url({{recipe.images.LARGE.url}}) center; background-repeat:no-repeat; background-size: cover; height:80vh;"
+      class="d-flex flex-column justify-content-center align-items-center"
+      style="background:linear-gradient(0deg, rgba(17, 17, 17, 0.3), rgba(199, 199, 199, 0.3)), url({{recipe.images.LARGE.url}}); background-attachment: fixed;  background-position: center;  background-repeat: no-repeat;  background-size: cover;  height:70vh;"
     >
+      <h1 class="mb-3 text-white">{{recipe.label}}</h1>
+    </div>
 
-      <h5 class="mb-3 h2 text-white">{{recipe.label}}</h5>
-      <p class="align-text-bottom text-white">Mark as favourite<a href="#makefavourite" class="btn btn-lg">♡</a>
-      </p>
+    <div class="row p-0 mt-1">
+      <div class="col border border-1 rounded p-3 mx-3 mt-3" style="background-color:white">
+        <a class="btn" href="/">← Return to recipe list</a>
+        <button id="markFavourite" class="btn">♡ Mark this recipe as favourite</button>
+        <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share this recipe on Facebook</a>
+      </div>
     </div>
     <div class="row p-0 my-2">
       <div class="col col-xs-12 col-lg-6 p-0">
-        <div class="col-inner-container border border-1 rounded p-3 m-2"><h3>Ingredients</h3>
+        <div class="col-inner-container border border-1 rounded p-3 mx-3 me-2 my-2">
+          <h3>Ingredients</h3>
+          <div class="d-flex flex-wrap border border-1 p-3 mb-2">
           <ul>
             {{#each recipe.ingredientLines}}
               <li>{{this}} </li>
             {{/each}}
           </ul>
-          <h5>Preparation</h5>
-          <button type="button" class="btn btn-light" a href="#">Instructions</button>
-          <span>Originally posted on <a href="#">Link</a></span></div>
+          </div>
+          <h3>Preparation</h3>
+          <button type="button" class="btn" a href="#">Read recipe instructions on {{recipe.source}}</button>
+         
+         </div>
+          
       </div>
     
     <div class="col col-xs-12 col-lg-6 p-0">
-      <div class="col-inner-container border border-1 rounded p-3 m-2">
+      <div class="col-inner-container border border-1 rounded p-3 mx-3 ms-2 my-2">
+        <h3>Recipe Info</h3>
+        <div id="recipe-info-list" class="d-flex flex-wrap border border-1 p-3 mb-2">
+          <p class="w-50"><b>Calories:</b><span class="capitalize"> {{recipe.calories}}</span></p>
+          <p class="w-50"><b>Yields:</b> <span class="capitalize">{{recipe.yield}} servings</span></p>
+          <p class="w-50"><b>Type of dish:</b> <span class="capitalize">{{recipe.dishTypeString}}</span></p>
+          <p class="w-50"><b>Type of meal:</b> <span class="capitalize">{{recipe.mealTypeString}}</span></p>
+          <p class="w-50"><b>Type of cuisine:</b> <span class="capitalize">{{recipe.cuisineTypeString}}</span></p>
+        </div>
         <div class="accordion" id="nutrient-info">
           <div class="accordion-item">
             <h2 class="accordion-header" id="nutrient-info-header">
@@ -40,9 +58,9 @@
               </button>
             </h2>
             <div id="nutrient-info-body" class="accordion-collapse collapse" aria-labelledby="nutrient-info-header" data-bs-parent="#nutrient-info">
-              <div class="accordion-body">
+              <div class="accordion-body d-flex flex-wrap">
                 {{#each recipe.totalNutrients}}
-                  <p><b>{{this.label}}: </b>{{this.quantity}} {{this.unit}}</p>
+                  <p class="w-50"><b>{{this.label}}: </b>{{this.quantity}} {{this.unit}}</p>
                 {{/each}}
                 </div>
               </div>

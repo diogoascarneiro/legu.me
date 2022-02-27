@@ -1,4 +1,16 @@
+//import {cleanRecipeObjInfo} from "../../utils/recipe-data-cleaner.js";
+
 $(document).ready(function () {
+
+/*  BUGS / TO DO LIST FOR THIS SECTION: 
+    - Selecting "all" on filter selects should clear the array and buttons, not add an "all" button;
+    - need to import stuff for the "sweets" and "side dish" categories
+    - Need to add the remaining filter fields;
+    - Figure out how import works (or doesn't, in this case). Attempts commented above and below.
+*/
+
+  
+
   const filterForm = $("#recipe-filter");
   const recipeCardsContainer = $(".recipe-cards-container");
   const loadMoreBtn = $("#load-next-results");
@@ -51,8 +63,8 @@ function cleanRecipeInfo(dbQueryResponse) {
     <a href="/recipes/${recipe.label}"><img class="card-img-top" src="${recipe.images.LARGE.url}" alt="${recipe.label}"></a> 
      <div class="card-body p-3 d-flex flex-column justify-content-around">
        <a class="card-title" href="/recipes/${recipe.label}"><h6>${recipe.label}</h6></a> 
-       <p class="card-text"><b>Type of dish:</b> <span style="text-transform:capitalize">${recipe.dishTypeString}</span></p>
-       <p class="card-text"><b>Cuisine:</b> <span style="text-transform:capitalize">${recipe.cuisineTypeString}</span></p>
+       <p class="card-text"><b>Type of dish:</b> <span class="capitalize">${recipe.dishTypeString}</span></p>
+       <p class="card-text"><b>Cuisine:</b> <span class="capitalize">${recipe.cuisineTypeString}</span></p>
        <p class="card-text"><b>Calories:</b> ${recipe.calories}</p>
         <a href="${recipe.url}" class="btn source-btn">Source: ${recipe.source}</a>
        </div>
