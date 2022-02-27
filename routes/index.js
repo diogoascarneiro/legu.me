@@ -38,40 +38,51 @@ function queryCreator(filterData) {
   return theQuery
 }
 
+/* The function below tidies up some of the recipe data for the front-end  */
 
-/* GET home page */
+function cleanRecipeInfo(dbQueryResponse) {
+  dbQueryResponse.forEach((item) => {
+    item.calories = Math.round(item.calories);
+    item.dishTypeString = item.dishType.join(', ');
+    item.cuisineTypeString = item.cuisineType.join(', ');
+  });
+}
+
+/* Homepage Routes */
 
 router.get("/", (req, res, next) => {
- // recipeAPI.crawl("seitan");
+ //recipeAPI.crawl("cocktail");
 
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
-      // Need to format some fields to present on the front-end, namely rounding calories and capitalizing some strings
-      foundRecipes.forEach((item) => {item.calories = Math.round(item.calories)});
-      // foundRecipes.forEach((item) => {
-      //   item.cuisineType.forEach((cuisine) => {cuisine = cuisine[0].toUppercase() + cuisine.substring(1); console.log(cuisine)})
-      //   });
-      
+      cleanRecipeInfo(foundRecipes);
       res.render("index", { foundRecipes });
     })
     .catch((err) => next(err));
 });
 
-router.post("/", (req, res, next) => { console.log(queryCreator(req.body));
+router.post("/", (req, res, next) => {
+  console.log('req.body :>> ', req.body);
+  //console.log(queryCreator(req.body));
   if (req.body.isFiltering) {
     Recipe.find(queryCreator(req.body))
       .limit(12)
-      .then((queryResults) => {
-        // console.log("the query results ", queryResults);
-        res.send(queryResults);
+      .skip(req.body.skipResults)
+      .then((foundRecipes) => {
+        cleanRecipeInfo(foundRecipes);
+       console.log("the query results ", foundRecipes);
+        
+        res.send(foundRecipes);
       })
       .catch((err) => next(err));
   } else {
     Recipe.find()
       .limit(12)
-      .then((queryResults) => {
-        res.send(queryResults);
+      .skip(req.body.skipResults)
+      .then((foundRecipes) => {
+        cleanRecipeInfo(foundRecipes);
+        res.send(foundRecipes);
       })
       .catch((err) => next(err));
   }
