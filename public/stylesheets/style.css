@@ -41,7 +41,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn:hover {
   color:white;
-  background-color: #7C955B
+  background-color: #7C955B;
+  border-color: #7C955B;
 }
 
 .btn.btn-secondary {
@@ -59,6 +60,10 @@ h1, h2, h3, h4, h5, h6 {
   border-color:#95915B;
   box-shadow: 0 0 0 0.1rem #95915B;
   }
+
+.capitalize {
+  text-transform: capitalize;
+}
 
  /* Navbar styles */
  .navbar {
@@ -101,6 +106,16 @@ a.card-title {
   transition: all .4s ease;
 }
 
+p.card-text {
+  font-size:14px;
+  margin-bottom:1%;
+}
+.source-btn {
+  margin-top:10%;
+  width:100%;
+  font-size:0.6rem;
+}
+
 /* Filter & sorting styles */
 
 .filter-container {
@@ -131,21 +146,16 @@ a.card-title {
   margin-right:2%
 }
 
-.btn.remove-diet-restriction {
+.btn.remove-diet-restriction, .btn.remove-dishType-restriction, .btn.remove-cuisineType-restriction, .btn.remove-mealType-restriction {
   height:30px;
   font-size:10px;
   margin-top: 10px;
   margin-right:10px
 }
 
-#load-next-results {
-  width:100%
-}
-/* Recipe card styles */
-
-.source-btn {
-  width:100%;
-  font-size:0.6rem;
+#load-next-results, #load-previous-results {
+  width:45%;
+  font-size:13px;
 }
 
 /* Login page styles*/

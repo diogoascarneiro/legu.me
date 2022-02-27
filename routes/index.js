@@ -1,13 +1,16 @@
 const router = require("express").Router();
+const { query, response } = require("express");
+
 const User = require("../models/User.model");
 const Recipe = require("../models/Recipe.model");
 
 const ApiHandler = require("../utils/api-handler");
-const { query, response } = require("express");
 const recipeAPI = new ApiHandler(
   process.env.EDAMAM_APP_ID,
   process.env.EDAMAM_APP_KEY
 );
+
+const {cleanRecipeListInfo} = require("../utils/recipe-data-cleaner");
 
 /* This builds a MongoDB query from the filter values sent by recipe-filter.js
 query format example: { healthLabels: {$all: dietRestrictions}} - It's going to be longer soon!*/
@@ -38,25 +41,15 @@ function queryCreator(filterData) {
   return theQuery
 }
 
-/* The function below tidies up some of the recipe data for the front-end  */
-
-function cleanRecipeInfo(dbQueryResponse) {
-  dbQueryResponse.forEach((item) => {
-    item.calories = Math.round(item.calories);
-    item.dishTypeString = item.dishType.join(', ');
-    item.cuisineTypeString = item.cuisineType.join(', ');
-  });
-}
-
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
- //recipeAPI.crawl("cocktail");
-
+ //recipeAPI.crawl("side dish");
+//recipeAPI.crawl("candy");
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
-      cleanRecipeInfo(foundRecipes);
+      cleanRecipeListInfo(foundRecipes);
       res.render("index", { foundRecipes });
     })
     .catch((err) => next(err));
@@ -70,7 +63,7 @@ router.post("/", (req, res, next) => {
       .limit(12)
       .skip(req.body.skipResults)
       .then((foundRecipes) => {
-        cleanRecipeInfo(foundRecipes);
+        cleanRecipeListInfo(foundRecipes);
        console.log("the query results ", foundRecipes);
         
         res.send(foundRecipes);
@@ -81,7 +74,7 @@ router.post("/", (req, res, next) => {
       .limit(12)
       .skip(req.body.skipResults)
       .then((foundRecipes) => {
-        cleanRecipeInfo(foundRecipes);
+        cleanRecipeListInfo(foundRecipes);
         res.send(foundRecipes);
       })
       .catch((err) => next(err));
