@@ -130,7 +130,6 @@ $(document).ready(function(){
                      <p class="card-text">Calories: ${recipes.calories}</p>
                      <p>Source:</p>
                      <a href="${recipes.url}" class="btn btn-primary">${recipes.source}</a>
-                     <a href="#makefavourite">♡</a>
                    </div>
                  </div>
                     `)
