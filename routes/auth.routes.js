@@ -19,20 +19,11 @@ const { collection } = require("../models/User.model");
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
 
-router.get('/logout', (req, res) => {
-  if(req.session.user) {
-      delete req.session.user;
-      res.redirect('/login');
-  } else {
-      res.redirect('/');
-  }        
-});
-
 router.get("/about", (req, res) => {
   res.render("./about");
 });
 
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
@@ -84,10 +75,9 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
 
 });
 
-router.get("/login", isLoggedOut, (req, res) => {
+router.get("/login", (req, res) => {
   res.render("auth/login");
 });
-
 
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
@@ -145,8 +135,28 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
+
+router.get('/logout', (req, res) => {
+  if(req.session.currentUser) {
+      delete req.session.currentUser;
+      res.redirect('/login');
+  } else {
+      res.redirect('/');
+  }        
+});
+
+
+// router.get("/${username}", (req, res) => {
+  router.get("/:username",(req, res) => {
+    const { username } = req.params;
+
+    User.findOne({username})
+      .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
+      .catch(error => console.log(`Error while editing: ${error}`));
+});
+
 router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) => {
-  const username = req.session.user.username;
+  const username = req.session.currentUser;
   const { existingImage } = req.body;
  
   let imageUrl;
@@ -157,22 +167,16 @@ router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) =
   }
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
 
-    .then(() => res.render('users/user-profile', { userInSession: req.session.user} ))
+    .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
 
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
 
-// router.get("/${username}", (req, res) => {
-  router.get("/:username", isLoggedOut,(req, res) => {
-    const { username } = req.params;
 
-    User.findOne({username})
-      .then(() => res.render('users/user-profile', { userInSession: req.session.user} ))
-      .catch(error => console.log(`Error while editing: ${error}`));
-});
 
 router.get("/forgot-password", isLoggedOut, (req, res) => {
   res.render("auth/forgot-password");
 });
+
 
 module.exports = router;
