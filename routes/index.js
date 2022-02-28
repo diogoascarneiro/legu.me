@@ -44,21 +44,27 @@ function queryCreator(filterData) {
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
- //recipeAPI.crawl("side dish");
-//recipeAPI.crawl("candy");
-    Recipe.find()
+// recipeAPI.crawl("candy");
+
+Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
+  if (!err) {
+    cleanRecipeListInfo(foundRecipes);
+    res.render("index", { foundRecipes })
+  }
+  });
+
+    /*Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
       cleanRecipeListInfo(foundRecipes);
       res.render("index", { foundRecipes });
     })
-    .catch((err) => next(err));
+    .catch((err) => next(err));*/
+
 });
 
 router.post("/", (req, res, next) => {
-  console.log('req.body :>> ', req.body);
-  //console.log(queryCreator(req.body));
-  if (req.body.isFiltering) {
+    if (req.body.isFiltering) {
     Recipe.find(queryCreator(req.body))
       .limit(12)
       .skip(req.body.skipResults)
