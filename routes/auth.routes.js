@@ -16,89 +16,14 @@ const User = require("../models/User.model");
 const {isLoggedIn, isLoggedOut} = require("../middleware/auth.middleware");
 const { collection } = require("../models/User.model");
 
-router.get("/signup", isLoggedOut, (req, res) => {
-  res.render("auth/signup");
-});
-
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
 
 
-// router.post("/signup", isLoggedOut, (req, res) => {
 
-//   const { username, email, password } = req.body;
-//   if (!username || !email || !password) {
-//     res.render('auth/signup', { errorMessage: 'All fields are mandatory. Please provide your username, email and password.' });
-//     return;
-//   }
-  
-//   if (!username) {
-//     return res
-//       .status(400)
-//       .render("auth/signup", { errorMessage: "Please provide your username." });
-//   }
-
-//   if (password.length < 8) {
-//     return res.status(400).render("auth/signup", {
-//       errorMessage: "Your password needs to be at least 8 characters long.",
-//     });
-//   }
-
-//   //   ! This use case is using a regular expression to control for special characters and min length
-  
-//   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-
-//   if (!regex.test(password)) {
-//     return res.status(400).render("auth/signup", {
-//       errorMessage:
-//         "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
-//     });
-//   }
-  
-
-//   // Search the database for a user with the username submitted in the form
-//   User.findOne({ username }).then((found) => {
-//     // If the user is found, send the message username is taken
-//     if (found) {
-//       return res
-//         .status(400)
-//         .render("auth/signup", { errorMessage: "Username already taken." });
-//     }
-
-//     // if user is not found, create a new user - start with hashing the password
-//     return bcrypt
-//       .genSalt(saltRounds)
-//       .then((salt) => bcrypt.hash(password, salt))
-//       .then((passwordHash) => {
-//         // Create a user and save it in the database
-//         return User.create({
-//           username,
-//           password: passwordHash,
-//         });
-//       })
-//       .then((user) => {
-//         // Bind the user to the session object
-//         req.session.user = user;
-//         res.redirect("/");
-//       })
-//       .catch((error) => {
-//         if (error instanceof mongoose.Error.ValidationError) {
-//           return res
-//             .status(400)
-//             .render("auth/signup", { errorMessage: error.message });
-//         }
-//         if (error.code === 11000) {
-//           return res.status(400).render("auth/signup", {
-//             errorMessage:
-//               "Username need to be unique. The username you chose is already in use.",
-//           });
-//         }
-//         return res
-//           .status(500)
-//           .render("auth/signup", { errorMessage: error.message });
-//       });
-//   });
-// });
+router.get("/signup", isLoggedOut, (req, res) => {
+  res.render("auth/signup");
+});
 
 router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
   const { username, email, password } = req.body;
@@ -148,34 +73,21 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
 
 });
 
-router.post("/create", fileUploader.single('profile-cover-image'), (req, res) => {
-  const username = req.session.user.username;
-  const { existingImage } = req.body;
- 
-  let imageUrl;
-  if (req.file) {
-    imageUrl = req.file.path;
-  } else {
-    imageUrl = existingImage;
-  }
-  User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
-  console.log('updated user :>> ', profilePicture)
-    .then((updatedUser) => {
-      console.log('updated user :>> ', updatedUser)
-      res.redirect(`/${username}`);
-    })
-    .catch(error => console.log(`Error while updating pic: ${error}`));
-});
-
-router.get("/login", isLoggedOut, (req, res, next) => {
+router.get("/login", (req, res) => {
   res.render("auth/login");
 });
-
 
 
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
+  if (email === "" || password === "") {
+    res.render("auth/login", {
+      errorMessage: "Please enter both, email and password to login."
+    });
+    return;
+  }
+  
   if (!username) {
     return res
       .status(400)
@@ -222,8 +134,22 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
+router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) => {
+  const username = req.session.user.username;
+  const { existingImage } = req.body;
+ 
+  let imageUrl;
+  if (req.file) {
+    imageUrl = req.file.path;
+  } else {
+    imageUrl = existingImage;
+  }
+  User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
 
+    .then(() => res.render('users/user-profile', { userInSession: req.session.user} ))
 
+    .catch(error => console.log(`Error while updating pic: ${error}`));
+});
 
 // router.get("/${username}", (req, res) => {
   router.get("/:username", (req, res) => {
@@ -234,7 +160,11 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       .catch(error => console.log(`Error while editing: ${error}`));
 });
 
-router.get("/logout", isLoggedIn, (req, res) => {
+router.get("/forgot-password", isLoggedOut, (req, res) => {
+  res.render("auth/forgot-password");
+});
+
+router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res
@@ -245,10 +175,11 @@ router.get("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-router.get("/forgot-password", isLoggedOut, (req, res) => {
-  res.render("auth/forgot-password");
-});
-
-
+// router.post('/logout', (req, res, next) => {
+//   req.session.destroy(err => {
+//     if (err) next(err);
+//     res.redirect('/');
+//   });
+// });
 
 module.exports = router;
