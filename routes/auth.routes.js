@@ -84,7 +84,7 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
 
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
 
@@ -131,7 +131,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
             .status(400)
             .render("auth/login", { errorMessage: "Wrong credentials." });
         }
-        req.session.user = user;
+        req.session.currentUser = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
         return res.redirect(`/${username}`);
       });
