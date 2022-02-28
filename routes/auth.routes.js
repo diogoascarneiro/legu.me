@@ -19,7 +19,18 @@ const { collection } = require("../models/User.model");
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
 
+router.get('/logout', (req, res) => {
+  if(req.session.user) {
+      delete req.session.user;
+      res.redirect('/login');
+  } else {
+      res.redirect('/');
+  }        
+});
 
+router.get("/about", (req, res) => {
+  res.render("./about");
+});
 
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
@@ -81,13 +92,13 @@ router.get("/login", (req, res) => {
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
-  if (email === "" || password === "") {
+  if (username === "" || password === "") {
     res.render("auth/login", {
       errorMessage: "Please enter both, email and password to login."
     });
     return;
   }
-  
+
   if (!username) {
     return res
       .status(400)
@@ -152,7 +163,7 @@ router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) =
 });
 
 // router.get("/${username}", (req, res) => {
-  router.get("/:username", (req, res) => {
+  router.get("/:username", isLoggedOut,(req, res) => {
     const { username } = req.params;
 
     User.findOne({username})
@@ -163,23 +174,5 @@ router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) =
 router.get("/forgot-password", isLoggedOut, (req, res) => {
   res.render("auth/forgot-password");
 });
-
-router.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res
-        .status(500)
-        .render("auth/logout", { errorMessage: err.message });
-    }
-    res.redirect("/");
-  });
-});
-
-// router.post('/logout', (req, res, next) => {
-//   req.session.destroy(err => {
-//     if (err) next(err);
-//     res.redirect('/');
-//   });
-// });
 
 module.exports = router;
