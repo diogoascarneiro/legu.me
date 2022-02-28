@@ -19,12 +19,17 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight:500;
   color: #95745B;
-  
- }
+}
 
  a {
   color: #95745B
 }
+
+/*
+.login-page, .signup-page {
+  background-color: white;
+}
+*/
 
 /* Button styles */
 
@@ -34,9 +39,10 @@ h1, h2, h3, h4, h5, h6 {
   color:white
 }
 
-.btn:hover, .btn.btn-secondary:hover {
+.btn:hover {
   color:white;
-  background-color: #7C955B
+  background-color: #7C955B;
+  border-color: #7C955B;
 }
 
 .btn.btn-secondary {
@@ -44,10 +50,20 @@ h1, h2, h3, h4, h5, h6 {
   background-color:#95745B
 }
 
+.btn.btn-secondary:hover {
+  color:white;
+  border-color: #7C955B;
+  background-color: #7C955B
+}
+
 .btn:focus, .form-control:focus, .form-select:focus {
   border-color:#95915B;
   box-shadow: 0 0 0 0.1rem #95915B;
   }
+
+.capitalize {
+  text-transform: capitalize;
+}
 
  /* Navbar styles */
  .navbar {
@@ -90,13 +106,23 @@ a.card-title {
   transition: all .4s ease;
 }
 
-/* Filter Styles */
+p.card-text {
+  font-size:14px;
+  margin-bottom:1%;
+}
+.source-btn {
+  margin-top:10%;
+  width:100%;
+  font-size:0.6rem;
+}
+
+/* Filter & sorting styles */
 
 .filter-container {
   background-color:#7C955B;
 }
 
-#filter-accordion, .recipe-cards-container {
+#filter-accordion, .recipe-cards-container, .sort-results-container {
   background-color:white
 }
 #filter-accordion-header button {
@@ -120,18 +146,16 @@ a.card-title {
   margin-right:2%
 }
 
-.btn.remove-diet-restriction {
+.btn.remove-diet-restriction, .btn.remove-dishType-restriction, .btn.remove-cuisineType-restriction, .btn.remove-mealType-restriction {
   height:30px;
   font-size:10px;
   margin-top: 10px;
   margin-right:10px
 }
 
-/* Recipe card styles */
-
-.source-btn {
-  width:100%;
-  font-size:0.6rem;
+#load-next-results, #load-previous-results {
+  width:45%;
+  font-size:13px;
 }
 
 /* Login page styles*/
@@ -154,18 +178,41 @@ a.card-title {
 }
 
 
+/* Recipe Single Page */
 
-/* organize these styles */
-.bg-image {
-  height: 500px; 
-  width: 600px; 
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-  background-repeat: no-repeat;
+.recipe-single-page {
+  background-color:#7C955B
 }
 
-.h-100{
-  display:block;
-  margin:0 auto;
+.recipe-single-page .col .col-inner-container {
+  background-color:white;
+  height:100%
+}
+
+.recipe-single-page .row {
+  --bs-gutter-x: 0;
+}
+
+.related-recipes-heading {
+  color:white
+}
+
+/* Footer styles */
+
+footer {
+  background-color:#7C955B;
+}
+footer p {
+  text-align:center;
+  color:white;
+  margin-bottom:0;
+  padding:1%
+}
+
+footer p a {
+  color:white;
+}
+
+footer p a:hover {
+  color:rgb(221, 221, 221);
 }

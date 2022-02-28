@@ -30,6 +30,7 @@ class ApiHandler {
     });
     this.appID = appID;
     this.appKey = appKey;
+    this.iteration = 1;
   }
 
   /* Methods go here */
@@ -76,8 +77,11 @@ class ApiHandler {
         }
       }
     }
-    console.log(apiQuery);
     return this.api.get(apiQuery);
+  }
+
+  importRecipesURL(url) {
+  return this.api.get(url);
   }
 
   // below is WIP. The goal is to import recipes en masse,
@@ -140,20 +144,41 @@ class ApiHandler {
   })
 }
  
-crawl() {
-    let nextBatch;
-    this.importRecipes("a")
+crawl(initialQuery = "seitan", nextBatch) {
+   if (initialQuery) {
+    this.importRecipes(initialQuery)
     .then((recipes) => {
           this.parseAndCreate(recipes.data.hits);
+          console.log(recipes.data);
           nextBatch = recipes.data._links.next.href;
+          this.crawl(false, nextBatch);
     })
-    .catch((err) => next(err));
-    
-    
-  }
+    .catch((err) => console.log(err));
+   }  
+  
+    if (nextBatch) {
+      setTimeout(() => {this.importRecipesURL(nextBatch)
+        .then(recipes => {
+          this.parseAndCreate(recipes.data.hits);
+          if ('next' in recipes.data._links) {
+            nextBatch = recipes.data._links.next.href;
+          } else {
+            nextBatch = false;
+          }
+          this.crawl(false, nextBatch)
+        })
+         this.iteration++; }, 10000);
+          
+    }
 
+   console.log("Crawled this many pages :>>", this.iteration);
+   if (!initialQuery && !nextBatch) {
+     console.log("Crawling (...in my skin, these wounds they will not heal) complete");
+     return
+   }
+  
   
 }
 
-
+}
 module.exports = ApiHandler;

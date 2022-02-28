@@ -1,95 +1,106 @@
-<div class="container py-4">
-      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-      </a>
-    <div class="p-5 mb-4 h-500 w-200 bg-white rounded-3">
-        <div class="container-fluid py-5">
-            <div class="card w-600">
-                <div class="card-body">
-                    <div class="d-flex ">       
-                        <div class="bg-image d-flex justify-content-center align-items-center" style="background:url({{recipe.images.LARGE.url}});" > 
-                            <h5 class="mb-3 h2 text-white">{{recipe.label}}</h5>
-                            <p class="align-text-bottom text-white">Mark as favourite<a href="#makefavourite" class="btn btn-lg" id="favouriteButton">♡</a></p>                        </div>
-                    </div> 
-                </div>
-             </div>
-        </div>
-    </div>
-     <div class="row align-items-md-stretch">
-      <div class="col-md-6">
-        <div class="h-100 p-5 text-black border rounded-3">
-          <div class="accordion" id="list">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="heading-1">
-                    <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#ingredients" aria-expanded="true" aria-controls="ingredients">Ingredients</button>
-                </h2>
-                <div id="ingredients" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#list">
-                    <div class="accordion-body">
-                        <ul>
-                          {{#each recipe.ingredientLines}}
-                            <li>{{this}} </li>
-                          {{/each}}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="h-100 p-5 bg-white border rounded-3">
-          <h5>Preparation</h5><Sbr> <br> <br><br>
-            <button type="button" class="btn btn-light" a href="#">Instructions</button> <span>Originally posted on <a href="#">Link</span>
-        </div>
-      </div>
- </div>
-      
-      <br>
-      <div class="row align-items-md-stretch">
-      <div class="col-md-12">
-        <div class="h-100 p-5 text-black bg-white border rounded-3">
-          <div class="accordion" id="nutrition-list">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="nutri">
-                    <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#nutrients" aria-expanded="false" aria-controls="nutrients">Nutrition</button>
-                </h2>
-                <div id="nutrients" class="accordion-collapse" aria-labelledby="nutri" data-bs-parent="#nutrition-list">
-                    <div class="accordion-body">
-                        {{#each recipe}}
-                            {{totalNutrients}}
-                          {{/each}}
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-      </div>
-    </div>
+<div class="container-fluid recipe-single-page p-0">
+
+  <div class="row">
+    <div
+      class="d-flex flex-column justify-content-center align-items-center"
+      style="background:linear-gradient(0deg, rgba(17, 17, 17, 0.3), rgba(199, 199, 199, 0.3)), url({{recipe.images.LARGE.url}}); background-attachment: fixed;  background-position: center;  background-repeat: no-repeat;  background-size: cover;  height:70vh;"
+    >
+      <h1 class="mb-3 text-white">{{recipe.label}}</h1>
     </div>
 
-    <br>
-
+    <div class="row p-0 mt-1">
+      <div class="col border border-1 rounded p-3 mx-3 mt-3" style="background-color:white">
+        <a class="btn" href="/">← Return to recipe list</a>
+        <button id="markFavourite" class="btn">♡ Mark this recipe as favourite</button>
+        <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share this recipe on Facebook</a>
+      </div>
     </div>
+    <div class="row p-0 my-2">
+      <div class="col col-xs-12 col-lg-6 p-0">
+        <div class="col-inner-container border border-1 rounded p-3 mx-3 me-2 my-2">
+          <h3>Ingredients</h3>
+          <div class="d-flex flex-wrap border border-1 p-3 mb-2">
+          <ul>
+            {{#each recipe.ingredientLines}}
+              <li>{{this}} </li>
+            {{/each}}
+          </ul>
+          </div>
+          <h3>Preparation</h3>
+          <button type="button" class="btn" a href="#">Read recipe instructions on {{recipe.source}}</button>
+         
+         </div>
+          
+      </div>
     
+    <div class="col col-xs-12 col-lg-6 p-0">
+      <div class="col-inner-container border border-1 rounded p-3 mx-3 ms-2 my-2">
+        <h3>Recipe Info</h3>
+        <div id="recipe-info-list" class="d-flex flex-wrap border border-1 p-3 mb-2">
+          <p class="w-50"><b>Calories:</b><span class="capitalize"> {{recipe.calories}}</span></p>
+          <p class="w-50"><b>Yields:</b> <span class="capitalize">{{recipe.yield}} servings</span></p>
+          <p class="w-50"><b>Type of dish:</b> <span class="capitalize">{{recipe.dishTypeString}}</span></p>
+          <p class="w-50"><b>Type of meal:</b> <span class="capitalize">{{recipe.mealTypeString}}</span></p>
+          <p class="w-50"><b>Type of cuisine:</b> <span class="capitalize">{{recipe.cuisineTypeString}}</span></p>
+        </div>
+        <div class="accordion" id="nutrient-info">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="nutrient-info-header">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#nutrient-info-body"
+                aria-expanded="true"
+                aria-controls="nutrient-info-body"
+              >
+                Nutrient Info
+              </button>
+            </h2>
+            <div id="nutrient-info-body" class="accordion-collapse collapse" aria-labelledby="nutrient-info-header" data-bs-parent="#nutrient-info">
+              <div class="accordion-body d-flex flex-wrap">
+                {{#each recipe.totalNutrients}}
+                  <p class="w-50"><b>{{this.label}}: </b>{{this.quantity}} {{this.unit}}</p>
+                {{/each}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="row p-0 mt-2">
+      <div class="col m-2">
+        <h3 class="text-center related-recipes-heading"> Other recipes you might also like: </h3>
+        <div class="recipe-cards-container border border-3 border-white rounded d-flex justify-content-around p-3">
+          <div class="card" style="width: 23%;">
+            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
+            </div>
+          </div>
+          <div class="card" style="width: 23%;">
+            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
+            </div>
+          </div>
+          <div class="card" style="width: 23%;">
+            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
+            </div>
+          </div>
+          <div class="card" style="width: 23%;">
+            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-<h3 class="text-center"> Other recipes you may also like: </h3>
-      <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-center mb-3";>   
-  <div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="{{recipe.images.LARGE.url}}"  alt="Card image cap"> 
-    <div class="card-body">
-      <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-    </div>
-  </div>
-<div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="{{recipe.images.LARGE.url}}"  alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-    </div>
-  </div>
-<div class="card" style="width: 20rem;">
-    <img class="card-img-top" src="{{recipe.images.LARGE.url}}"  alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-    </div>
-  </div>
 </div>
