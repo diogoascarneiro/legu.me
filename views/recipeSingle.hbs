@@ -9,10 +9,10 @@
     </div>
 
     <div class="row p-0 mt-1">
-      <div class="col border border-1 rounded p-3 mx-3 mt-3" style="background-color:white">
-        <a class="btn" href="/">← Return to recipe list</a>
+      <div class="col border border-1 rounded p-2 mx-3 mt-3 d-flex flex-nowrap funcBar" style="background-color:white">
+        <a class="btn me-2" href="/">← Return to recipe list</a>
         <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share this recipe on Facebook</a>
-        <button id="markFavourite" class="btn notFavRecipe" style="float:right">♡ Mark this recipe as favourite</button>
+        <form action="?" method="POST" id="fav-recipe-form" class="flex-grow-1"><button type="submit" id="markFavourite" class="btn notFavRecipe" style="float:right">♡ Mark this recipe as favourite</button></form>
       </div>
     </div>
     <div class="row p-0 my-2">
@@ -72,34 +72,13 @@
     </div>
   </div>
 
-<div class="row p-0 mt-2">
-      <div class="col m-2">
-        <h3 class="text-center related-recipes-heading"> Other recipes you might also like: </h3>
-        <div class="recipe-cards-container border border-3 border-white rounded d-flex justify-content-around p-3">
-          <div class="card" style="width: 23%;">
-            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-            </div>
-          </div>
-          <div class="card" style="width: 23%;">
-            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-            </div>
-          </div>
-          <div class="card" style="width: 23%;">
-            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-            </div>
-          </div>
-          <div class="card" style="width: 23%;">
-            <img class="card-img-top" src="{{recipe.images.LARGE.url}}" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title justify-content-center">{{recipe.label}}</h5>
-            </div>
-          </div>
+<div class="row p-3 mt-3" style="background-color:#95915B">
+      <div class="col">
+        <h4 class="text-center related-recipes-heading mb-3"> Other recipes you might also like: </h4>
+        <div class="recipe-cards-container border border-3 border-white rounded d-flex justify-content-around p-3 mb-3">
+          {{#each randomRecipes}}
+          {{> recipeCard this}} 
+          {{/each}}
         </div>
       </div>
     </div>

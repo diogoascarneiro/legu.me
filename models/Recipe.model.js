@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongooseRandom = require("mongoose-simple-random");
 
 const recipeSchema = new Schema (
     {
@@ -88,7 +89,7 @@ const recipeSchema = new Schema (
 
 )
 
-
+recipeSchema.plugin(mongooseRandom);
 const Recipe = model("Recipe", recipeSchema);
 
 module.exports = Recipe;
