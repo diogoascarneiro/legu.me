@@ -44,8 +44,7 @@ function queryCreator(filterData) {
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
- //recipeAPI.crawl("side dish");
-//recipeAPI.crawl("candy");
+// recipeAPI.crawl("candy");
     Recipe.find()
     .limit(12)
     .then((foundRecipes) => {

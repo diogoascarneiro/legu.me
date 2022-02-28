@@ -11,8 +11,8 @@
     <div class="row p-0 mt-1">
       <div class="col border border-1 rounded p-3 mx-3 mt-3" style="background-color:white">
         <a class="btn" href="/">← Return to recipe list</a>
-        <button id="markFavourite" class="btn">♡ Mark this recipe as favourite</button>
         <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share this recipe on Facebook</a>
+        <button id="markFavourite" class="btn notFavRecipe" style="float:right">♡ Mark this recipe as favourite</button>
       </div>
     </div>
     <div class="row p-0 my-2">
@@ -42,6 +42,7 @@
           <p class="w-50"><b>Type of dish:</b> <span class="capitalize">{{recipe.dishTypeString}}</span></p>
           <p class="w-50"><b>Type of meal:</b> <span class="capitalize">{{recipe.mealTypeString}}</span></p>
           <p class="w-50"><b>Type of cuisine:</b> <span class="capitalize">{{recipe.cuisineTypeString}}</span></p>
+          <p class="w-100"><b>Health labels:</b> <span class="capitalize">{{recipe.healthLabelsString}}</span></p>
         </div>
         <div class="accordion" id="nutrient-info">
           <div class="accordion-item">

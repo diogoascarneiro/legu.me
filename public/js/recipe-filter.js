@@ -7,6 +7,7 @@ $(document).ready(function () {
     - need to import stuff for the "sweets" and "side dish" categories
     - Need to add the remaining filter fields;
     - Figure out how import works (or doesn't, in this case). Attempts commented above and below.
+    - We only need this file on the homepage, so figure out how to include it besides on layout.hbs
 */
 
   

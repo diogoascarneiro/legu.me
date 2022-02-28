@@ -197,6 +197,32 @@ p.card-text {
   color:white
 }
 
+.notFavRecipe {
+ background-color:white;
+ border:2px solid #95745B;
+ color:black;
+}
+
+.notFavRecipe:hover {
+  background-color: #95745B;
+  border-color: #95745B;
+  color:white
+}
+
+.isFavRecipe {
+  background-color: #95745B;
+  border-color: #95745B;
+  color:white
+}
+
+.isFavRecipe:hover {
+  background-color: #95745B;
+  color:black;
+} 
+
+.notFavRecipe:focus, .isFavRecipe:focus {
+  box-shadow:none;
+}
 /* Footer styles */
 
 footer {
