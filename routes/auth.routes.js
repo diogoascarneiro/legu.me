@@ -23,11 +23,11 @@ router.get("/about", (req, res) => {
   res.render("./about");
 });
 
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
-router.post('/signup', fileUploader.single('profile-cover-image'), (req, res, next) => {
+router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
   const { username, email, password } = req.body;
  
   let profilePicture;
