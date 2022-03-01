@@ -135,7 +135,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
-
 router.get('/logout', (req, res) => {
   if(req.session.currentUser) {
       delete req.session.currentUser;
@@ -155,7 +154,7 @@ router.get('/logout', (req, res) => {
       .catch(error => console.log(`Error while editing: ${error}`));
 });
 
-router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) => {
+router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
   const username = req.session.currentUser;
   const { existingImage } = req.body;
  

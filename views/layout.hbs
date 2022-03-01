@@ -27,19 +27,28 @@
           <a class="nav-link" href="/about">About</a>
         </li>
         
+        {{#if userIsConnected}}
+
         <li class="nav-item">
           <a class="nav-link" href="/profile">Your Profile</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Log In</a>
-        </li>
         <form id="logout-form" action="/logout" method="POST">
-    <a class="nav-link" href="/logout">Log Out</a>
-  </form>
+        <a class="nav-link" href="/logout">Log Out</a>
+        </form>
+
+        {{else}}
+
         <li class="nav-item">
-          <a class="nav-link" href="/signup">Sign Up</a>
+          <a class="nav-link loginn" href="/login" id="loginButton">Log In</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup" id="signUpButton">Sign Up</a>
+        </li>
+
+        {{/if}}
+
       </ul>
+
          </div>
   </div>
 
