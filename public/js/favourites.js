@@ -17,17 +17,17 @@ $(document).ready(function () {
             isFavourite = false;
         }
 
-        $.ajax({
-            url: currentPath,
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-                isFavourite
-            }),
-            success: (response) => {
-              console.log("Ya did it")
-            },
-          });
+        // $.ajax({
+        //     url: currentPath,
+        //     method: "POST",
+        //     contentType: "application/json",
+        //     data: JSON.stringify({
+        //         isFavourite
+        //     }),
+        //     success: (response) => {
+        //       console.log("Ya did it")
+        //     },
+        //   });
     });
 
     
