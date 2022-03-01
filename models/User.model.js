@@ -25,7 +25,7 @@ const userSchema = new Schema(
       type: String,
       default: "/public/images/profic.png"
     },
-    favouriteRecipes:{type: Schema.Types.ObjectId, ref: "Recipe"}
+    favouriteRecipes:[{type: Schema.Types.ObjectId, ref: "Recipe"}]
   },
   {
     timestamps: true

@@ -23,11 +23,11 @@ router.get("/about", (req, res) => {
   res.render("./about");
 });
 
-router.get("/signup", (req, res) => {
+router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
-router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
+router.post('/signup', fileUploader.single('profile-cover-image'), (req, res, next) => {
   const { username, email, password } = req.body;
  
   let profilePicture;
@@ -75,11 +75,11 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
 
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
 
-router.post("/login", isLoggedOut, (req, res, next) => {
+router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
 
   if (username === "" || password === "") {
@@ -145,7 +145,6 @@ router.get('/logout', (req, res) => {
 });
 
 
-// router.get("/${username}", (req, res) => {
   router.get("/:username",(req, res) => {
     const { username } = req.params;
 
