@@ -17,6 +17,8 @@ $(document).ready(function () {
   const loadMoreBtn = $("#load-next-results");
   const loadPrevBtn = $("#load-previous-results");
 
+  const searchInput = $("#filter-search-input");
+
   const dietRestrictionsSelect = $("#dietary-restrictions-select");
   const dietRestrictionsFilterListElem = $("#dietary-restrictions-filter-list");
 
@@ -38,7 +40,7 @@ $(document).ready(function () {
   let skipResults = 0;
 
   function checkIfFiltering() {
-    if (dietRestrictionsListArr.length > 0 || cuisineTypeArr.length > 0 || dishTypeArr.length > 0 || mealTypeArr.length > 0) {
+    if (dietRestrictionsListArr.length > 0 || cuisineTypeArr.length > 0 || dishTypeArr.length > 0 || mealTypeArr.length > 0 || searchInput.val() != "") {
       isFiltering = true;
     } else {
       isFiltering = false;
@@ -169,6 +171,7 @@ function cleanRecipeInfo(dbQueryResponse) {
       contentType: "application/json",
       data: JSON.stringify({
         isFiltering,
+        search: searchInput.val(),
         healthLabels: {
           $all: dietRestrictionsListArr,
         },
