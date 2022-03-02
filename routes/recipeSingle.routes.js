@@ -47,14 +47,19 @@ router.post("/recipes/:label", isLoggedIn, (req, res, next) => {
       //console.log(theRecipe._id);
       User.findById(req.session.currentUser._id).then((user) => {
         if (user.favouriteRecipes.indexOf(theRecipe._id) === -1) {
-          User.updateOne({ _id: req.session.currentUser._id }, { $push: { favouriteRecipes: theRecipe._id } });
+          User.updateOne({ _id: req.session.currentUser._id }, { $push: { favouriteRecipes: theRecipe._id } }, {new:true})
+          .then(()=> console.log("added fav recipe"))
+          .catch(err => next(err));
         } else {
-          User.updateOne({ _id: req.session.currentUser._id }, { $pull: { favouriteRecipes: theRecipe._id } });
+          User.updateOne({ _id: req.session.currentUser._id }, { $pull: { favouriteRecipes: theRecipe._id } }, {new:true})
+          .then(()=> console.log("removed fav recipe"))
+          .catch(err => next(err));
         }
         console.log('req.session.currentUser._id :>> ', req.session.currentUser);
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => next(err));
+
 });
 
 module.exports = router;

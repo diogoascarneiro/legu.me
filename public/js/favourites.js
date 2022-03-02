@@ -16,21 +16,19 @@ $(document).ready(function () {
             favButton.text("♡ Mark this recipe as favourite");
             isFavourite = false;
         }
-
+        
         // $.ajax({
-        //     url: currentPath,
-        //     method: "POST",
-        //     contentType: "application/json",
-        //     data: JSON.stringify({
-        //         isFavourite
-        //     }),
-        //     success: (response) => {
-        //       console.log("Ya did it")
-        //     },
-        //   });
-    });
-
-    
+        //      url: currentPath,
+        //      method: "POST",
+        //      contentType: "application/json",
+        //      data: JSON.stringify({
+        //          isFavourite
+        //      }),
+        //      success: (response) => {
+        //        console.log("Ya did it")
+        //      },
+        //    });
+    });    
 
 });
 
