@@ -95,6 +95,27 @@ function cleanRecipeInfo(dbQueryResponse) {
     }
   }
 
+  // this creates the data object sent to the back end for querying
+
+  function queryDataObj() {
+    return JSON.stringify({
+      skipResults,
+      isFiltering,
+      search: searchInput.val(),
+      healthLabels: {
+        $all: dietRestrictionsListArr,
+      },
+      dishType: {
+        $in: dishTypeArr,
+      },
+      cuisineType: {
+        $in: cuisineTypeArr,
+      },
+      mealType: {
+        $in: mealTypeArr,
+      },
+    })
+  }
   // See if the specific item is already in the array - if not, push it there, then add a new div with the name of the item and option to remove it
 
   dietRestrictionsSelect.change(() => {
@@ -116,7 +137,6 @@ function cleanRecipeInfo(dbQueryResponse) {
   dishTypeSelect.change(() => {
     if (dishTypeArr.indexOf(dishTypeSelect.val()) === -1) {
       dishTypeArr.push(dishTypeSelect.val());
-      console.log("dishTypeArray :>> ", dishTypeArr);
       dishTypeSelectFilterListElem.append(
         `<div class="${dishTypeSelect.val()} btn remove-dishType-restriction"> X | ${dishTypeSelect.children("option:selected").text()}</div>`
       );
@@ -132,7 +152,6 @@ function cleanRecipeInfo(dbQueryResponse) {
   cuisineTypeSelect.change(() => {
     if (cuisineTypeArr.indexOf(cuisineTypeSelect.val()) === -1) {
       cuisineTypeArr.push(cuisineTypeSelect.val());
-      console.log("dishTypeArray :>> ", cuisineTypeArr);
       cuisineTypeSelectFilterListElem.append(
         `<div class="${cuisineTypeSelect.val()} btn remove-cuisineType-restriction"> X | ${cuisineTypeSelect.children("option:selected").text()}</div>`
       );
@@ -148,7 +167,6 @@ function cleanRecipeInfo(dbQueryResponse) {
   mealTypeSelect.change(() => {
     if (mealTypeArr.indexOf(mealTypeSelect.val()) === -1) {
       mealTypeArr.push(mealTypeSelect.val());
-      console.log("dishTypeArray :>> ", mealTypeArr);
       mealTypeSelectFilterListElem.append(
         `<div class="${mealTypeSelect.val()} btn remove-cuisineType-restriction"> X | ${mealTypeSelect.children("option:selected").text()}</div>`
       );
@@ -169,22 +187,7 @@ function cleanRecipeInfo(dbQueryResponse) {
       url: "/",
       method: "POST",
       contentType: "application/json",
-      data: JSON.stringify({
-        isFiltering,
-        search: searchInput.val(),
-        healthLabels: {
-          $all: dietRestrictionsListArr,
-        },
-        dishType: {
-          $in: dishTypeArr,
-        },
-        cuisineType: {
-          $in: cuisineTypeArr,
-        },
-        mealType: {
-          $in: mealTypeArr,
-        },
-      }),
+      data: queryDataObj(),
       success: (response) => {
         recipeCardsContainer.children().remove();
         if (response.length === 0) {
@@ -205,22 +208,7 @@ function cleanRecipeInfo(dbQueryResponse) {
       url: "/",
       method: "POST",
       contentType: "application/json",
-      data: JSON.stringify({
-        skipResults,
-        isFiltering,
-        healthLabels: {
-          $all: dietRestrictionsListArr,
-        },
-        dishType: {
-          $in: dishTypeArr,
-        },
-        cuisineType: {
-          $in: cuisineTypeArr,
-        },
-        mealType: {
-          $in: mealTypeArr,
-        },
-      }),
+      data: queryDataObj(),
       success: (response) => {
         recipeCardsContainer.children().remove();
         if (response.length === 0) {
@@ -239,7 +227,7 @@ function cleanRecipeInfo(dbQueryResponse) {
 
   loadPrevBtn.on("click", () => {
     skipResults -= 12;
-    if (skipResults > 0) {skipResults = 0};
+    if (skipResults < 0) {skipResults = 0};
     recipeListNavigation();
   });
   
