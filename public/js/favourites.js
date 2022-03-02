@@ -9,11 +9,11 @@ $(document).ready(function () {
         favButton.toggleClass("notFavRecipe").toggleClass("isFavRecipe");
 
         if (favButton.hasClass("isFavRecipe")) {
-            favButton.text("♥ Favourite Recipe");
+            favButton.text("♥ Favourite");
             isFavourite = true;
         }
         if (favButton.hasClass("notFavRecipe")) {
-            favButton.text("♡ Mark this recipe as favourite");
+            favButton.text("♡ Mark as favourite");
             isFavourite = false;
         }
         
