@@ -23,11 +23,11 @@ router.get("/about", (req, res) => {
   res.render("./about");
 });
 
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
-router.post('/signup', fileUploader.single('profile-cover-image'), (req, res, next) => {
+router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
   const { username, email, password } = req.body;
  
   let profilePicture;
@@ -135,7 +135,6 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-
 router.get('/logout', (req, res) => {
   if(req.session.currentUser) {
       delete req.session.currentUser;
@@ -154,7 +153,7 @@ router.get('/logout', (req, res) => {
       .catch(error => console.log(`Error while editing: ${error}`));
 });
 
-router.post("/profile", fileUploader.single('profile-cover-image'), (req, res) => {
+router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
   const username = req.session.currentUser;
   const { existingImage } = req.body;
  
