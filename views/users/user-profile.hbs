@@ -1,31 +1,66 @@
 {{#if userInSession}}
-
-  <h2>Welcome, {{ userInSession.username }}!</h2>
+{{!-- 
+  
   <p>This is your profile page my friend! And your email is: {{ userInSession.email }}</p>
 
 <form action="/profile" method="post" enctype="multipart/form-data"> 
 
-<img src={{userInSession.profilePicture}} name="existingImage" class="img-thumbnail rounded">
+<img src={{userInSession.profilePicture}} name="existingImage" class=class="rounded-circle mt-5" width="300px" src="{{userInSession.profilePicture}}">
 <input type="file" name="profile-cover-image" />
 <button type="submit" class="btn btn-primary text-left">Edit profile pic</button>
-<p>Name:</p> 
-</form>
+</form> --}}
 
 
-{{!-- <div class="container-fluid recipe-single-page p-0">
-  <div class="row">
-    <div
-      class="d-flex flex-column cover align-items-centerimg-thumbnail rounded"
-      style="background:linear-gradient(0deg, rgba(17, 17, 17, 0.3), rgba(199, 199, 199, 0.3)), url({{userInSession.profilePicture}}); 
-        background-position: center;  background-repeat: no-repeat;  background-size: 20rem; height:40vh;>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+          <form action="/profile" method="post" enctype="multipart/form-data">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" name="existingImage" width="300px" src="{{userInSession.profilePicture}}"><span> </span></div>
+            <input type="file" name="profile-cover-image" />
+            <button type="submit" class="btn btn-primary text-left">Edit profile pic</button>
+            </form>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Information</h4>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Your name" value="">{{userInSession.name}}</div>
+                    <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder={{userInSession.username}} value=""></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder={{userInSession.email}} value=""></div>
+                    <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Allergies</legend>
+                    <form method="POST" action="send">
+                            <div>
+                                <input type="checkbox" name="allergies" value="red">Dairy
+                                <br>
+                                <input type="checkbox" name="allergies" value="blue">Eggs
+                                <br>
+                                <input type="checkbox" name="allergies" value="Green">Sesame
+                                <br>
+                                <input type="checkbox" name="allergies" value="black">Peanut
+                                <br>
+                                <input type="checkbox" name="allergies" value="benz">Tree-nut
+                                <br>
+                                <input type="checkbox" name="allergies" value="BMW">Celery
+                            </div>
+                            </form>
+                          </fieldset>
+                    </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+            </div>
+        </div>
     </div>
-    </div>
-  <div class="d-flex flex-column cover align-items-center">
-      <input type="file" name="profile-cover-image" />
-<button type="submit" class="btn">Edit profile pic</button>
-</div> --}}
+</div>
+</div>
+</div>
+
 
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}
 </div>
+
+
+

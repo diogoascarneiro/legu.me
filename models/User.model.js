@@ -3,6 +3,9 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+    },
     username: {
       type: String,
       trim: true,
@@ -23,7 +26,7 @@ const userSchema = new Schema(
     },
     profilePicture: {
       type: String,
-      default: "/public/images/profic.png"
+      default: "/images/profic.png"
     },
     favouriteRecipes:[{type: Schema.Types.ObjectId, ref: "Recipe"}]
   },

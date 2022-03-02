@@ -31,12 +31,15 @@ router.get("/signup", isLoggedOut, (req, res) => {
 });
 
 router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
-  const { username, email, password} = req.body;
- 
+  const { username, email, password, existingImage } = req.body;
+
   let profilePicture;
-  if (req.file) {
-    profilePicture = req.file.path;
-  }
+    if (req.file) {
+      profilePicture = req.file.path;
+    } else {
+      profilePicture = existingImage;
+    }
+
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
     res
@@ -161,9 +164,10 @@ router.get('/logout', (req, res) => {
 });
 
 router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
-  const username = req.session.currentUser;
+  const { username } = req.session.currentUser;
   const { existingImage } = req.body;
- 
+  const { name } = req.body;
+
   let imageUrl;
   if (req.file) {
     imageUrl = req.file.path;
@@ -171,14 +175,11 @@ router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), 
     imageUrl = existingImage;
   }
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
-
+  User.findOneAndUpdate({username}, { name }, { new: true })
+  
     .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
-
-
-
-
 
 
 module.exports = router;
