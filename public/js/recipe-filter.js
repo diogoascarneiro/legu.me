@@ -62,7 +62,7 @@ function cleanRecipeInfo(dbQueryResponse) {
       cleanRecipeInfo(response);
     response.forEach((recipe) => {
         recipeCardsContainer.append(`
-    <div class="card m-1" style="width:24%">
+    <div class="card recipe-card m-1">
     <a href="/recipes/${recipe.label}"><img class="card-img-top" src="${recipe.images.LARGE.url}" alt="${recipe.label}"></a> 
      <div class="card-body p-3 d-flex flex-column justify-content-around">
        <a class="card-title" href="/recipes/${recipe.label}"><h6>${recipe.label}</h6></a> 
