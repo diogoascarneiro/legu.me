@@ -12,7 +12,9 @@
       <div class="col border border-1 rounded p-2 mx-3 mt-3 d-flex flex-nowrap funcBar" style="background-color:white">
         <a class="btn me-2" href="/">← Return to recipe list</a>
         <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share this recipe on Facebook</a>
-        <form action="?" method="POST" id="fav-recipe-form" class="flex-grow-1"><button type="submit" id="markFavourite" class="btn notFavRecipe" style="float:right">♡ Mark this recipe as favourite</button></form>
+        <form action="" method="POST" id="fav-recipe-form" class="flex-grow-1">
+          <button type="submit" id="markFavourite" class="btn {{#if isFavourite}} isFavRecipe {{else}} notFavRecipe {{/if}}" style="float:right">{{#if isFavourite}} ♥ Favourite Recipe {{else}} ♡ Mark this recipe as favourite {{/if}}</button>
+          </form>
       </div>
     </div>
     <div class="row p-0 my-2">
@@ -22,7 +24,7 @@
           <div class="d-flex flex-wrap border border-1 p-3 mb-2">
           <ul>
             {{#each recipe.ingredientLines}}
-              <li>{{this}} </li>
+              <li>{{this}}</li>
             {{/each}}
           </ul>
           </div>

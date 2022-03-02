@@ -23,12 +23,15 @@ router.get("/about", (req, res) => {
   res.render("./about");
 });
 
+
+
+
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
-router.post('/signup', fileUploader.single('profile-cover-image'), (req, res, next) => {
-  const { username, email, password } = req.body;
+router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), (req, res, next) => {
+  const { username, email, password} = req.body;
  
   let profilePicture;
   if (req.file) {
@@ -58,7 +61,7 @@ router.post('/signup', fileUploader.single('profile-cover-image'), (req, res, ne
       });
     })
     .then(userFromDB => {
-      req.session.user = userFromDB;
+      req.session.currentUser = userFromDB;
       res.redirect(`/${username}`);
     })
     .catch(error => {
@@ -79,7 +82,7 @@ router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
   if (username === "" || password === "") {
@@ -135,6 +138,10 @@ router.post("/login", (req, res, next) => {
     });
 });
 
+router.get("/forgot-password", isLoggedOut, (req, res) => {
+  res.render("auth/forgot-password");
+});
+
 router.get('/logout', (req, res) => {
   if(req.session.currentUser) {
       delete req.session.currentUser;
@@ -166,15 +173,12 @@ router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), 
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
 
     .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
-
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
 
 
 
-router.get("/forgot-password", isLoggedOut, (req, res) => {
-  res.render("auth/forgot-password");
-});
+
 
 
 module.exports = router;
