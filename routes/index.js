@@ -12,8 +12,7 @@ const recipeAPI = new ApiHandler(
 
 const {cleanRecipeListInfo} = require("../utils/recipe-data-cleaner");
 
-/* This builds a MongoDB query from the filter values sent by recipe-filter.js
-query format example: { healthLabels: {$all: dietRestrictions}} - It's going to be longer soon!*/
+/* This builds a MongoDB query from the filter values sent by recipe-filter.js */
 
 function queryCreator(filterData) {
   let theQuery = {};  

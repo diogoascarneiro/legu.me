@@ -84,6 +84,7 @@ a.card-title {
   animation-duration:0.5s;
   animation-name: fadeIn;
   width:24%;
+  flex-grow:1;
 }
 
 @keyframes fadeIn {
@@ -192,6 +193,9 @@ p.card-text {
   height:100%
 }
 
+.recipe-single-hero-img {
+  height:70vh;
+}
 .recipe-single-page .row {
   --bs-gutter-x: 0;
 }
@@ -267,22 +271,15 @@ footer p a:hover {
 }
 
 /* MOBILE STYLES
-   Following Bootstrap's dimensions for coherence, but only sm (576px), md (768px) and xl (1200px) for simplicity
+   Following Bootstrap's dimensions for coherence, especially sm (576px), lg (992px), and xl (1200px) for simplicity
    Also following Bootstrap's guidelines is subtracting 0.02px from the dimensions for greater compatibility
 */
 
-/* Phone styles - sm */
-
-@media (max-width: 575.98px) {
+/* Tablet and under styles */
+@media (max-width: 991.98px) {
 
   /* General styles */
   
-  /*
-  .navbar-dark .navbar-toggler {
-    color: rgba(255,255,255);
-    border-color: rgba(255,255,255);
-}
-*/
   
   /*Homepage styles */
 
@@ -291,10 +288,64 @@ footer p a:hover {
     padding-bottom: 3%;
   }
 
+  /* .recipe-cards-container {
+    justify-content:space-around !important;
+  } */
+
+  .recipe-card {
+    width:30%;
+    margin-bottom:5% !important
+  }
+  
+}
+
+/* Phone styles - sm */
+
+@media (max-width: 575.98px) {
+
+  /* General styles */
+  
+   /*
+  .navbar-dark .navbar-toggler {
+    color: rgba(255,255,255);
+    border-color: rgba(255,255,255);
+}
+*/
+
+  /* Homepage styles */
+
   .recipe-card {
     width:100%;
     margin-bottom:5% !important
   }
 
+  /* Recipe single styles */
+
+  .recipe-single-hero-img {
+    height:50vh;
+  }
+
+  .recipe-single-page .col .col-inner-container {
+    margin: 5% !important;
+}
+
+  .col.col-xs-12.col-lg-6.p-0 {
+  margin-bottom: 5%;
+  }
+
+  .recipe-cards-container {
+    display:block !important;
+  }
   
+  p.w-50 {
+    width:100% !important;
+  }
+
+  .funcBar {
+    flex-direction: column;
+  }
+  .funcBar .btn {
+    width:100%;
+    margin:1% 0 !important;
+  }
 }

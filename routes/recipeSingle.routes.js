@@ -9,6 +9,7 @@ router.get("/recipes/:label", (req, res, next) => {
   const { label } = req.params;
   let isFavourite;
 
+  if ("currentUser._id" in req.session) {
    Recipe.findOne({ label: label })
     .then((theRecipe) => {
       User.findById(req.session.currentUser._id)
@@ -16,7 +17,6 @@ router.get("/recipes/:label", (req, res, next) => {
         if (user.favouriteRecipes.indexOf(theRecipe._id) === -1) {
           isFavourite = false;
         } else {isFavourite = true}
-       console.log(isFavourite, "user.favouriteRecipes ", user.favouriteRecipes, "theRecipe._id ", theRecipe._id);
       })
       .then(() => {
         cleanRecipeObjInfo(theRecipe);
@@ -32,9 +32,26 @@ router.get("/recipes/:label", (req, res, next) => {
           }
         });
       })
-      
     })
     .catch((error) => console.log(error));
+  } else {
+    Recipe.findOne({ label: label })
+    .then((theRecipe) => {
+      cleanRecipeObjInfo(theRecipe);
+      // Get four random recipes of the same type for the "related recipes" bit
+      Recipe.findRandom({ dishType: theRecipe.dishType }, {}, { limit: 4 }, function (err, randomResults) {
+        if (!err) {
+          cleanRecipeListInfo(randomResults);
+          res.render("recipeSingle", {
+            recipe: theRecipe,
+            randomRecipes: randomResults,
+          });
+        }
+      });      
+    })
+    .catch((error) => console.log(error));
+  }
+
 });
 
 router.post("/recipes/:label", isLoggedIn, (req, res, next) => {

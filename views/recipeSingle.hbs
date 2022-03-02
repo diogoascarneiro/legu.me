@@ -2,18 +2,18 @@
 
   <div class="row">
     <div
-      class="d-flex flex-column justify-content-center align-items-center"
-      style="background:linear-gradient(0deg, rgba(17, 17, 17, 0.3), rgba(199, 199, 199, 0.3)), url({{recipe.images.LARGE.url}}); background-attachment: fixed;  background-position: center;  background-repeat: no-repeat;  background-size: cover;  height:70vh;"
+      class="d-flex flex-column justify-content-center align-items-center recipe-single-hero-img"
+      style="background:linear-gradient(0deg, rgba(17, 17, 17, 0.3), rgba(199, 199, 199, 0.3)), url({{recipe.images.LARGE.url}}); background-attachment: fixed;  background-position: center;  background-repeat: no-repeat;  background-size: cover;"
     >
-      <h1 class="mb-3 text-white">{{recipe.label}}</h1>
+      <h1 class="mb-3 text-center text-white">{{recipe.label}}</h1>
     </div>
 
     <div class="row p-0 mt-1">
       <div class="col border border-1 rounded p-2 mx-3 mt-3 d-flex flex-nowrap funcBar" style="background-color:white">
-        <a class="btn me-2" href="/">← Return to recipe list</a>
-        <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share this recipe on Facebook</a>
+        <a class="btn me-2" href="/">← Back to list</a>
+        <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share on Facebook</a>
         <form action="" method="POST" id="fav-recipe-form" class="flex-grow-1">
-          <button type="submit" id="markFavourite" class="btn {{#if isFavourite}} isFavRecipe {{else}} notFavRecipe {{/if}}" style="float:right">{{#if isFavourite}} ♥ Favourite Recipe {{else}} ♡ Mark this recipe as favourite {{/if}}</button>
+          <button type="submit" id="markFavourite" class="btn {{#if isFavourite}} isFavRecipe {{else}} notFavRecipe {{/if}}" style="float:right">{{#if isFavourite}} ♥ Favourite {{else}} ♡ Mark as favourite {{/if}}</button>
           </form>
       </div>
     </div>
