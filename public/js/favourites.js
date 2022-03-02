@@ -17,6 +17,7 @@ $(document).ready(function () {
             isFavourite = false;
         }
         
+        /* Saving this here for later because it might be possible to forgo the form on the .hbs and just do everything here through the ajax post */
         // $.ajax({
         //      url: currentPath,
         //      method: "POST",

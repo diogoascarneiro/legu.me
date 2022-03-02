@@ -63,11 +63,3 @@ router.post("/recipes/:label", isLoggedIn, (req, res, next) => {
 });
 
 module.exports = router;
-
- // User.findByIdAndUpdate(req.session.currentUser._id, { $push: {favouriteRecipes: theRecipe._id }}, {new: true} )
-  // .then((user)=> console.log("ya did it, user is now", user))
-  // .catch((err) => console.log(err));
-  // })
-  // .catch(err => next(err));
-  
-  //console.log("Current User", req.session.currentUser);

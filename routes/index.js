@@ -17,6 +17,12 @@ query format example: { healthLabels: {$all: dietRestrictions}} - It's going to 
 
 function queryCreator(filterData) {
   let theQuery = {};  
+  if (filterData.search != "") {
+    theQuery.label = {
+      $regex: filterData.search,
+      $options: "i"
+    }
+  }
   if (filterData.healthLabels.$all.length != 0) {
     theQuery.healthLabels = {
      $all: filterData.healthLabels.$all
@@ -53,6 +59,7 @@ Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
   }
   });
 
+
     /*Recipe.find()
     .limit(12)
     .then((foundRecipes) => {
@@ -69,9 +76,7 @@ router.post("/", (req, res, next) => {
       .limit(12)
       .skip(req.body.skipResults)
       .then((foundRecipes) => {
-        cleanRecipeListInfo(foundRecipes);
-       console.log("the query results ", foundRecipes);
-        
+        cleanRecipeListInfo(foundRecipes);        
         res.send(foundRecipes);
       })
       .catch((err) => next(err));
