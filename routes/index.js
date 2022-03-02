@@ -76,9 +76,7 @@ router.post("/", (req, res, next) => {
       .limit(12)
       .skip(req.body.skipResults)
       .then((foundRecipes) => {
-        cleanRecipeListInfo(foundRecipes);
-       console.log("the query results ", foundRecipes);
-        
+        cleanRecipeListInfo(foundRecipes);        
         res.send(foundRecipes);
       })
       .catch((err) => next(err));
