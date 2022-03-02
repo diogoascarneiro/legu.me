@@ -375,6 +375,10 @@ footer p a:hover {
   .col.col-xs-12.col-lg-6.p-0 {
   margin-bottom: 5%;
   }
+  
+  .recipe-info-row {
+    flex-direction: column;
+  }
 
   .recipe-cards-container {
     display:block !important;
