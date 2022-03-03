@@ -275,7 +275,7 @@ footer p a:hover {
 }
 
 /* MOBILE STYLES
-   Following Bootstrap's dimensions for coherence, especially sm (576px), lg (992px), and xl (1200px) for simplicity
+   Following Bootstrap's dimensions for coherence, especially sm (576px) & lg (992px) (and maybe xl (1200px)) for simplicity
    Also following Bootstrap's guidelines is subtracting 0.02px from the dimensions for greater compatibility
 */
 
@@ -287,14 +287,14 @@ footer p a:hover {
   
   /*Homepage styles */
 
-  .filter-container {
-    padding-right: 12px !important;
-    padding-bottom: 3%;
+  #filter-accordion-header button {
+    padding: 0;
   }
 
-  /* .recipe-cards-container {
-    justify-content:space-around !important;
-  } */
+  .filter-container {
+    padding-right: 12px !important;
+    padding-bottom: 2%;
+  }
 
   .recipe-card {
     width:30%;
@@ -312,6 +312,9 @@ footer p a:hover {
       width:30%
     }
   }
+  
+
+  /* Recipe single styles */
   
 }
 
@@ -333,7 +336,7 @@ footer p a:hover {
     margin:2% 0.5%;
   }
 
-  .nav-link{
+  .nav-link {
     text-align:center;
     background-color:#95915B;
     color:white !important;
@@ -342,7 +345,10 @@ footer p a:hover {
   }
 
   footer p {font-size:10px;}
+
   /* Homepage styles */
+
+ 
 
   .recipe-card {
     width:100%;
@@ -375,11 +381,15 @@ footer p a:hover {
   .col.col-xs-12.col-lg-6.p-0 {
   margin-bottom: 5%;
   }
-
+  
   .recipe-cards-container {
     display:block !important;
   }
   
+  .recipe-info-row {
+    flex-direction: column;
+  }
+
   p.w-50 {
     width:100% !important;
     margin-bottom: 5px;
