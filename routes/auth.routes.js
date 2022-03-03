@@ -23,9 +23,6 @@ router.get("/about", (req, res) => {
   res.render("./about");
 });
 
-
-
-
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
@@ -166,7 +163,7 @@ router.get('/logout', (req, res) => {
 router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
   const { username } = req.session.currentUser;
   const { existingImage } = req.body;
-  const { name } = req.body;
+  // const { name } = req.body;
 
   let imageUrl;
   if (req.file) {
@@ -175,11 +172,41 @@ router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), 
     imageUrl = existingImage;
   }
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
-  User.findOneAndUpdate({username}, { name }, { new: true })
   
     .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
+
+router.delete('/profile/:username', (req, res) => {
+  const userRemove = req.params.username;
+
+  User.findOneAndRemove({ username }
+  .then(data => {
+    if (!data) {
+      res.status(404).send({
+        message: `Cannot delete id=${userRemove}. Maybe it was not found!`
+      });
+    } else {
+      res.send({
+        message: "Deleted successfully!"
+      });
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Could not delete id=" + userRemove
+    });
+  }));
+});
+
+router.post("/addname", (req, res) => {
+  const { idUpdate } = req.params.id;
+
+  User.findByIdAndUpdate(idUpdate, {name:name})
+  .then(successCallback)
+  .catch(errorCallback);
+});
+
 
 
 module.exports = router;

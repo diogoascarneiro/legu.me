@@ -15,9 +15,10 @@
     <div class="row">
         <div class="col-md-3 border-right">
           <form action="/profile" method="post" enctype="multipart/form-data">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" name="existingImage" width="300px" src="{{userInSession.profilePicture}}"><span> </span></div>
-            <input type="file" name="profile-cover-image" />
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" name="existingImage" width="300px" src="{{userInSession.profilePicture}}"><span> </span></div>            
+            <input class="form-control" type="file" name="profile-cover-image" id="userImageUpload">
             <button type="submit" class="btn btn-primary text-left">Edit profile pic</button>
+
             </form>
         </div>
         <div class="col-md-5 border-right">
@@ -26,9 +27,13 @@
                     <h4 class="text-right">Profile Information</h4>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Your name" value="">{{userInSession.name}}</div>
+                  <form method="post" action="/addname">
+                  <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Your name" value=""></div></form>
+                  <input type="submit" value="Add Name">
                     <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder={{userInSession.username}} value=""></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder={{userInSession.email}} value=""></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label></div>
+                    <input class=" col-md-12 form-control bg-white" type="text" value="{{userInSession.email}}" aria-label="Disabled input example" readonly>
+
                     <fieldset class="row mb-3">
                     <legend class="col-form-label col-sm-2 pt-0">Allergies</legend>
                     <form method="POST" action="send">
@@ -49,18 +54,131 @@
                           </fieldset>
                     </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                <form action="delete" method="post">
+                <div class="mt-5 text-center"><a href="/profile/{{username}}">Delete Profile</a></div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
 
+</div>
+ <br><br>               
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-3 pe-0 filter-container">
+     <div class="sort-results-container p-2 border border-2 rounded mb-3 d-flex justify-content-around">
+    <button id="load-previous-results" class="btn">← Previous </button>
+    <button id="load-next-results" class="btn">Next →</button>
+  </div> 
+<div class="accordion accordion-flush p-2 border border-2 rounded" id="filter-accordion">
+  <div class="accordion-item">
+    <h3 class="accordion-header" id="filter-accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-accordion-collapse" aria-expanded="true" aria-controls="filter-accordion-collapse">
+        Filters
+      </button>
+    </h3>
+    <div id="filter-accordion-collapse" class="accordion-collapse collapse show" aria-labelledby="filter-accordion-header" data-bs-parent="#filter-accordion">
+      <form action="/" method="POST" id="recipe-filter">
+       <h6 class="mt-1">Search terms</h6>
+       <input class="form-control me-2" id="filter-search-input" type="search" placeholder="Search" aria-label="Search">
+       <div class="diet-restrictions">
+    <h6 class="mt-1">Restrictions</h6>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dietary-restrictions-select">
+        <option selected>None</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Alcohol-Free">Alcohol-free</option>
+        <option value="Celery-Free">Celery-free</option>
+        <option value="Dairy-Free">Dairy-free</option>
+        <option value="Egg-Free">Egg-free</option>
+        <option value="Gluten-Free">Gluten-free</option>
+        <option value="Low-potassium">Low-potassium</option>
+        <option value="Low-sugar">Low-sugar</option>
+        <option value="Lupine-Free">Lupine-free</option>
+        <option value="Mustard-Free">Mustard-free</option>
+        <option value="No oil added">No oil added</option>
+        <option value="Paleo">Paleo</option>
+        <option value="Peanut-Free">Peanut-free</option>
+        <option value="Sesame-Free">Sesame-free</option>
+        <option value="Soy-Free">Soy-free</option>
+        <option value="Tree-Nut-Free">Tree nut-free</option>
+        <option value="Wheat-Free">Wheat-free</option>
+      </select>
+      <div id="dietary-restrictions-filter-list"></div>
+      </div>
+      <div class="cuisine">
+      <h6 class="mt-1">Cuisine</h6>
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="cuisine-select">
+        <option selected>All</option>
+        <option value="american">American</option>
+        <option value="asian">Asian</option>
+        <option value="british">British</option>
+        <option value="caribbean">Caribbean</option>
+        <option value="centralEurope">Central European</option>
+        <option value="easternEurope">Eastern European</option>
+        <option value="french">French</option>
+        <option value="indian">Indian</option>
+        <option value="kosher">Kosher</option>
+        <option value="mediterranean">Mediterranean</option>
+        <option value="mexican">Mexican</option>
+        <option value="middleEastern">Middle Eastern</option>
+        <option value="nordic">Nordic</option>
+        <option value="southAmerican">South American</option>
+        <option value="southEastAsian">South East Asian</option>
+      </select>
+      <div id="cuisine-filter-list"></div>
+      </div>
+      <div class="meal-type">
+      <h6 class="mt-1">Type of meal</h6>
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="meal-type-select">
+        <option selected>All</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="snack">Snack</option>
+        <option value="teatime">Teatime</option>
+        <option value="dinner">Dinner</option>
+      </select>
+      <div id="meal-type-filter-list"></div>
+      </div>
+      <div class="dish-type">
+      <h6 class="mt-1">Type of dish</h6>
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="dish-type-select">
+        <option selected>All</option>
+        <option value="biscuits and cookies">Biscuits and cookies</option>
+        <option value="bread">Bread</option>
+        <option value="cereals">Cereals</option>
+        <option value="Condiments and sauces">Condiments and sauces</option>
+        <option value="desserts">Desserts</option>
+        <option value="main course">Main courses</option>
+        <option value="pancake">Pancakes</option>
+        <option value="preps">Preps</option>
+        <option value="preserve">Preserves</option>
+        <option value="salad">Salads</option>
+        <option value="sandwiches">Sandwiches</option>
+        <option value="side dish">Side dishes</option>
+        <option value="starter">Starters</option>
+        <option value="sweets">Sweets</option>
+      </select>
+      <div id="dish-type-filter-list"></div>
+      </div>
+  </div>
+</div>
+  </form>
+</div>
+    </div>
+    <div class="col-xs-12 col-lg-9 recipe-list-container"> 
+      <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-around mb-3">   
+   {{#each foundRecipes}}
+      {{> recipeCard this}} 
+   {{/each}} 
+   
+   </div>  
+         </div>
+  </div>
+</div>
 
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}
-</div>
 
 
 
