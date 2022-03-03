@@ -19,6 +19,8 @@ const { collection } = require("../models/User.model");
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
 
+
+
 router.get("/about", (req, res) => {
   res.render("./about");
 });
@@ -62,7 +64,7 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
     })
     .then(userFromDB => {
       req.session.currentUser = userFromDB;
-      res.redirect(`/${username}`);
+      res.redirect(`/users/${username}`);
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -77,6 +79,10 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
     });
 
 });
+
+
+
+
 
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
@@ -126,7 +132,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         }
         req.session.currentUser = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect(`/${username}`);
+        return res.redirect(`/users/${username}`);
       });
     })
 
@@ -137,6 +143,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       // return res.status(500).render("login", { errorMessage: err.message });
     });
 });
+
 
 router.get("/forgot-password", isLoggedOut, (req, res) => {
   res.render("auth/forgot-password");
@@ -152,7 +159,7 @@ router.get('/logout', (req, res) => {
 });
 
 
-  router.get("/:username",(req, res) => {
+  router.get("/users/:username",(req, res) => {
     const { username } = req.params;
 
     User.findOne({username})
@@ -160,7 +167,8 @@ router.get('/logout', (req, res) => {
       .catch(error => console.log(`Error while editing: ${error}`));
 });
 
-router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
+
+router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
   const { username } = req.session.currentUser;
   const { existingImage } = req.body;
   // const { name } = req.body;
@@ -173,40 +181,44 @@ router.post("/profile", isLoggedIn, fileUploader.single('profile-cover-image'), 
   }
   User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
   
-    .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
+    .then(() =>  {   
+      req.session.currentUser.profilePicture = imageUrl;
+      res.render('users/user-profile', { userInSession: req.session.currentUser} )
+    } )
     .catch(error => console.log(`Error while updating pic: ${error}`));
 });
 
-router.delete('/profile/:username', (req, res) => {
-  const userRemove = req.params.username;
-
-  User.findOneAndRemove({ username }
-  .then(data => {
+router.post('/users/:usermame/delete', (req, res, next) => {
+  const { username } = req.session.currentUser;
+  User.findOneAndRemove({ username })
+  .then(data => { console.log('data :>> ', data);
     if (!data) {
       res.status(404).send({
-        message: `Cannot delete id=${userRemove}. Maybe it was not found!`
+        message: `Cannot delete id=${username}. Maybe it was not found!`
+        
       });
     } else {
-      res.send({
-        message: "Deleted successfully!"
-      });
+      delete req.session.currentUser;
+      res.redirect('/');
     }
   })
   .catch(err => {
     res.status(500).send({
-      message: "Could not delete id=" + userRemove
+      message: "Could not delete id=" + username
     });
-  }));
+  })
 });
 
-router.post("/addname", (req, res) => {
-  const { idUpdate } = req.params.id;
 
-  User.findByIdAndUpdate(idUpdate, {name:name})
-  .then(successCallback)
-  .catch(errorCallback);
-});
 
+
+// router.post("/profile", (req, res) => {
+//   const { username } = req.params.username;
+
+//   User.findByIdAndUpdate(username, {username:username})
+//   .then(successCallback)
+//   .catch(errorCallback);
+// });
 
 
 module.exports = router;
