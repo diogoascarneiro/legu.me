@@ -14,7 +14,7 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-          <form action="/profile" method="post" enctype="multipart/form-data">
+          <form action="/users/{{userInSession.username}}" method="post" enctype="multipart/form-data">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" name="existingImage" width="300px" src="{{userInSession.profilePicture}}"><span> </span></div>            
             <input class="form-control" type="file" name="profile-cover-image" id="userImageUpload">
             <button type="submit" class="btn btn-primary text-left">Edit profile pic</button>
@@ -27,36 +27,38 @@
                     <h4 class="text-right">Profile Information</h4>
                 </div>
                 <div class="row mt-3">
-                  <form method="post" action="/addname">
-                  <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Your name" value=""></div></form>
-                  <input type="submit" value="Add Name">
+                  <form method="post" action="/profile">
+                  <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Your name" value=""></div>
+                </form>
+                  <input type="submit" value="add-name">
+                  <form method="post" action="/profile">
+                  </form>
                     <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder={{userInSession.username}} value=""></div>
+                   <input type="submit" value="change-username">
                     <div class="col-md-12"><label class="labels">Email ID</label></div>
                     <input class=" col-md-12 form-control bg-white" type="text" value="{{userInSession.email}}" aria-label="Disabled input example" readonly>
-
-                    <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">Allergies</legend>
-                    <form method="POST" action="send">
-                            <div>
-                                <input type="checkbox" name="allergies" value="dairy">Dairy
-                                <br>
-                                <input type="checkbox" name="allergies" value="eggs">Eggs
-                                <br>
-                                <input type="checkbox" name="allergies" value="sesame">Sesame
-                                <br>
-                                <input type="checkbox" name="allergies" value="peanut">Peanut
-                                <br>
-                                <input type="checkbox" name="allergies" value="tree-nut">Tree-nut
-                                <br>
-                                <input type="checkbox" name="allergies" value="celery">Celery
-                            </div>
-                            </form>
-                          </fieldset>
                     </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
-                <form action="delete" method="post">
-                <div class="mt-5 text-center"><a href="/profile/{{username}}">Delete Profile</a></div>
-                </form>
+              <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete your profile?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                      <form action="/users/{{userInSession.username}}/delete" method="POST" >
+                      <button type="submit" class="btn btn-primary">Yes</button> </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+ 
             </div>
         </div>
     </div>
