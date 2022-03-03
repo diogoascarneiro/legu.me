@@ -16,6 +16,7 @@ const {cleanRecipeListInfo} = require("../utils/recipe-data-cleaner");
 
 function queryCreator(filterData) {
   let theQuery = {};  
+  console.log(filterData);
   if (filterData.search != "") {
     theQuery.label = {
       $regex: filterData.search,
@@ -42,7 +43,39 @@ function queryCreator(filterData) {
       $in: filterData.dishType.$in
      }
   }
-  // Also need to do nº Ingredients + calories + time needed + ingredients to exclude
+  if (filterData.calories.$gte != "") {
+    theQuery.calories = {
+      $gte: filterData.calories.$gte
+    } 
+     }
+
+  if (filterData.calories.$lte != "") {
+    theQuery.calories = {
+      $lte: filterData.calories.$lte
+    }
+  }
+console.log("$lte", filterData.ingredients.$lte, "$gte", filterData.ingredients.$gte);
+
+  if (filterData.ingredients.$lte != "") {
+    theQuery.ingredients = {
+      $lte: {
+        $size: filterData.ingredients.$lte
+      }
+    }
+}
+
+if (filterData.ingredients.$gte != "") {
+  theQuery.ingredients = {
+    $gte: {
+      $size: filterData.ingredients.$gte
+    }
+  }
+}
+
+console.log(theQuery);
+
+
+  // Also need to do nº Ingredients + ingredients to exclude
   return theQuery
 }
 
