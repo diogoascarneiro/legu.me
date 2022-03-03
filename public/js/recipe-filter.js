@@ -10,7 +10,7 @@ $(document).ready(function () {
     - We only need this file on the homepage, so figure out how to include it besides on layout.hbs
 */
 
-  
+  /* Let's name aaaaalllll the buttons and inputs */
 
   const filterForm = $("#recipe-filter");
   const recipeCardsContainer = $(".recipe-cards-container");
@@ -31,6 +31,12 @@ $(document).ready(function () {
   const dishTypeSelect = $("#dish-type-select");
   const dishTypeSelectFilterListElem = $("#dish-type-filter-list");
 
+  const ingrNoMinInput = $("#ingrNoMinInput");
+  const ingrNoMaxInput = $("#ingrNoMaxInput");
+
+  const caloriesMinInput = $("#caloriesMinInput");
+  const caloriesMaxInput = $("#caloriesMaxInput");
+
   let dietRestrictionsListArr = [];
   let cuisineTypeArr = [];
   let dishTypeArr = [];
@@ -39,8 +45,21 @@ $(document).ready(function () {
   let isFiltering = false;
   let skipResults = 0;
 
+  /* Then let's create some useful functions. Let's start with checking for filters.
+     Is a long-ass if statement the best way to do this? I dunno, but it works and we're running out of time!  */
+
   function checkIfFiltering() {
-    if (dietRestrictionsListArr.length > 0 || cuisineTypeArr.length > 0 || dishTypeArr.length > 0 || mealTypeArr.length > 0 || searchInput.val() != "") {
+    if (
+       dietRestrictionsListArr.length > 0 ||
+       cuisineTypeArr.length > 0 ||
+       dishTypeArr.length > 0 ||
+       mealTypeArr.length > 0 ||
+       searchInput.val() != "" ||
+       ingrNoMinInput.val() != "" ||
+       ingrNoMaxInput.val() != "" ||
+       caloriesMinInput.val() != "" ||
+       caloriesMaxInput.val() != ""
+       ) {
       isFiltering = true;
     } else {
       isFiltering = false;
@@ -114,12 +133,20 @@ function cleanRecipeInfo(dbQueryResponse) {
       mealType: {
         $in: mealTypeArr,
       },
+      ingredients: {
+        $gte: ingrNoMinInput.val(),
+        $lte: ingrNoMaxInput.val()
+      },
+      calories: {
+        $gte: caloriesMinInput.val(),
+        $lte: caloriesMaxInput.val()
+      }
     })
   }
   // See if the specific item is already in the array - if not, push it there, then add a new div with the name of the item and option to remove it
 
   dietRestrictionsSelect.change(() => {
-    if (dietRestrictionsListArr.indexOf(dietRestrictionsSelect.val()) === -1) {
+    if ((dietRestrictionsListArr.indexOf(dietRestrictionsSelect.val()) === -1) && (dietRestrictionsSelect.val() != "None")) {
       dietRestrictionsListArr.push(dietRestrictionsSelect.val());
       dietRestrictionsFilterListElem.append(
         `<div class="${dietRestrictionsSelect.val()} btn remove-diet-restriction"> X | ${dietRestrictionsSelect.children("option:selected").text()}</div>`
@@ -135,7 +162,7 @@ function cleanRecipeInfo(dbQueryResponse) {
   });
 
   dishTypeSelect.change(() => {
-    if (dishTypeArr.indexOf(dishTypeSelect.val()) === -1) {
+    if ((dishTypeArr.indexOf(dishTypeSelect.val()) === -1) && (dishTypeSelect.val() != "All")) {
       dishTypeArr.push(dishTypeSelect.val());
       dishTypeSelectFilterListElem.append(
         `<div class="${dishTypeSelect.val()} btn remove-dishType-restriction"> X | ${dishTypeSelect.children("option:selected").text()}</div>`
@@ -150,7 +177,7 @@ function cleanRecipeInfo(dbQueryResponse) {
   });
 
   cuisineTypeSelect.change(() => {
-    if (cuisineTypeArr.indexOf(cuisineTypeSelect.val()) === -1) {
+    if ((cuisineTypeArr.indexOf(cuisineTypeSelect.val()) === -1) && (cuisineTypeSelect.val() != "All")) {
       cuisineTypeArr.push(cuisineTypeSelect.val());
       cuisineTypeSelectFilterListElem.append(
         `<div class="${cuisineTypeSelect.val()} btn remove-cuisineType-restriction"> X | ${cuisineTypeSelect.children("option:selected").text()}</div>`
@@ -165,7 +192,7 @@ function cleanRecipeInfo(dbQueryResponse) {
   });
 
   mealTypeSelect.change(() => {
-    if (mealTypeArr.indexOf(mealTypeSelect.val()) === -1) {
+    if ((mealTypeArr.indexOf(mealTypeSelect.val()) === -1) && (mealTypeSelect.val() != "All")) {
       mealTypeArr.push(mealTypeSelect.val());
       mealTypeSelectFilterListElem.append(
         `<div class="${mealTypeSelect.val()} btn remove-cuisineType-restriction"> X | ${mealTypeSelect.children("option:selected").text()}</div>`
