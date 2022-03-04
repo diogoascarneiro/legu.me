@@ -1,8 +1,8 @@
 {{#if userInSession}}
 
 
-{{!-- <div class="h-100 gradient-custom-2">
-  <div class="container py-2 h-200">
+<section class="h-100 gradient-custom-2">
+  <div class="container py-4 h-200">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-12 col-md-12">
         <div class="card">
@@ -14,10 +14,11 @@
               <input class="form-control mt-2" id="form-edit-pic" type="file" name="profile-cover-image" id="userImageUpload">
               <div class="d-flex btn-toolbar mt-2 justify-content-center" role="toolbar">
               <button type="submit" class="btn btn-primary ms-20">Edit profile pic</button>
+              </form>
               </div>
               </div>
               </div>
-          </div> --}}
+          </div>
           <div class="d-flex justify-content-end text-center py-1 mt-2 me-2 mb-2 ">
                 <div class="float-sm-right">
                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete profile</button>
@@ -43,19 +44,15 @@
             </div>
           </div>
           </div>
-          </div>
-            </div>
-            </div>
-           <div class="card-body p-4 text-black">
+          <div class="card-body p-4 text-black">
             <div class="mb-10 mt-10">
-              <p class="lead fw-normal mb-10 mt-300">About</p>
+              <p class="lead fw-normal mb-10 mt-300">Your information</p>
               <div class="p-4" style="background-color: #f8f9fa;">
                 <p class="font-italic mb-1">{{userInSession.username}}</p>
                 <p class="font-italic mb-1">{{userInSession.email}}</p>
               </div>
             </div>
-            </div>
-
+            <br>
             <h5 class="text-black mt-10px">Favourite meals</h5>
 <div class="col-xs-12 col-lg-12 recipe-list-container"> 
       <div class="recipe-cards-container border border-3 border-white rounded d-flex flex-wrap p-3 justify-content-around mb-3">
@@ -101,6 +98,10 @@
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}
