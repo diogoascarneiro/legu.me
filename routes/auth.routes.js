@@ -19,7 +19,15 @@ const { collection } = require("../models/User.model");
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
 
-
+function userUpdateQueryCreator (newData){
+  let theQuery = {};
+  if (newData.username != ""){
+    theQuery.username = newData.username;
+  }
+  if (newData.name != ""){
+    theQuery.username = newData.name;
+  }
+}
 
 router.get("/about", (req, res) => {
   res.render("./about");
@@ -79,10 +87,6 @@ router.post('/signup', isLoggedOut, fileUploader.single('profile-cover-image'), 
     });
 
 });
-
-
-
-
 
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
@@ -168,24 +172,65 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
+router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res, next) => {
   const { username } = req.session.currentUser;
   const { existingImage } = req.body;
-  // const { name } = req.body;
+  const { name } = req.body;
+
+  //console.log('req.body :>> ', req.body);
 
   let imageUrl;
   if (req.file) {
     imageUrl = req.file.path;
-  } else {
-    imageUrl = existingImage;
-  }
-  User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
+    User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
   
     .then(() =>  {   
       req.session.currentUser.profilePicture = imageUrl;
       res.render('users/user-profile', { userInSession: req.session.currentUser} )
     } )
     .catch(error => console.log(`Error while updating pic: ${error}`));
+  }
+
+  let newUsername;
+  if(req.username){
+    newUsername = req.username.
+  User.findByIdAndUpdate(username, {currentUser:username})
+    
+    .then(successCallback)
+    
+    .catch(errorCallback);
+  }
+
+  // router.get("/recipes/:label", (req, res, next) => {
+  //   const { label } = req.params;
+  //   let isFavourite;
+  
+  //   if ("currentUser._id" in req.session) {
+  //    Recipe.findOne({ label: label })
+  //     .then((theRecipe) => {
+  //       User.findById(req.session.currentUser._id)
+  //       .then((user) => {
+  //         if (user.favouriteRecipes.indexOf(theRecipe._id) === -1) {
+  //           isFavourite = false;
+  //         } else {isFavourite = true}
+  //       })
+  //       .then(() => {
+  //         cleanRecipeObjInfo(theRecipe);
+  //         // Get four random recipes of the same type for the "related recipes" bit
+  //         Recipe.findRandom({ dishType: theRecipe.dishType }, {}, { limit: 4 }, function (err, randomResults) {
+  //           if (!err) {
+  //             cleanRecipeListInfo(randomResults);
+  //             res.render("recipeSingle", {
+  //               recipe: theRecipe,
+  //               randomRecipes: randomResults,
+  //               isFavourite
+  //             });
+  //           }
+  //         });
+  //       })
+  //     })
+
+  
 });
 
 router.post('/users/:usermame/delete', (req, res, next) => {
@@ -209,13 +254,10 @@ router.post('/users/:usermame/delete', (req, res, next) => {
   })
 });
 
-
-
-
 // router.post("/profile", (req, res) => {
-//   const { username } = req.params.username;
+//   const { username } = req.params.currentUser;
 
-//   User.findByIdAndUpdate(username, {username:username})
+//   User.findByIdAndUpdate(username, {currentUser:username})
 //   .then(successCallback)
 //   .catch(errorCallback);
 // });
