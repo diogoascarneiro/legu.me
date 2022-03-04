@@ -9,8 +9,9 @@ const saltRounds = 10;
 
 const bcryptjs = require('bcryptjs');
 
-// Require the User model in order to interact with the database
+// Require models
 const User = require("../models/User.model");
+const Recipe = require("../models/Recipe.model");
 
 // Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
 const {isLoggedIn, isLoggedOut} = require("../middleware/auth.middleware");
@@ -19,7 +20,10 @@ const { collection } = require("../models/User.model");
 //Cloudinary route
 const fileUploader = require('../config/cloudinary.config');
 
-function userUpdateQueryCreator (newData){
+// Bring in the cleaners
+const {cleanRecipeListInfo} = require("../utils/recipe-data-cleaner");
+
+/*function userUpdateQueryCreator (newData){
   let theQuery = {};
   if (newData.username != ""){
     theQuery.username = newData.username;
@@ -27,7 +31,7 @@ function userUpdateQueryCreator (newData){
   if (newData.name != ""){
     theQuery.username = newData.name;
   }
-}
+}*/
 
 router.post('/users/:usermame/delete', (req, res, next) => {
   const { username } = req.session.currentUser;
@@ -186,10 +190,16 @@ router.get('/logout', (req, res) => {
 
   router.get("/users/:username",(req, res) => {
     const { username } = req.params;
-
-    User.findOne({username})
-      .then(() => res.render('users/user-profile', { userInSession: req.session.currentUser} ))
-      .catch(error => console.log(`Error while editing: ${error}`));
+    const { favouriteRecipes } = req.session.currentUser;
+    
+    Recipe.find().where('_id').in(favouriteRecipes).exec((err, records) => {
+      cleanRecipeListInfo(records);
+      res.render('users/user-profile', { 
+        userInSession: req.session.currentUser,
+        favouriteRecipes: records
+      })
+    });
+      
 });
 
 
