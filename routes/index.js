@@ -63,36 +63,14 @@ if (filterData.ingredients.$lte != "" && filterData.ingredients.$gte != "") {
   theQuery.$where = `this.ingredients.length >= ${filterData.ingredients.$gte}`
 }
 
-// if (filterData.ingredients.$gte != "") {
-//   theQuery.ingredients = {
-//     $gte: {
-//       $size: filterData.ingredients.$gte
-//     }
-//   }
-// }
-
-// if (filterData.ingredients.$lte != "") {
-//   theQuery.ingredients = {
-//     $lte: {
-//       $size: filterData.ingredients.$lte
-//     }
-//   }
-// }
-
-console.log(theQuery);
-
-
-  // Also need to do nº Ingredients + ingredients to exclude
+  // Also need to do ingredients to exclude
   return theQuery
 }
 
 /* Homepage Routes */
 
-
-
-
 router.get("/", (req, res, next) => {
-// recipeAPI.crawl("candy");
+// recipeAPI.crawl(["a", "vegetarian", "Central Europe"], null);
 
 Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
   if (!err) {

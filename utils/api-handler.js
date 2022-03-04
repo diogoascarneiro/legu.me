@@ -77,7 +77,9 @@ class ApiHandler {
         }
       }
     }
+    console.log(apiQuery);
     return this.api.get(apiQuery);
+    
   }
 
   importRecipesURL(url) {
@@ -144,9 +146,9 @@ class ApiHandler {
   })
 }
  
-crawl(initialQuery = "seitan", nextBatch) {
+crawl(initialQuery, nextBatch) {
    if (initialQuery) {
-    this.importRecipes(initialQuery)
+    this.importRecipes(...initialQuery)
     .then((recipes) => {
           this.parseAndCreate(recipes.data.hits);
           console.log(recipes.data);
