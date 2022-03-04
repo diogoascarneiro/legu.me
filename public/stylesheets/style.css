@@ -314,6 +314,9 @@ footer p a:hover {
   border-color:#95915B;
 }
 
+.small-card{
+  border-radius: 50%;
+}
 
 
 /* MOBILE STYLES
