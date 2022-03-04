@@ -21,7 +21,7 @@
           </div>
           <div class="d-flex justify-content-end text-center py-1 mt-2 me-2 mb-2 ">
                 <div class="float-sm-right">
-                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete profile</button>
+                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="redirectCustom()">Delete profile</button>
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -35,13 +35,13 @@
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                       <form action="/users/{{userInSession.username}}/delete" method="POST">
-                      <button type="submit" class="btn btn-primary">Yes</button>            
-                    </form>
+                      <button type="submit" class="btn btn-primary" id="btnHome">Yes</button>     
+                    </form> 
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div>    
           </div>
           </div>
           <div class="card-body p-4 text-black">
