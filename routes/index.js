@@ -54,23 +54,30 @@ function queryCreator(filterData) {
       $lte: filterData.calories.$lte
     }
   }
-console.log("$lte", filterData.ingredients.$lte, "$gte", filterData.ingredients.$gte);
 
-  if (filterData.ingredients.$lte != "") {
-    theQuery.ingredients = {
-      $lte: {
-        $size: filterData.ingredients.$lte
-      }
-    }
+if (filterData.ingredients.$lte != "" && filterData.ingredients.$gte != "") {
+  theQuery.$where = `this.ingredients.length <= ${filterData.ingredients.$lte} && this.ingredients.length >= ${filterData.ingredients.$gte}`
+} else if (filterData.ingredients.$lte != "") {
+  theQuery.$where = `this.ingredients.length <= ${filterData.ingredients.$lte}`
+} else if (filterData.ingredients.$gte != "") {
+  theQuery.$where = `this.ingredients.length >= ${filterData.ingredients.$gte}`
 }
 
-if (filterData.ingredients.$gte != "") {
-  theQuery.ingredients = {
-    $gte: {
-      $size: filterData.ingredients.$gte
-    }
-  }
-}
+// if (filterData.ingredients.$gte != "") {
+//   theQuery.ingredients = {
+//     $gte: {
+//       $size: filterData.ingredients.$gte
+//     }
+//   }
+// }
+
+// if (filterData.ingredients.$lte != "") {
+//   theQuery.ingredients = {
+//     $lte: {
+//       $size: filterData.ingredients.$lte
+//     }
+//   }
+// }
 
 console.log(theQuery);
 
