@@ -328,6 +328,24 @@ footer p a:hover {
   background-color:white;
 }
 
+.prof-pic-btn {
+  width:100%
+}
+
+.inner-card-row .card {
+  max-width:300px
+}
+
+.profile-info-row {
+  height:420px
+}
+
+.inner-user-info {
+  width:25%;
+  margin-top: 3rem;
+  color:black
+}
+
 /* MOBILE STYLES
    Following Bootstrap's dimensions for coherence, especially sm (576px) & lg (992px) (and maybe xl (1200px)) for simplicity
    Also following Bootstrap's guidelines is subtracting 0.02px from the dimensions for greater compatibility
@@ -382,8 +400,30 @@ footer p a:hover {
   .lead-copy {
     margin-top:15px;
   }
+
+
+/* User profile styles */
+
+.profile-info-row {
+  height:auto;
+  flex-wrap:wrap;
+}
+.profile-info-row .flex-column {
+  flex-grow:1;
+  margin-bottom:5%;
 }
 
+.profile-info-column {
+  margin-left:0 !important;
+  padding:5% 10% !important;
+}
+
+.inner-user-info {
+  width:100%;
+  margin-top:5%
+}
+
+}
 /* Phone styles - sm */
 
 @media (max-width: 575.98px) {
