@@ -70,7 +70,7 @@ if (filterData.ingredients.$lte != "" && filterData.ingredients.$gte != "") {
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
-recipeAPI.crawl(["portuguese", "vegetarian"], null);
+// recipeAPI.crawl(["portuguese", "vegetarian"], null);
 
 Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
   if (!err) {

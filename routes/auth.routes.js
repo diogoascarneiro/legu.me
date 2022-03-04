@@ -29,6 +29,27 @@ function userUpdateQueryCreator (newData){
   }
 }
 
+router.post('/users/:usermame/delete', (req, res, next) => {
+  const { username } = req.session.currentUser;
+  User.findOneAndRemove({ username })
+  .then(data => { console.log('data :>> ', data);
+    if (!data) {
+      res.status(404).send({
+        message: `Cannot delete id=${username}. Maybe it was not found!`
+        
+      });
+    } else {
+      delete req.session.currentUser;
+      res.redirect('/');
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Could not delete id=" + username
+    });
+  })
+});
+
 router.get("/about", (req, res) => {
   res.render("./about");
 });
@@ -172,13 +193,11 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res, next) => {
+router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-image'), (req, res) => {
   const { username } = req.session.currentUser;
   const { existingImage } = req.body;
-  const { name } = req.body;
-
+  // const { name } = req.body;
   //console.log('req.body :>> ', req.body);
-
   let imageUrl;
   if (req.file) {
     imageUrl = req.file.path;
@@ -190,16 +209,7 @@ router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-i
     } )
     .catch(error => console.log(`Error while updating pic: ${error}`));
   }
-
-  let newUsername;
-  if(req.username){
-    newUsername = req.username.
-  User.findByIdAndUpdate(username, {currentUser:username})
-    
-    .then(successCallback)
-    
-    .catch(errorCallback);
-  }
+  
 
   // router.get("/recipes/:label", (req, res, next) => {
   //   const { label } = req.params;
@@ -233,26 +243,7 @@ router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-i
   
 });
 
-router.post('/users/:usermame/delete', (req, res, next) => {
-  const { username } = req.session.currentUser;
-  User.findOneAndRemove({ username })
-  .then(data => { console.log('data :>> ', data);
-    if (!data) {
-      res.status(404).send({
-        message: `Cannot delete id=${username}. Maybe it was not found!`
-        
-      });
-    } else {
-      delete req.session.currentUser;
-      res.redirect('/');
-    }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Could not delete id=" + username
-    });
-  })
-});
+
 
 // router.post("/profile", (req, res) => {
 //   const { username } = req.params.currentUser;
