@@ -15,6 +15,7 @@
                   </div>
                 </form>
               </div>
+
             </div>
             <div class="w-100 h-100 p-5 border rounded align-self-start ms-2 profile-info-column">
             <h3>Your information</h3>
@@ -23,6 +24,7 @@
               <p class="font-italic mb-1"><b>E-mail:</b></p> <p>{{userInSession.email}}</p>
               <button type="submit" class="btn mt-4" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete profile</button>
               <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -35,13 +37,16 @@
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                       <form action="/users/{{userInSession.username}}/delete" method="POST">
+
+
                         <button type="submit" class="btn btn-primary">Yes</button>
                       </form>
+
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div>    
           </div>
           </div>
         </div>

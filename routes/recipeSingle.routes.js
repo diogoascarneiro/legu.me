@@ -61,7 +61,6 @@ router.post("/recipes/:label", isLoggedIn, (req, res, next) => {
   //Getting the ID of the current recipe first, then add it to the favouriteRecipes array on the user model. Will it work? I dunno
   Recipe.findOne({ label: label })
     .then((theRecipe) => {
-      //console.log(theRecipe._id);
       User.findById(req.session.currentUser._id).then((user) => {
         if (user.favouriteRecipes.indexOf(theRecipe._id) === -1) {
           User.updateOne({ _id: req.session.currentUser._id }, { $push: { favouriteRecipes: theRecipe._id } }, {new:true})
@@ -72,7 +71,6 @@ router.post("/recipes/:label", isLoggedIn, (req, res, next) => {
           .then(()=> console.log("removed fav recipe"))
           .catch(err => next(err));
         }
-        console.log('req.session.currentUser._id :>> ', req.session.currentUser);
       });
     })
     .catch((err) => next(err));
