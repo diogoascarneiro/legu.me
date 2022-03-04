@@ -224,10 +224,6 @@ p.card-text {
   color:white
 }
 
-/* .accordion-button:not(.collapsed)::after, .accordion-button::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-} */
-
 .notFavRecipe {
  background-color:white;
  border:2px solid #95745B;
@@ -274,6 +270,52 @@ footer p a:hover {
   color:rgb(221, 221, 221);
 }
 
+/* About page styles */
+
+.about-heading {
+  background-color:#95915B;
+}
+
+.about-page .row {
+  --bs-gutter-x: 0;
+}
+
+.logo {
+  height:150px;
+}
+
+.about-heading .heading {
+  color:white
+}
+
+.about-copy {
+  background-color:#95745B;
+  color:white;
+  font-size:18px;
+}
+
+.lead-copy {
+  color:white; 
+  font-size: 23px;
+}
+
+.about-img {
+  width:100%;
+  box-shadow: 0 27px 115px rgb(0 0 0 / 55%);
+}
+
+.btn-signup {
+  background-color:#7C955B;
+  border-color:#7C955B;
+}
+
+.btn-signup:hover {
+  background-color:#95915B;
+  border-color:#95915B;
+}
+
+
+
 /* MOBILE STYLES
    Following Bootstrap's dimensions for coherence, especially sm (576px) & lg (992px) (and maybe xl (1200px)) for simplicity
    Also following Bootstrap's guidelines is subtracting 0.02px from the dimensions for greater compatibility
@@ -314,8 +356,20 @@ footer p a:hover {
   }
   
 
-  /* Recipe single styles */
+  /* About styles */
   
+  .logo {
+    height:100px;
+  }
+  
+  .about-heading .heading {
+    font-size:20px;
+    margin-top:10px;
+  }
+
+  .lead-copy {
+    margin-top:15px;
+  }
 }
 
 /* Phone styles - sm */
