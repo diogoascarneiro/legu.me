@@ -318,6 +318,15 @@ footer p a:hover {
   border-radius: 50%;
 }
 
+/* User profile page styles */
+
+.user-profile-page {
+  background-color:#7C955B
+}
+
+.profile-pic-column, .profile-info-column, .inner-card-row {
+  background-color:white;
+}
 
 /* MOBILE STYLES
    Following Bootstrap's dimensions for coherence, especially sm (576px) & lg (992px) (and maybe xl (1200px)) for simplicity

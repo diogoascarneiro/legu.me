@@ -30,7 +30,7 @@ app.locals.title = `Created with IronLauncher`;
 app.use((req, res, next) => {
   res.locals.userIsConnected = req.session.currentUser ? true : false;
   if (res.locals.userIsConnected) {
-    res.locals.username = req.session.currentUser;
+    res.locals.username = req.session.currentUser.username;
     res.locals._id = req.session.currentUser._id;
   }
   next();
