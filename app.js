@@ -16,7 +16,9 @@ hbs.registerPartials(__dirname + "/views/partials");
 
 const app = express();
 
-
+/* Require stuff for password recovery */
+require("express-async-errors");
+const cors = require("cors");
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
@@ -51,6 +53,9 @@ app.use("/", authRoutes);
 
 const RecipeSingleRoutes = require("./routes/recipeSingle.routes");
 app.use("/", RecipeSingleRoutes);
+
+const passwordRecoveryRouters = require("./routes/passwordReset.routes");
+app.use("/", passwordRecoveryRouters);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
