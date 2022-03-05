@@ -65,14 +65,15 @@ function queryCreator(filterData) {
 //   theQuery.$where = `this.ingredients.length >= ${filterData.ingredients.$gte}`
 // }
 
-  // Also need to do ingredients to exclude
+  // Also need to do ingredients to exclude - there was no time, sadly.
   return theQuery
 }
 
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
-// recipeAPI.crawl(["portuguese", "vegetarian"], null);
+/* Leaving this here as an example - see utils/api-handler.js for the full(ish) info */
+//recipeAPI.crawl(["portuguese", "vegetarian"], null);
 
 Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
   if (!err) {
@@ -80,16 +81,6 @@ Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
     res.render("index", { foundRecipes })
   }
   });
-
-
-    /*Recipe.find()
-    .limit(12)
-    .then((foundRecipes) => {
-      cleanRecipeListInfo(foundRecipes);
-      res.render("index", { foundRecipes });
-    })
-    .catch((err) => next(err));*/
-
 });
 
 router.post("/", (req, res, next) => {

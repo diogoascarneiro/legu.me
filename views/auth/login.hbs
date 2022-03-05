@@ -1,28 +1,41 @@
 <div class="container-fluid login-page">
   <div class="row">
-    <div class="col d-flex justify-content-center align-items-center fullheight">
-<div id="form" class="p-5 border border-2 rounded auth-form">
-  <h2 class="mb-4">Login</h2>
-  <form action="/login" method="POST" class="d-flex flex-column">
+    <div
+      class="col d-flex justify-content-center align-items-center fullheight"
+    >
+      <div id="form" class="p-5 border border-2 rounded auth-form">
+        <h2 class="mb-4">Login</h2>
+        <form action="/login" method="POST" class="d-flex flex-column">
 
-  <div class="form-floating mb-3">
-  <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Your username">
-  <label for="floatingUsername">Username</label>
-</div>
-<div class="form-floating mb-3">
-  <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-  <label for="floatingPassword">Password</label>
-</div>
-    <button type="submit" class="btn my-2">Login</button>
-  </form>
-   {{#if errorMessage}}
-    <p class="error my-2">{{errorMessage}}</p>
-  {{/if}}
-  <hr class="my-3">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              id="floatingUsername"
+              placeholder="Your username"
+            />
+            <label for="floatingUsername">Username</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
+          <button type="submit" class="btn my-2">Login</button>
+        </form>
+        {{#if errorMessage}}
+          <p class="error my-2">{{errorMessage}}</p>
+        {{/if}}
+        {{! <hr class="my-3">
   <p class="recover-pass-text">Can't remember your password? <br> No problem, just...</p>
-<a class="btn btn-secondary d-flex justify-content-center" href="/forgot-password" role="button">Recover password</a>
+<a class="btn btn-secondary d-flex justify-content-center" href="/forgot-password" role="button">Recover password</a> }}
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
-

@@ -6,60 +6,114 @@
         <div class="col-xl-12 col-md-12">
           <div class="rounded d-flex flex-row profile-info-row">
             <div class="d-flex flex-column">
-              <div class="img-rounded border rounded p-3 h-100 profile-pic-column" >
-                <form action="/users/{{userInSession.username}}" method="post" enctype="multipart/form-data" class="d-flex flex-column">
-                  <img name="existingImage" src="{{userInSession.profilePicture}}" class="img-fluid mt-1 mb-4" style= />
-                  <input class="form-control mt-2" id="form-edit-pic" type="file" name="profile-cover-image" id="userImageUpload" />
-                  <div class="d-flex btn-toolbar mt-2 justify-content-center" role="toolbar">
-                    <button type="submit" class="btn prof-pic-btn ms-20">Edit profile pic</button>
+              <div
+                class="img-rounded border rounded p-3 h-100 profile-pic-column"
+              >
+                <form
+                  action="/users/{{userInSession.username}}"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="d-flex flex-column h-100 justify-content-around"
+                >
+                  <img
+                    name="existingImage"
+                    src="{{userInSession.profilePicture}}"
+                    class="img-fluid mt-1 mb-4 profPic"
+                  />
+                  <input
+                    class="form-control mt-2"
+                    id="form-edit-pic"
+                    type="file"
+                    name="profile-cover-image"
+                    id="userImageUpload"
+                  />
+                  <div
+                    class="d-flex btn-toolbar mt-2 justify-content-center"
+                    role="toolbar"
+                  >
+                    <button type="submit" class="btn prof-pic-btn ms-20">Edit
+                      profile pic</button>
                   </div>
                 </form>
               </div>
 
             </div>
-            <div class="w-100 h-100 p-5 border rounded align-self-start ms-2 profile-info-column">
-            <h3>Your information</h3>
-            <div class="inner-user-info">
-              <p class="font-italic mb-1"><b>User name:</b></p> <p>{{userInSession.username}}</p>
-              <p class="font-italic mb-1"><b>E-mail:</b></p> <p>{{userInSession.email}}</p>
-                    </div>
-                    <button type="submit" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete profile</button>
-              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div
+              class="w-100 h-100 py-0 px-4 border rounded align-self-start ms-2 d-flex flex-column justify-content-around profile-info-column"
+            >
+              <h3>Your information</h3>
+              <div class="inner-user-info">
+                <p class="font-italic mb-1"><b>User name:</b></p>
+                <p>{{userInSession.username}}</p>
+                <p class="font-italic mb-1"><b>E-mail:</b></p>
+                <p>{{userInSession.email}}</p>
+              </div>
+              <button
+                type="submit"
+                class="btn mt-3"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+              >Delete profile</button>
+              <div
+                class="modal fade"
+                id="deleteModal"
+                tabindex="-1"
+                aria-labelledby="deleteModalLabel"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="deleteModalLabel">Warning!</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h5
+                        class="modal-title"
+                        id="deleteModalLabel"
+                      >Warning!</h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
                     <div class="modal-body">
                       Are you sure you want to delete your profile?
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                      <form action="/users/{{userInSession.username}}/delete" method="POST">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >No</button>
+                      <form
+                        action="/users/{{userInSession.username}}/delete"
+                        method="POST"
+                      >
                         <button type="submit" class="btn">Yes</button>
                       </form>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>    
-          </div>
+            </div>
           </div>
         </div>
-        
+
         <div>
-          <br>
+          <br />
           <h2 class="text-white">Favourite meals</h2>
           <div class="col-xs-12 col-lg-12 border rounded">
-           <div class="inner-card-row p-2 w-100 d-flex flex-row flex-wrap justify-content-center">{{#if favouriteRecipes}}
+            <div
+              class="inner-card-row p-2 w-100 d-flex flex-row flex-wrap justify-content-center"
+            >
+          {{#if favouriteRecipes}}
              {{#each favouriteRecipes}}
-           {{> recipeCard this}}
-           {{/each}}
-           {{else}}
+              {{> recipeCard this}}
+             {{/each}}
+          {{else}}
            <h2 class="py-3" style="width:100%; text-align:center">No favourite recipes yet. Go find something you love!</h2>
            <a class="pb-3" href="/"><button class="btn">Search for recipes</button></a>
-           {{/if}}
-           </div>
+          {{/if}}
+            </div>
           </div>
         </div>
       </div>

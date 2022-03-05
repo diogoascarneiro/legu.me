@@ -70,28 +70,12 @@ router.post("/recipes/:label", isLoggedIn, (req, res, next) => {
           User.updateOne({ _id: req.session.currentUser._id }, { $push: { favouriteRecipes: theRecipe._id } }, {new:true})
           .then(()=> {
             console.log("added favourite recipe");
-            User.findById(req.session.currentUser._id)
-            .then((user) => {
-               delete req.session.currentUser;
-              console.log('r :>> ', req.session.currentUser);
-               req.session.currentUser = user;
-               console.log('r :>> ', req.session.currentUser);
-              })
-            .catch(err => console.log(err));
           })
           .catch(err => next(err));
         } else {
           User.updateOne({ _id: req.session.currentUser._id }, { $pull: { favouriteRecipes: theRecipe._id } }, {new:true})
           .then(()=> {
             console.log("removed favourite recipe");
-            User.findById(req.session.currentUser._id)
-            .then((user) => {
-              delete req.session.currentUser;
-              console.log('r :>> ', req.session.currentUser);
-              req.session.currentUser = user;
-              console.log('r :>> ', req.session.currentUser);
-             })
-            .catch(err => console.log(err));
           })
           .catch(err => next(err));
         }
