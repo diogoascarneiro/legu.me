@@ -11,7 +11,7 @@
     <div class="row p-0 mt-1">
       <div class="col border border-1 rounded p-2 mx-3 mt-3 d-flex flex-nowrap funcBar" style="background-color:white">
         <a class="btn me-2" href="/">← Back to list</a>
-        <a class="btn" href="https://www.facebook.com/sharer.php?u=/recipes/{{recipe.label}}">Share on Facebook</a>
+        <a class="btn" href="https://www.facebook.com/sharer.php?u=https://legu-me.herokuapp.com/recipes/{{recipe.label}}">Share on Facebook</a>
         <form action="" method="POST" id="fav-recipe-form" class="flex-grow-1">
           <button type="submit" id="markFavourite" class="btn {{#if isFavourite}} isFavRecipe {{else}} notFavRecipe {{/if}}" style="float:right">{{#if isFavourite}} ♥ Favourite {{else}} ♡ Mark as favourite {{/if}}</button>
           </form>

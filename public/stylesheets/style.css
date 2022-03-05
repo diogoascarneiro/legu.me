@@ -89,7 +89,7 @@ a.card-title {
   animation-duration: 0.5s;
   animation-name: fadeIn;
   width: 24%;
-  flex-grow: 1;
+  flex-grow: 0.3;
 }
 
 @keyframes fadeIn {
