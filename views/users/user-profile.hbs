@@ -8,7 +8,7 @@
             <div class="d-flex flex-column">
               <div class="img-rounded border rounded p-3 h-100 profile-pic-column" >
                 <form action="/users/{{userInSession.username}}" method="post" enctype="multipart/form-data" class="d-flex flex-column">
-                  <img name="existingImage" src="{{userInSession.profilePicture}}" class="img-fluid mt-1 mb-4" style="width:50%; max-width:50%;  align-self:center;" />
+                  <img name="existingImage" src="{{userInSession.profilePicture}}" class="img-fluid mt-1 mb-4" style= />
                   <input class="form-control mt-2" id="form-edit-pic" type="file" name="profile-cover-image" id="userImageUpload" />
                   <div class="d-flex btn-toolbar mt-2 justify-content-center" role="toolbar">
                     <button type="submit" class="btn prof-pic-btn ms-20">Edit profile pic</button>

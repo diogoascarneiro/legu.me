@@ -32,6 +32,7 @@ app.use((req, res, next) => {
   if (res.locals.userIsConnected) {
     res.locals.username = req.session.currentUser.username;
     res.locals._id = req.session.currentUser._id;
+    res.locals.favouriteRecipes = req.session.currentUser.favouriteRecipes;
   }
   next();
 });

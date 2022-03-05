@@ -16,7 +16,10 @@ router.get("/recipes/:label", (req, res, next) => {
       .then((user) => {
         if (user.favouriteRecipes.indexOf(theRecipe._id) === -1) {
           isFavourite = false;
-        } else {isFavourite = true}
+        } else {
+          isFavourite = true; 
+          // 
+        }
       })
       .then(() => {
         cleanRecipeObjInfo(theRecipe);
@@ -61,18 +64,42 @@ router.post("/recipes/:label", isLoggedIn, (req, res, next) => {
   //Getting the ID of the current recipe first, then add it to the favouriteRecipes array on the user model. Will it work? I dunno
   Recipe.findOne({ label: label })
     .then((theRecipe) => {
-      User.findById(req.session.currentUser._id).then((user) => {
+      User.findById(req.session.currentUser._id)
+      .then((user) => {
         if (user.favouriteRecipes.indexOf(theRecipe._id) === -1) {
           User.updateOne({ _id: req.session.currentUser._id }, { $push: { favouriteRecipes: theRecipe._id } }, {new:true})
-          .then(()=> console.log("added fav recipe"))
+          .then(()=> {
+            console.log("added favourite recipe");
+            User.findById(req.session.currentUser._id)
+            .then((user) => {
+               delete req.session.currentUser;
+              console.log('r :>> ', req.session.currentUser);
+               req.session.currentUser = user;
+               console.log('r :>> ', req.session.currentUser);
+              })
+            .catch(err => console.log(err));
+          })
           .catch(err => next(err));
         } else {
           User.updateOne({ _id: req.session.currentUser._id }, { $pull: { favouriteRecipes: theRecipe._id } }, {new:true})
-          .then(()=> console.log("removed fav recipe"))
+          .then(()=> {
+            console.log("removed favourite recipe");
+            User.findById(req.session.currentUser._id)
+            .then((user) => {
+              delete req.session.currentUser;
+              console.log('r :>> ', req.session.currentUser);
+              req.session.currentUser = user;
+              console.log('r :>> ', req.session.currentUser);
+             })
+            .catch(err => console.log(err));
+          })
           .catch(err => next(err));
         }
-      });
+      })
+
+      .catch(err => console.log('err :>> ', err));
     })
+    
     .catch((err) => next(err));
 
 });

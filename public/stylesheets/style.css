@@ -328,6 +328,12 @@ footer p a:hover {
   background-color:white;
 }
 
+.profile-pic-column{
+  min-width: 200px;
+  max-width:50%; 
+  align-self:center;
+}
+
 .prof-pic-btn {
   width:100%
 }
