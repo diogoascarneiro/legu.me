@@ -203,7 +203,6 @@ router.post("/users/:username", isLoggedIn, fileUploader.single('profile-cover-i
   if (req.file) {
     imageUrl = req.file.path;
     User.findOneAndUpdate({username}, { profilePicture:imageUrl }, { new: true })
-  
     .then(() =>  {   
       req.session.currentUser.profilePicture = imageUrl;
       res.render('users/user-profile', { userInSession: req.session.currentUser} )

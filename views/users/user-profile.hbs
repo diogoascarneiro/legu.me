@@ -22,9 +22,9 @@
             <div class="inner-user-info">
               <p class="font-italic mb-1"><b>User name:</b></p> <p>{{userInSession.username}}</p>
               <p class="font-italic mb-1"><b>E-mail:</b></p> <p>{{userInSession.email}}</p>
-              <button type="submit" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete profile</button>
+                    </div>
+                    <button type="submit" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete profile</button>
               <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -37,12 +37,8 @@
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                       <form action="/users/{{userInSession.username}}/delete" method="POST">
-
-
-                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button type="submit" class="btn">Yes</button>
                       </form>
-
-                    </div>
                   </div>
                 </div>
               </div>
@@ -55,9 +51,14 @@
           <br>
           <h2 class="text-white">Favourite meals</h2>
           <div class="col-xs-12 col-lg-12 border rounded">
-           <div class="inner-card-row p-2 w-100 d-flex flex-row flex-wrap justify-content-center">{{#each favouriteRecipes}}
+           <div class="inner-card-row p-2 w-100 d-flex flex-row flex-wrap justify-content-center">{{#if favouriteRecipes}}
+             {{#each favouriteRecipes}}
            {{> recipeCard this}}
            {{/each}}
+           {{else}}
+           <h2 class="py-3" style="width:100%; text-align:center">No favourite recipes yet. Go find something you love!</h2>
+           <a class="pb-3" href="/"><button class="btn">Search for recipes</button></a>
+           {{/if}}
            </div>
           </div>
         </div>
