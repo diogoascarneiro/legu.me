@@ -55,13 +55,15 @@ function queryCreator(filterData) {
     }
   }
 
-if (filterData.ingredients.$lte != "" && filterData.ingredients.$gte != "") {
-  theQuery.$where = `this.ingredients.length <= ${filterData.ingredients.$lte} && this.ingredients.length >= ${filterData.ingredients.$gte}`
-} else if (filterData.ingredients.$lte != "") {
-  theQuery.$where = `this.ingredients.length <= ${filterData.ingredients.$lte}`
-} else if (filterData.ingredients.$gte != "") {
-  theQuery.$where = `this.ingredients.length >= ${filterData.ingredients.$gte}`
-}
+  //Mongodb Atlas wont let us use "where" on the free tier. BOOOO!
+
+// if (filterData.ingredients.$lte != "" && filterData.ingredients.$gte != "") {
+//   theQuery.$where = `this.ingredients.length <= ${filterData.ingredients.$lte} && this.ingredients.length >= ${filterData.ingredients.$gte}`
+// } else if (filterData.ingredients.$lte != "") {
+//   theQuery.$where = `this.ingredients.length <= ${filterData.ingredients.$lte}`
+// } else if (filterData.ingredients.$gte != "") {
+//   theQuery.$where = `this.ingredients.length >= ${filterData.ingredients.$gte}`
+// }
 
   // Also need to do ingredients to exclude
   return theQuery
