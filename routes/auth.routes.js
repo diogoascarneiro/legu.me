@@ -43,8 +43,10 @@ router.post('/users/:usermame/delete', (req, res, next) => {
         
       });
     } else {
+      console.log('ping1 :>> ');
       delete req.session.currentUser;
-      res.redirect('/');
+      console.log('ping2 :>> ');
+      res.redirect('/delete-confirmation');
     }
   })
   .catch(err => {
@@ -52,6 +54,12 @@ router.post('/users/:usermame/delete', (req, res, next) => {
       message: "Could not delete id=" + username
     });
   })
+});
+
+router.get("/delete-confirmation", (req,res) =>{
+  res.render("users/delete-conf", () => { setTimeout(()=> res.redirect ("/"), 2000) });
+  // res.render("users/delete-conf", setTimeout(()=> res.redirect ("/"), 2000));
+
 });
 
 router.get("/about", (req, res) => {
