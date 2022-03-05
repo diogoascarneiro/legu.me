@@ -43,9 +43,7 @@ router.post('/users/:usermame/delete', (req, res, next) => {
         
       });
     } else {
-      console.log('ping1 :>> ');
       delete req.session.currentUser;
-      console.log('ping2 :>> ');
       res.redirect('/delete-confirmation');
     }
   })
@@ -57,7 +55,7 @@ router.post('/users/:usermame/delete', (req, res, next) => {
 });
 
 router.get("/delete-confirmation", (req,res) =>{
-  res.render("users/delete-conf", () => { setTimeout(()=> res.redirect ("/"), 2000) });
+  res.render("users/delete-conf");
   // res.render("users/delete-conf", setTimeout(()=> res.redirect ("/"), 2000));
 
 });
