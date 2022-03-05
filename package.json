@@ -22,6 +22,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^6.7.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
@@ -36,7 +37,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/diogoascarneiro/legu.meissues"
+    "url": "https://github.com/diogoascarneiro/legu.me#issues"
   },
   "homepage": "https://github.com/diogoascarneiro/legu.me#readme"
 }
