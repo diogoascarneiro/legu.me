@@ -162,7 +162,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
             .render("auth/login", { errorMessage: "Wrong credentials." });
         }
         req.session.currentUser = user;
-        // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
         return res.redirect(`/users/${username}`);
       });
     })
@@ -188,16 +187,17 @@ router.get('/logout', (req, res) => {
 
 
   router.get("/users/:username",(req, res) => {
-    const { username } = req.params;
-    const { favouriteRecipes } = req.session.currentUser;
-    
-    Recipe.find().where('_id').in(favouriteRecipes).exec((err, records) => {
-      cleanRecipeListInfo(records);
-      res.render('users/user-profile', { 
-        userInSession: req.session.currentUser,
-        favouriteRecipes: records
-      })
-    });
+       User.findById(req.session.currentUser._id)
+            .then((user) => {
+              Recipe.find().where('_id').in(user.favouriteRecipes).exec((err, records) => {
+                cleanRecipeListInfo(records);
+                res.render('users/user-profile', { 
+                  userInSession: req.session.currentUser,
+                  favouriteRecipes: records
+                })
+              });
+              })
+            .catch(err => console.log(err)); 
       
 });
 
