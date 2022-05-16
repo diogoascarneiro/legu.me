@@ -72,11 +72,8 @@ function queryCreator(filterData) {
 /* Homepage Routes */
 
 router.get("/", (req, res, next) => {
-/* Leaving this here as an example - see utils/api-handler.js for the full(ish) info */
-//recipeAPI.crawl(["portuguese", "vegetarian"], null);
-
 Recipe.findRandom({}, {}, {limit:12}, function(err, foundRecipes) {
-  if (!err) {
+  if (!err && foundRecipes) {
     cleanRecipeListInfo(foundRecipes);
     res.render("index", { foundRecipes })
   }
@@ -105,7 +102,10 @@ router.post("/", (req, res, next) => {
   }
 });
 
-
+router.get("/crawlRecipes", (req, res, next) => {
+  /* Leaving this here as an example - see utils/api-handler.js for the full(ish) info */
+  recipeAPI.crawl(["seitan", "vegetarian"], null);
+});
 
 module.exports = router;
 
