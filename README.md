@@ -1,8 +1,11 @@
 ## legu.me
 Ironhack project with @AnaModesto21
 
- ## About the app 🥑
+## About the app 🥑
 legu.me is an app that will give you the inspiration you need so you can prepare your vegan/vegetarian meals!
+
+## Note
+Images displayed on the app are currently broken due to changes in the API. We'll fix this as soon as possible! 
 
 ## Installation 💻
 
